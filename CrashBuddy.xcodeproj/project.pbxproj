@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17091C8328EEA689006007B5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17091C8228EEA689006007B5 /* SettingsView.swift */; };
+		17091C8528EEA73C006007B5 /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17091C8428EEA73C006007B5 /* ActivityLogView.swift */; };
 		4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */; };
 		4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202C28CFC0550068BB24 /* ContentView.swift */; };
 		4A9F202F28CFC0560068BB24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F202E28CFC0560068BB24 /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		17091C8228EEA689006007B5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		17091C8428EEA73C006007B5 /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
 		4A9F202728CFC0550068BB24 /* CrashBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrashBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashBuddyApp.swift; sourceTree = "<group>"; };
 		4A9F202C28CFC0550068BB24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,8 +57,10 @@
 			children = (
 				4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */,
 				4A9F202C28CFC0550068BB24 /* ContentView.swift */,
+				17091C8428EEA73C006007B5 /* ActivityLogView.swift */,
 				4A9F202E28CFC0560068BB24 /* Assets.xcassets */,
 				4A9F203028CFC0560068BB24 /* Preview Content */,
+				17091C8228EEA689006007B5 /* SettingsView.swift */,
 			);
 			path = CrashBuddy;
 			sourceTree = "<group>";
@@ -137,7 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17091C8328EEA689006007B5 /* SettingsView.swift in Sources */,
 				4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */,
+				17091C8528EEA73C006007B5 /* ActivityLogView.swift in Sources */,
 				4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
