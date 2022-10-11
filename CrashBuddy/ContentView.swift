@@ -10,32 +10,61 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            VStack() {
-                NavigationLink(
-                    destination: SettingsView(),
-                    label: {
-                        SettingsButton()
-                    }
+            VStack(alignment: .leading) {
+                SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "WEDNESDAY, SEP 28")
+                SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
+                    NavigationLink(
+                        destination: ActivityLogView(),
+                        label: {
+                            Text("Show More")
+                        }
+                    )
                 )
-                
-                NavigationLink(
-                    destination: ActivityLogView(),
-                    label: {
-                        ActivityLogButton()
-                            
-                    }
-                )
+                SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: "Not Connected")
             }
             .navigationTitle("Home")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Label("Settings", systemImage: "gear")
+                            .labelStyle(.titleAndIcon)
+                    }
+                }
+            }
         }
     }
 }
 
-struct SettingsButton: View {
+struct SectionHeader<Content: View>: View {
+    let sectionTitle: String
+    let sectionSubTitle: String?
+    @ViewBuilder let sectionToolbarItem: Content
+    
     var body: some View {
-        Text("Settings")
-            .padding()
-            .frame(width: /*@START_MENU_TOKEN@*/300.0/*@END_MENU_TOKEN@*/, height: 50.0)
+        VStack(alignment: .leading) {
+            HStack() {
+                Text(sectionTitle)
+                    .font(.headline)
+                Spacer()
+                sectionToolbarItem
+            }
+            if let potentialSubTitle = sectionSubTitle {
+                Text(potentialSubTitle)
+                    .font(.subheadline)
+                    .foregroundColor(Color.gray)
+            }
+        }.padding()
+        
+    }
+}
+
+extension SectionHeader {
+    init(sectionTitle: String, sectionSubTitle: String? = nil, sectionToolbarItem: Content = Spacer()) {
+        self.sectionTitle = sectionTitle
+        self.sectionSubTitle = sectionSubTitle
+        self.sectionToolbarItem = sectionToolbarItem
     }
 }
 
@@ -43,7 +72,6 @@ struct ActivityLogButton: View {
     var body: some View {
         Text("Show More")
             .padding()
-            .frame(width: /*@START_MENU_TOKEN@*/300.0/*@END_MENU_TOKEN@*/, height: 50.0)
     }
 }
 
