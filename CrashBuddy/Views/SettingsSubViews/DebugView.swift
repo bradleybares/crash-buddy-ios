@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct DebugView: View {
+
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @GestureState private var dragOffset = CGSize.zero
+
     var body: some View {
-
-
         NavigationView {
             Form {
                 Section {
@@ -38,6 +40,12 @@ struct DebugView: View {
             }
         }        
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action : {
+                self.mode.wrappedValue.dismiss()
+            }){
+                Image(systemName: "arrow.left")
+            })
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {

@@ -29,6 +29,16 @@ struct SettingsView: View {
                                         Text($0.rawValue)
                                     }
                     }
+                    .swipeActions(edge: .leading) {
+                        Button("Edit") {
+                            print("Edit")
+                        }
+                        .tint(.blue)
+                        Button("Delete", role: .destructive) {
+                            print("Delete")
+                        }
+                    }
+}
 
                     // Crash Sensitivity
                     Picker(selection: $crash_sensitivity, label: Text("Crash Sensitivity")) {
