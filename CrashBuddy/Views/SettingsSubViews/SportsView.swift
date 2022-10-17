@@ -9,6 +9,16 @@ import SwiftUI
 
 struct SportsView: View {
     var body: some View {
-        Text("Sports")
+        NavigationView {
+
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Sports").font(.headline)
+                    }
+                }
+            }  
+        }  
     }
 }

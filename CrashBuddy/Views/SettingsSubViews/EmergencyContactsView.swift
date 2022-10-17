@@ -9,6 +9,16 @@ import SwiftUI
 
 struct EmergencyContactsView: View {
     var body: some View {
-        Text("Emergency Contacts")
+        NavigationView {
+
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Emergency Contacts").font(.headline)
+                    }
+                }
+            }  
+        }    
     }
 }

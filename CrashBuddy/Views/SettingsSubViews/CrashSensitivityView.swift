@@ -9,6 +9,17 @@ import SwiftUI
 
 struct CrashSensitivityView: View {
     var body: some View {
-        Text("Crash Sensitivity")
+        NavigationView {
+
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Crash Sensitivity").font(.headline)
+                    }
+                }
+            }  
+        }
+  
     }
 }

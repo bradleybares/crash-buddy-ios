@@ -24,6 +24,7 @@ struct SettingsView: View {
 
                     // Sports
                     Picker(selection: $sport, label: Text("Sports")) {
+                        // TODO add button here and add logic here
                         ForEach(Array(SettingEnums.Sports.allCases), id: \.self) {
                                         Text($0.rawValue)
                                     }
@@ -31,6 +32,7 @@ struct SettingsView: View {
 
                     // Crash Sensitivity
                     Picker(selection: $crash_sensitivity, label: Text("Crash Sensitivity")) {
+                        // TODO add button here and add logic here
                         ForEach(Array(SettingEnums.Sports.allCases), id: \.self) {
                                         Text($0.rawValue)
                                     }

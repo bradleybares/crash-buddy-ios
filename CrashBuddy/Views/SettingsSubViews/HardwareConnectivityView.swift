@@ -9,6 +9,16 @@ import SwiftUI
 
 struct HardwareConnectivityView: View {
     var body: some View {
-        Text("Hardware Connectivity")
+        NavigationView {
+
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Hardware Connectivity").font(.headline)
+                    }
+                }
+            }  
+        }       
     }
 }
