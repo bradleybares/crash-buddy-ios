@@ -13,6 +13,9 @@
 		4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202C28CFC0550068BB24 /* ContentView.swift */; };
 		4A9F202F28CFC0560068BB24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F202E28CFC0560068BB24 /* Assets.xcassets */; };
 		4A9F203228CFC0560068BB24 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F203128CFC0560068BB24 /* Preview Assets.xcassets */; };
+		4AF540DD28F8B020006A4040 /* ActivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540DC28F8B020006A4040 /* ActivityChart.swift */; };
+		4AF540DF28F8CB42006A4040 /* ActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540DE28F8CB42006A4040 /* ActivityData.swift */; };
+		4AF540E128F8E0F0006A4040 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540E028F8E0F0006A4040 /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,9 @@
 		4A9F202C28CFC0550068BB24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
 		4A9F202E28CFC0560068BB24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A9F203128CFC0560068BB24 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4AF540DC28F8B020006A4040 /* ActivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChart.swift; sourceTree = "<group>"; };
+		4AF540DE28F8CB42006A4040 /* ActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityData.swift; path = CrashBuddy/Views/ActivityData.swift; sourceTree = SOURCE_ROOT; };
+		4AF540E028F8E0F0006A4040 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +45,7 @@
 		4A53BE9128CFC35A0078C21C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4AF540DE28F8CB42006A4040 /* ActivityData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -93,6 +100,8 @@
 				4A9F202C28CFC0550068BB24 /* ContentView.swift */,
 				17091C8428EEA73C006007B5 /* ActivityLogView.swift */,
 				17091C8228EEA689006007B5 /* SettingsView.swift */,
+				4AF540DC28F8B020006A4040 /* ActivityChart.swift */,
+				4AF540E028F8E0F0006A4040 /* BackgroundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -170,6 +179,9 @@
 				17091C8328EEA689006007B5 /* SettingsView.swift in Sources */,
 				4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */,
 				17091C8528EEA73C006007B5 /* ActivityLogView.swift in Sources */,
+				4AF540E128F8E0F0006A4040 /* BackgroundView.swift in Sources */,
+				4AF540DD28F8B020006A4040 /* ActivityChart.swift in Sources */,
+				4AF540DF28F8CB42006A4040 /* ActivityData.swift in Sources */,
 				4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,7 +311,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CrashBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = C7GST4SKG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -307,6 +319,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -328,7 +341,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CrashBuddy/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = C7GST4SKG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -336,6 +349,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

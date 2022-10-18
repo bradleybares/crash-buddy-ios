@@ -7,43 +7,92 @@
 
 import SwiftUI
 
+enum Status {
+    case notConnected, connected, started
+}
+
 struct ContentView: View {
+    @State var connectionStatus: Status = .notConnected
+    
     var body: some View {
         NavigationView {
-            VStack() {
-                NavigationLink(
-                    destination: SettingsView(),
-                    label: {
-                        SettingsButton()
+            ZStack {
+                BackgroundView()
+                VStack(alignment: .leading) {
+                    SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "WEDNESDAY, SEP 28")
+                    ActivityChart(data: ActivityData.sampleData, includeCharacteristics: true)
+                        .padding(.horizontal)
+                        
+                    SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
+                        NavigationLink(
+                            destination: ActivityLogView(),
+                            label: {
+                                Text("Show More")
+                            }
+                        )
+                    )
+                    ForEach((1...3), id: \.self) {_ in
+                        RoundedRectangle(cornerRadius: 14)
+                            .foregroundStyle(.white)
+                            .padding(.horizontal)
+                            .frame(maxHeight: 70)
                     }
-                )
-                
-                NavigationLink(
-                    destination: ActivityLogView(),
-                    label: {
-                        ActivityLogButton()
-                            
+                    
+                    SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: "Not Connected")
+                    Button(action: {
+                        print("button pressed")
+                    }, label: {
+                        ZStack(alignment: .center) {
+                            RoundedRectangle(cornerRadius: 14)
+                                .foregroundStyle(.white)
+                            Text("Connect")
+                        }
+                        .frame(maxHeight: 50)
+                        .padding(.horizontal)
+                    })
+                    
+                }
+                .navigationTitle("Home")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        NavigationLink {
+                            SettingsView()
+                        } label: {
+                            Label("Settings", systemImage: "gear")
+                                .labelStyle(.titleAndIcon)
+                        }
                     }
-                )
+                }
             }
-            .navigationTitle("Home")
         }
     }
 }
 
-struct SettingsButton: View {
-    var body: some View {
-        Text("Settings")
-            .padding()
-            .frame(width: /*@START_MENU_TOKEN@*/300.0/*@END_MENU_TOKEN@*/, height: 50.0)
+struct SectionHeader<Content: View>: View {
+    let sectionTitle: String
+    let sectionSubTitle: String?
+    @ViewBuilder let sectionToolbarItem: Content
+    
+    init(sectionTitle: String, sectionSubTitle: String? = nil, sectionToolbarItem: Content = Spacer()) {
+        self.sectionTitle = sectionTitle
+        self.sectionSubTitle = sectionSubTitle
+        self.sectionToolbarItem = sectionToolbarItem
     }
-}
-
-struct ActivityLogButton: View {
+    
     var body: some View {
-        Text("Show More")
-            .padding()
-            .frame(width: /*@START_MENU_TOKEN@*/300.0/*@END_MENU_TOKEN@*/, height: 50.0)
+        VStack(alignment: .leading) {
+            HStack() {
+                Text(sectionTitle)
+                    .font(.headline)
+                Spacer()
+                sectionToolbarItem
+            }
+            if let potentialSubTitle = sectionSubTitle {
+                Text(potentialSubTitle)
+                    .font(.subheadline)
+                    .foregroundColor(Color.gray)
+            }
+        }.padding(.horizontal)
     }
 }
 
