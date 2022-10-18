@@ -100,8 +100,9 @@ struct SettingsView: View {
 
                     }
                     )
+                    .navigationTitle(Text("Settings"))
                     
-                }.navigationTitle(Text("Settings"))
+                }
             }
             
         }
