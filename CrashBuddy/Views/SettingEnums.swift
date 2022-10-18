@@ -3,5 +3,5 @@ enum Sports: String, CaseIterable, Identifiable {
     case skiing
     case biking
     
-    var id: FavoriteColor { self }
+    var id: Sports { self }
 }

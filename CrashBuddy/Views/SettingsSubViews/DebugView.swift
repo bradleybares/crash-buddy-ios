@@ -12,11 +12,13 @@ struct DebugView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @GestureState private var dragOffset = CGSize.zero
 
+    @State private var isDebugOn = true
+
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    Toggle(isOn: .constant(false),
+                    Toggle(isOn: $isDebugOn,
                             label: {Text("Debug")
                             })
                 }
@@ -25,7 +27,7 @@ struct DebugView: View {
                 // how exactly do we determine whether this is on or not
                 // Does this display only if debug mode is on? or always is it always on display
                 Section {
-                    Toggle(isOn: .constant(false),
+                    Toggle(isOn: .constant(true),
                             label: {Text("Sensor Status")
                             })
 

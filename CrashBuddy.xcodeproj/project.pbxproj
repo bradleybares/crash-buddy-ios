@@ -9,9 +9,14 @@
 /* Begin PBXBuildFile section */
 		17091C8328EEA689006007B5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17091C8228EEA689006007B5 /* SettingsView.swift */; };
 		17091C8528EEA73C006007B5 /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17091C8428EEA73C006007B5 /* ActivityLogView.swift */; };
+<<<<<<< HEAD
 		172BE740291B674B0076B0F0 /* ActivityStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172BE73F291B674B0076B0F0 /* ActivityStore.swift */; };
 		177D734528FDA93E001B5F11 /* ActivityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734428FDA93E001B5F11 /* ActivityCard.swift */; };
 		177D734728FDDBA8001B5F11 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734628FDDBA8001B5F11 /* ActivityView.swift */; };
+=======
+		1E02942428FDEECC00EDD220 /* SettingEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02942328FDEECC00EDD220 /* SettingEnums.swift */; };
+		1E02942828FDF48A00EDD220 /* SettingSubViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02942728FDF48A00EDD220 /* SettingSubViews.swift */; };
+>>>>>>> 7c3ce1c (running initial setting page)
 		4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */; };
 		4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202C28CFC0550068BB24 /* ContentView.swift */; };
 		4A9F202F28CFC0560068BB24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F202E28CFC0560068BB24 /* Assets.xcassets */; };
@@ -24,9 +29,14 @@
 /* Begin PBXFileReference section */
 		17091C8228EEA689006007B5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		17091C8428EEA73C006007B5 /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		172BE73F291B674B0076B0F0 /* ActivityStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityStore.swift; path = CrashBuddy/Views/ActivityStore.swift; sourceTree = SOURCE_ROOT; };
 		177D734428FDA93E001B5F11 /* ActivityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCard.swift; sourceTree = "<group>"; };
 		177D734628FDDBA8001B5F11 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+=======
+		1E02942328FDEECC00EDD220 /* SettingEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingEnums.swift; sourceTree = "<group>"; };
+		1E02942728FDF48A00EDD220 /* SettingSubViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSubViews.swift; sourceTree = "<group>"; };
+>>>>>>> 7c3ce1c (running initial setting page)
 		4A9F202728CFC0550068BB24 /* CrashBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrashBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashBuddyApp.swift; sourceTree = "<group>"; };
 		4A9F202C28CFC0550068BB24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
@@ -104,13 +114,18 @@
 		4A9F203828CFC25C0068BB24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1E02942328FDEECC00EDD220 /* SettingEnums.swift */,
 				4A9F202C28CFC0550068BB24 /* ContentView.swift */,
 				17091C8428EEA73C006007B5 /* ActivityLogView.swift */,
 				17091C8228EEA689006007B5 /* SettingsView.swift */,
+<<<<<<< HEAD
 				4AF540E028F8E0F0006A4040 /* BackgroundView.swift */,
 				4AF540DC28F8B020006A4040 /* ActivityChart.swift */,
 				177D734428FDA93E001B5F11 /* ActivityCard.swift */,
 				177D734628FDDBA8001B5F11 /* ActivityView.swift */,
+=======
+				1E02942728FDF48A00EDD220 /* SettingSubViews.swift */,
+>>>>>>> 7c3ce1c (running initial setting page)
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,8 +200,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E02942828FDF48A00EDD220 /* SettingSubViews.swift in Sources */,
 				17091C8328EEA689006007B5 /* SettingsView.swift in Sources */,
 				4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */,
+				1E02942428FDEECC00EDD220 /* SettingEnums.swift in Sources */,
 				17091C8528EEA73C006007B5 /* ActivityLogView.swift in Sources */,
 				4AF540E128F8E0F0006A4040 /* BackgroundView.swift in Sources */,
 				177D734528FDA93E001B5F11 /* ActivityCard.swift in Sources */,

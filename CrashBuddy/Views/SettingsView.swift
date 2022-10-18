@@ -7,10 +7,27 @@
 
 import SwiftUI
 
+struct Sport: Identifiable, Hashable {
+    let id = UUID()
+    let name: String
+}
+
 struct SettingsView: View {
 
-    @State private var sport: Sport = .snowboarding
+    @State private var sport: Sport = Sport(name: "Skiing")
     @State private var crash_sensitivity: Int = 100
+    @State private var showingAlert = false
+    @State private var addedSport = ""
+
+    @State var sports = [
+        Sport(name: "Skiing"),
+        Sport(name: "Biking"),
+        Sport(name: "Snowboarding")
+    ]
+
+    func addSport(name: String) {
+        sports.append(Sport(name: name))
+    }
 
     var body: some View {
         NavigationView {
@@ -18,51 +35,76 @@ struct SettingsView: View {
                 Section {
                     // Debug Mode
                     NavigationLink(destination: DebugView(), label: {
-                                SettingRowView(title: "Debug Mode",
-                            }
-                    )
+                        Text("Debug Mode")
 
+                    }
+                    )
+                    
                     // Sports
                     Picker(selection: $sport, label: Text("Sports")) {
                         // TODO add button here and add logic here
-                        ForEach(Array(SettingEnums.Sports.allCases), id: \.self) {
-                                        Text($0.rawValue)
-                                    }
-                    }
-                    .swipeActions(edge: .leading) {
-                        Button("Edit") {
-                            print("Edit")
+                        ForEach(sports, id: \.self) {
+                            Text($0.name)
                         }
-                        .tint(.blue)
-                        Button("Delete", role: .destructive) {
-                            print("Delete")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .principal) {
+                                VStack {
+                                    Text("Sports").font(.headline)
+                                }
+                            }
+                            
+                            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                                Button("Add") {
+                                    showingAlert = true
+                                }
+                                .alert("Add Sport", isPresented:$showingAlert, actions:
+                                        
+                                        {
+                                    TextField("", text: $addedSport)
+                                    Button("Cancel", role: .cancel, action: {})
+                                    Button("Add", action: {
+                                        addSport(name: addedSport)
+                                    })
+                                })
+                                
+                            }
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button("Edit") {
+                                print("Edit")
+                            }
+                            .tint(.blue)
+                            Button("Delete", role: .destructive) {
+                                print("Delete")
+                            }
                         }
                     }
-}
-
+                    
+                    
                     // Crash Sensitivity
                     Picker(selection: $crash_sensitivity, label: Text("Crash Sensitivity")) {
                         // TODO add button here and add logic here
-                        ForEach(Array(SettingEnums.Sports.allCases), id: \.self) {
-                                        Text($0.rawValue)
-                                    }
+                        
                     }
-
+                    
                     // Emergency Contacts
                     NavigationLink(destination: EmergencyContactsView(), label: {
-                                SettingRowView(title: "Emergency Contacts",
-                            }
+                        Text("Emergency Contacts")
+                    }
                     )
-
+                    
                     // "Hardware Connectivity
                     NavigationLink(destination: HardwareConnectivityView(), label: {
-                                SettingRowView(title: "Hardware Connectivity",
-                            }
-                    )
+                        Text("Hardware Connectivity")
 
-                }
+                    }
+                    )
+                    
+                }.navigationTitle(Text("Settings"))
             }
+            
         }
-        .navigationTitle(Text("Settings"))
     }
 }
+
