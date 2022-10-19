@@ -34,6 +34,7 @@ struct EmergencyContactsView: View {
     @State private var addedPhoneNumber = ""
     @State private var addedAddress = ""
     @State private var addedRelationship = ""
+    @State private var selectedItem = ""
     
     
     func addContact(name: String, phoneNumber: String, address: String, relationship: String) {
@@ -43,52 +44,62 @@ struct EmergencyContactsView: View {
     var body: some View {
         Form {
             Section {
-                ForEach(contacts, id: \.self) {
-                    Text($0.name)
-                }
-                .swipeActions(edge: .leading) {
-                    Button("Edit") {
-                        print("Edit")
-                    }
-                    .tint(.blue)
-                    Button("Delete", role: .destructive) {
-                        print("Delete")
+                VStack {
+                    List {
+                        ForEach(contacts, id: \.self)
+                        { index in
+                            HStack {
+                                
+                                Text("\(index.name)")
+                                Spacer()
+                            }
+                            
+                            .swipeActions(edge: .trailing) {
+                                Button("Edit") {
+                                    print("Edit")
+                                }
+                                .tint(.blue)
+                                Button("Delete", role: .destructive) {
+                                    print("Delete")
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Emergency Contacts").font(.headline)
-                    }
-                }
-                
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("Add") {
-                        showingAlert = true
-                    }
-                    .alert("Add Emergency Contact", isPresented:$showingAlert, actions:
-                            
-                        {
-                        TextField("Name", text: $addedName)
-                        TextField("Phone Number", text: $addedPhoneNumber)
-                        TextField("Address", text: $addedAddress)
-                        TextField("Relationship", text: $addedRelationship)
-
-                        Button("Cancel", role: .cancel, action: {})
-                        Button("Add", action: {
-                            addContact(name: addedName, phoneNumber: addedPhoneNumber, address: addedAddress, relationship: addedRelationship)
-                            addedName = ""
-                            addedPhoneNumber = ""
-                            addedAddress = ""
-                            addedRelationship = ""
-                        })
-                        
-                    })
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Emergency Contacts").font(.headline)
                 }
             }
+            
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button("Add") {
+                    showingAlert = true
+                }
+                .alert("Add Emergency Contact", isPresented:$showingAlert, actions:
+                        
+                        {
+                    TextField("Name", text: $addedName)
+                    TextField("Phone Number", text: $addedPhoneNumber)
+                    TextField("Address", text: $addedAddress)
+                    TextField("Relationship", text: $addedRelationship)
+                    
+                    Button("Cancel", role: .cancel, action: {})
+                    Button("Add", action: {
+                        addContact(name: addedName, phoneNumber: addedPhoneNumber, address: addedAddress, relationship: addedRelationship)
+                        addedName = ""
+                        addedPhoneNumber = ""
+                        addedAddress = ""
+                        addedRelationship = ""
+                    })
+                    
+                })
+            }
+        }
     }
 }
 
@@ -137,7 +148,7 @@ struct DebugView: View {
 }
 
 struct CrashSensitivityView: View {
-
+    
     @State private var sensitivity = 100
     @State private var showingAlert = false
     @State private var addedSensitivity = ""
@@ -154,7 +165,7 @@ struct CrashSensitivityView: View {
                 ForEach(sensitivities, id: \.self) {
                     Text($0)
                 }
-                .swipeActions(edge: .leading) {
+                .swipeActions(edge: .trailing) {
                     Button("Edit") {
                         print("Edit")
                     }
@@ -166,29 +177,29 @@ struct CrashSensitivityView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Crash Sensitivity").font(.headline)
-                    }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Crash Sensitivity").font(.headline)
                 }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("Add") {
-                        showingAlert = true
-                    }
-                    .alert("Add Crash Sensitivity in G", isPresented:$showingAlert, actions:
-                            
-                        {
-                        TextField("Sensitivity", text: $addedSensitivity)
-                        Button("Cancel", role: .cancel, action: {})
-                        Button("Add", action: {
-                            addSensitivity(sensitivity: addedSensitivity)
-                            addedSensitivity = ""
-                        })
-                    })
-                }
-                
             }
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button("Add") {
+                    showingAlert = true
+                }
+                .alert("Add Crash Sensitivity in G", isPresented:$showingAlert, actions:
+                        
+                        {
+                    TextField("Sensitivity", text: $addedSensitivity)
+                    Button("Cancel", role: .cancel, action: {})
+                    Button("Add", action: {
+                        addSensitivity(sensitivity: addedSensitivity)
+                        addedSensitivity = ""
+                    })
+                })
+            }
+            
+        }
     }
 }
 
@@ -196,7 +207,7 @@ struct HardwareConnectivityView: View {
     
     @State private var showingAlert = false
     @State private var hardwares = ["Hardware 1", "Hardware 2"]
-
+    
     var body: some View {
         
         Form {
@@ -204,7 +215,7 @@ struct HardwareConnectivityView: View {
                 ForEach(hardwares, id: \.self) {
                     Text($0)
                 }
-                .swipeActions(edge: .leading) {
+                .swipeActions(edge: .trailing) {
                     Button("Edit") {
                         print("Edit")
                     }
@@ -216,24 +227,24 @@ struct HardwareConnectivityView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Hardware Connectivity").font(.headline)
-                    }
-                }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("Add") {
-                        showingAlert = true
-                    }
-                    .alert("Add Hardware", isPresented:$showingAlert, actions:
-                            
-                        {
-                            Text("Bluetooth Logic here")
-                        }
-                    )
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Hardware Connectivity").font(.headline)
                 }
             }
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button("Add") {
+                    showingAlert = true
+                }
+                .alert("Add Hardware", isPresented:$showingAlert, actions:
+                        
+                        {
+                    Text("Bluetooth Logic here")
+                }
+                )
+            }
+        }
     }
 }
 
@@ -242,6 +253,8 @@ struct SportsView: View {
     @State private var sport: Sport = Sport(name: "Skiing")
     @State private var showingAlert = false
     @State private var addedSport = ""
+    @State private var selectedSportLabel = ""
+    @State private var selectedSport: Sport = Sport(name: "Skiing")
     
     @State var sports = [
         Sport(name: "Skiing"),
@@ -257,45 +270,57 @@ struct SportsView: View {
         
         Form {
             Section {
-                ForEach(sports, id: \.self) {
-                    Text($0.name)
-                }
-                .swipeActions(edge: .leading) {
-                    Button("Edit") {
-                        print("Edit")
-                    }
-                    .tint(.blue)
-                    Button("Delete", role: .destructive) {
-                        print("Delete")
-                    }
+                    List {
+                        ForEach(sports, id: \.self)
+                        { index in
+                            HStack {
+                                Text("\(index.name)")
+                                Spacer()
+                            }
+                            .onTapGesture {
+                                selectedSportLabel = ("\(index.name) \(Image(systemName: "checkmark.circle"))")
+                                selectedSport = index
+                                addSport(name: selectedSportLabel)
+                            }
+                            .swipeActions(edge: .trailing) {
+                                Button("Edit") {
+                                    print("Edit")
+                                }
+                                .tint(.blue)
+                                Button("Delete", role: .destructive) {
+                                    print("Delete")
+                                }
+                            }
+                        }
+                    
                 }
             }
         }
         
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Text("Sports").font(.headline)
-                    }
-                }
-                
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button("Add") {
-                        showingAlert = true
-                    }
-                    .alert("Add Sport", isPresented:$showingAlert, actions:
-                            
-                        {
-                        TextField("", text: $addedSport)
-                        Button("Cancel", role: .cancel, action: {})
-                        Button("Add", action: {
-                            addSport(name: addedSport)
-                            addedSport = ""
-                        })
-                    })
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    Text("Sports").font(.headline)
                 }
             }
+            
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button("Add") {
+                    showingAlert = true
+                }
+                .alert("Add Sport", isPresented:$showingAlert, actions:
+                        
+                        {
+                    TextField("", text: $addedSport)
+                    Button("Cancel", role: .cancel, action: {})
+                    Button("Add", action: {
+                        addSport(name: addedSport)
+                        addedSport = ""
+                    })
+                })
+            }
+        }
     }
 }
 
