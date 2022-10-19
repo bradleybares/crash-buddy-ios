@@ -7,10 +7,7 @@
 
 import SwiftUI
 
-struct Sport: Identifiable, Hashable {
-    let id = UUID()
-    let name: String
-}
+
 
 struct SettingsView: View {
 
