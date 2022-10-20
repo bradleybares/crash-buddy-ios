@@ -25,17 +25,17 @@ struct ContentView: View {
                         
                     SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
                         NavigationLink(
-                            destination: ActivityLogView(),
+                            destination: ActivityLogView(activities: [ActivityData.sampleData]),
                             label: {
                                 Text("Show More")
                             }
                         )
                     )
                     ForEach((1...3), id: \.self) {_ in
-                        RoundedRectangle(cornerRadius: 14)
-                            .foregroundStyle(.white)
-                            .padding(.horizontal)
-                            .frame(maxHeight: 70)
+                        NavigationLink(destination: ActivityView(data: ActivityData.sampleData)) {
+                            ActivityCard(data: ActivityData.sampleData)
+                                .frame(maxHeight: 80)
+                        }
                     }
                     
                     SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: "Not Connected")
