@@ -7,10 +7,39 @@
 
 import SwiftUI
 
-struct Sport: Identifiable, Hashable {
-    let id = UUID()
-    let name: String
-    var isSelected: Bool = false
+class Sport: Identifiable {
+    static func == (lhs: Sport, rhs: Sport) -> Bool {
+        <#code#>
+    }
+    
+    var id: String = UUID().uuidString	
+    var name: String
+    var isSelected: Bool
+    var sportText: NSMutableAttributedString
+    	
+    init(name: String) {
+        self.name = name
+        self.isSelected = false
+        self.sportText = NSMutableAttributedString(string: name)
+    }
+    
+    func updateSportsText() {
+        if isSelected {
+            // create our NSTextAttachment
+            let image1Attachment = NSTextAttachment()
+            image1Attachment.image = UIImage(systemName: "checkmark")
+
+            // wrap the attachment in its own attributed string so we can append it
+            let image1String = NSAttributedString(attachment: image1Attachment)
+
+            // add the NSTextAttachment wrapper to our full string, then add some more text.
+            sportText.append(image1String)
+            
+        }
+        else {
+            self.sportText = NSMutableAttributedString(string: name)
+        }
+    }
 }
 
 struct EmergencyContact: Identifiable, Hashable {
