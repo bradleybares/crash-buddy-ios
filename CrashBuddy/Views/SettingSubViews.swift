@@ -10,6 +10,7 @@ import SwiftUI
 struct Sport: Identifiable, Hashable {
     let id = UUID()
     let name: String
+    var isSelected: Bool = false
 }
 
 struct EmergencyContact: Identifiable, Hashable {
@@ -272,15 +273,22 @@ struct SportsView: View {
             Section {
                     List {
                         ForEach(sports, id: \.self)
-                        { index in
+                        { sport in
                             HStack {
-                                Text("\(index.name)")
-                                Spacer()
+                                Text("\(sport.name)")
+                                    .frame(alignment: .leading)
+                                //Spacer()
+                                if sport.isSelected {
+                                    Image(systemName: "star")
+                                        .frame(alignment: .trailing)
+                                }
+                                
                             }
                             .onTapGesture {
-                                selectedSportLabel = ("\(index.name) \(Image(systemName: "checkmark.circle"))")
-                                selectedSport = index
-                                addSport(name: selectedSportLabel)
+                                selectedSportLabel = ("\(sport.name) \(Image(systemName: "checkmark.circle"))")
+                                selectedSport = sport
+                                self.sport.isSelected = true
+                                //addSport(name: selectedSportLabel)
                             }
                             .swipeActions(edge: .trailing) {
                                 Button("Edit") {
@@ -294,6 +302,7 @@ struct SportsView: View {
                         }
                     
                 }
+                Text("Selected sport: \(selectedSport.name)")
             }
         }
         
