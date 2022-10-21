@@ -8,38 +8,36 @@
 import SwiftUI
 
 class Sport: Identifiable {
-    static func == (lhs: Sport, rhs: Sport) -> Bool {
-        <#code#>
-    }
+    
     
     var id: String = UUID().uuidString	
     var name: String
     var isSelected: Bool
-    var sportText: NSMutableAttributedString
+//    var sportText: NSMutableAttributedString
     	
     init(name: String) {
         self.name = name
         self.isSelected = false
-        self.sportText = NSMutableAttributedString(string: name)
+//        self.sportText = NSMutableAttributedString(string: name)
     }
     
-    func updateSportsText() {
-        if isSelected {
-            // create our NSTextAttachment
-            let image1Attachment = NSTextAttachment()
-            image1Attachment.image = UIImage(systemName: "checkmark")
-
-            // wrap the attachment in its own attributed string so we can append it
-            let image1String = NSAttributedString(attachment: image1Attachment)
-
-            // add the NSTextAttachment wrapper to our full string, then add some more text.
-            sportText.append(image1String)
-            
-        }
-        else {
-            self.sportText = NSMutableAttributedString(string: name)
-        }
-    }
+//    func updateSportsText() {
+//        if isSelected {
+//            // create our NSTextAttachment
+//            let image1Attachment = NSTextAttachment()
+//            image1Attachment.image = UIImage(systemName: "checkmark")
+//
+//            // wrap the attachment in its own attributed string so we can append it
+//            let image1String = NSAttributedString(attachment: image1Attachment)
+//
+//            // add the NSTextAttachment wrapper to our full string, then add some more text.
+//            sportText.append(image1String)
+//
+//        }
+//        else {
+//            self.sportText = NSMutableAttributedString(string: name)
+//        }
+//    }
 }
 
 struct EmergencyContact: Identifiable, Hashable {
@@ -301,23 +299,22 @@ struct SportsView: View {
         Form {
             Section {
                     List {
-                        ForEach(sports, id: \.self)
+                        ForEach(sports)
                         { sport in
                             HStack {
                                 Text("\(sport.name)")
                                     .frame(alignment: .leading)
-                                //Spacer()
+                                Spacer()
                                 if sport.isSelected {
-                                    Image(systemName: "star")
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(Color.blue)
                                         .frame(alignment: .trailing)
                                 }
                                 
                             }
                             .onTapGesture {
-                                selectedSportLabel = ("\(sport.name) \(Image(systemName: "checkmark.circle"))")
                                 selectedSport = sport
-                                self.sport.isSelected = true
-                                //addSport(name: selectedSportLabel)
+                                selectedSport.isSelected = true
                             }
                             .swipeActions(edge: .trailing) {
                                 Button("Edit") {
