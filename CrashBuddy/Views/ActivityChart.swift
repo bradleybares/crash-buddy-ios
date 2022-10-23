@@ -36,7 +36,7 @@ struct ActivityChart: View {
                         Spacer()
                         ChartCharacteristic(title: "Max Accel.", value: String(format: "%.2f", data.maxAccel) + "G")
                         
-                    }
+                    }.foregroundColor(.black)
                 }
             }.padding()
         }

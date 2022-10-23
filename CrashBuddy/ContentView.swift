@@ -20,8 +20,13 @@ struct ContentView: View {
                 BackgroundView()
                 VStack(alignment: .leading) {
                     SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "WEDNESDAY, SEP 28")
-                    ActivityChart(data: ActivityData.sampleData, includeCharacteristics: true)
-                        .padding(.horizontal)
+                    NavigationLink(
+                        destination: ActivityLogView(),
+                        label: {
+                            ActivityChart(data: ActivityData.sampleData, includeCharacteristics: true)
+                                .padding(.horizontal)
+                        }
+                    )
                         
                     SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
                         NavigationLink(
