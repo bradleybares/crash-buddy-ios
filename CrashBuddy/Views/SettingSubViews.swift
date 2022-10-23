@@ -7,37 +7,20 @@
 
 import SwiftUI
 
-class Sport: Identifiable {
+class Sport: Identifiable, Equatable {
+    static func == (lhs: Sport, rhs: Sport) -> Bool {
+        lhs.id == rhs.id
+    }
     
-    
-    var id: String = UUID().uuidString	
+    var id: String = UUID().uuidString
     var name: String
     var isSelected: Bool
-//    var sportText: NSMutableAttributedString
-    	
+    
     init(name: String) {
         self.name = name
         self.isSelected = false
-//        self.sportText = NSMutableAttributedString(string: name)
     }
     
-//    func updateSportsText() {
-//        if isSelected {
-//            // create our NSTextAttachment
-//            let image1Attachment = NSTextAttachment()
-//            image1Attachment.image = UIImage(systemName: "checkmark")
-//
-//            // wrap the attachment in its own attributed string so we can append it
-//            let image1String = NSAttributedString(attachment: image1Attachment)
-//
-//            // add the NSTextAttachment wrapper to our full string, then add some more text.
-//            sportText.append(image1String)
-//
-//        }
-//        else {
-//            self.sportText = NSMutableAttributedString(string: name)
-//        }
-//    }
 }
 
 struct EmergencyContact: Identifiable, Hashable {
@@ -278,11 +261,15 @@ struct HardwareConnectivityView: View {
 
 struct SportsView: View {
     
-    @State private var sport: Sport = Sport(name: "Skiing")
-    @State private var showingAlert = false
+    @State private var showingAddAlert = false
+    @State private var showingEditAlert = false
+
     @State private var addedSport = ""
+    @State var editedSport = ""
+
     @State private var selectedSportLabel = ""
     @State private var selectedSport: Sport = Sport(name: "Skiing")
+    @State private var previousSport: Sport = Sport(name: "Skiing")
     
     @State var sports = [
         Sport(name: "Skiing"),
@@ -298,34 +285,56 @@ struct SportsView: View {
         
         Form {
             Section {
-                    List {
-                        ForEach(sports)
-                        { sport in
-                            HStack {
-                                Text("\(sport.name)")
-                                    .frame(alignment: .leading)
-                                Spacer()
+                List {
+                    ForEach(sports)
+                    { sport in
+                        HStack {
+                            Text("\(sport.name)")
+                                .frame(alignment: .leading)
+                            Spacer()
+                            if sport.isSelected {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(Color.blue)
+                                    .frame(alignment: .trailing)
+                            }
+                            
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            previousSport = selectedSport
+                            selectedSport = sport
+                            previousSport.isSelected = false
+                            selectedSport.isSelected = true
+                        }
+                        .swipeActions(edge: .trailing) {
+                            Button("Edit") {
+                                print("Edit")
+                                showingEditAlert = true
+                                editedSport = "SOMETHING"//sport.name
+                            }
+                            .alert("Edit Sport", isPresented: $showingEditAlert, actions: {
+                                Text("SOM")
+//                                TextField("", text: $editedSport)
+//                                Button("Cancel", role: .cancel, action: {})
+//                                Button("Edit", action: {
+//                                    sport.name = editedSport
+//                                })
+                            })
+                            .tint(.blue)
+                            
+                            
+                            Button("Delete", role: .destructive) {
+                                let selectedIndex = sports.firstIndex(of: sport )
+                                
                                 if sport.isSelected {
-                                    Image(systemName: "checkmark")
-                                        .foregroundColor(Color.blue)
-                                        .frame(alignment: .trailing)
+                                    selectedSport = Sport(name: "")
+                                    
                                 }
+                                sports.remove(at: selectedIndex!)
                                 
                             }
-                            .onTapGesture {
-                                selectedSport = sport
-                                selectedSport.isSelected = true
-                            }
-                            .swipeActions(edge: .trailing) {
-                                Button("Edit") {
-                                    print("Edit")
-                                }
-                                .tint(.blue)
-                                Button("Delete", role: .destructive) {
-                                    print("Delete")
-                                }
-                            }
                         }
+                    }
                     
                 }
                 Text("Selected sport: \(selectedSport.name)")
@@ -342,9 +351,9 @@ struct SportsView: View {
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("Add") {
-                    showingAlert = true
+                    showingAddAlert = true
                 }
-                .alert("Add Sport", isPresented:$showingAlert, actions:
+                .alert("Add Sport", isPresented:$showingAddAlert, actions:
                         
                         {
                     TextField("", text: $addedSport)
