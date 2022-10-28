@@ -263,19 +263,28 @@ struct SportsView: View {
     
     @State private var showingAddAlert = false
     @State private var showingEditAlert = false
+    @State private var pingDuplicateAlert = false
 
     @State private var addedSport = ""
-    @State var editedSport = ""
+    @State private var editedSport = ""
+    @State private var addAlertMessage = "Add Sport"
+    @State private var duplicateButtonLogic = true
 
     @State private var selectedSportLabel = ""
     @State private var selectedSport: Sport = Sport(name: "Skiing")
     @State private var previousSport: Sport = Sport(name: "Skiing")
+    
     
     @State var sports = [
         Sport(name: "Skiing"),
         Sport(name: "Biking"),
         Sport(name: "Snowboarding")
     ]
+    
+    
+    var duplicateAlert: Alert {
+        return Alert(title: Text("Duplicate Entry"), message: Text("\(addedSport) already exists."), dismissButton: .cancel())
+    }
     
     func addSport(name: String) {
         sports.append(Sport(name: name))
@@ -306,34 +315,43 @@ struct SportsView: View {
                             previousSport.isSelected = false
                             selectedSport.isSelected = true
                         }
-                        .swipeActions(edge: .trailing) {
-                            Button("Edit") {
-                                print("Edit")
-                                showingEditAlert = true
-                                editedSport = "SOMETHING"//sport.name
-                            }
-                            .alert("Edit Sport", isPresented: $showingEditAlert, actions: {
-                                Text("SOM")
-//                                TextField("", text: $editedSport)
-//                                Button("Cancel", role: .cancel, action: {})
-//                                Button("Edit", action: {
-//                                    sport.name = editedSport
-//                                })
-                            })
-                            .tint(.blue)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             
-                            
-                            Button("Delete", role: .destructive) {
-                                let selectedIndex = sports.firstIndex(of: sport )
-                                
-                                if sport.isSelected {
-                                    selectedSport = Sport(name: "")
+                            HStack {
+                                Button("Edit") {
+                                    print("Edit")
+                                    self.showingEditAlert = true
+                                    editedSport = sport.name
+                                    print(editedSport)
                                     
                                 }
-                                sports.remove(at: selectedIndex!)
                                 
+                                
+                                
+                                Button("Delete", role: .destructive) {
+                                    let selectedIndex = sports.firstIndex(of: sport )
+                                    
+                                    if sport.isSelected {
+                                        selectedSport = Sport(name: "")
+                                        
+                                    }
+                                    sports.remove(at: selectedIndex!)
+                                }
                             }
                         }
+                        .popover(isPresented: $showingEditAlert) {
+
+                            Text("SOM")
+
+                            TextField("", text: $editedSport)
+                            Button("Cancel", role: .cancel, action: {})
+                            Button("Edit", action: {
+                                                    sport.name = editedSport
+                                                    })
+                            Button("OK", role: .cancel) { print("ehre")}
+
+                        }
+                        .tint(.blue)
                     }
                     
                 }
@@ -350,22 +368,68 @@ struct SportsView: View {
             }
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button("Add") {
-                    showingAddAlert = true
-                }
-                .alert("Add Sport", isPresented:$showingAddAlert, actions:
+                ZStack {
+                    Button("Add") {
+                        showingAddAlert = true
+                        
+                    }
+                    .alert(addAlertMessage, isPresented:$showingAddAlert, actions:
+                            
                         
                         {
-                    TextField("", text: $addedSport)
-                    Button("Cancel", role: .cancel, action: {})
-                    Button("Add", action: {
-                        addSport(name: addedSport)
-                        addedSport = ""
+                        TextField("", text: $addedSport)
+                        Text("dsa")
+                        VStack {
+                            
+                            Button("Cancel", role: .cancel, action: {})
+                                
+                            Button("Add", action: {
+                                duplicateButtonLogic = false
+                                var alreadyAdded = false
+                                pingDuplicateAlert = false
+                                for sport in sports {
+                                    if (addedSport == sport.name) {
+                                        alreadyAdded = true
+                                        pingDuplicateAlert = true
+                                    }
+                                }
+                                
+                                if (!alreadyAdded) {
+                                    addSport(name: addedSport)
+                                    duplicateButtonLogic = false
+                                }
+                                    
+                                else {
+                                    showingAddAlert = true
+                                    duplicateButtonLogic = false
+                                    addAlertMessage = "Duplicated Entry - Cannot Add"
+                                }
+                                
+                                addedSport = ""
+                                    
+                                }
+                            )
+                            .allowsHitTesting(false)
+                            
+                            //.disabled(duplicateButtonLogic)
+                        }
+//                        VStack {
+//                                EmptyView().alert("", isPresented: $pingDuplicateAlert, actions:
+//                                                    {
+//                                            duplicateAlert
+//                                        })
+//                            }
+                        
+                        
+                        
                     })
-                })
+                    
+                    
+                }
             }
         }
     }
 }
+
 
 
