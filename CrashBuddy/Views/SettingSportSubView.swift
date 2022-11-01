@@ -81,10 +81,10 @@ struct SportsView: View {
                             HStack {
                                 Button("Edit") {
                                     selectEditSport = sport
-
                                     showingEditSport = true
-                                    print("EDOIT")
-                                    print(sport.name)
+
+                                    sportsObj.sports = sportsObj.sports.reversed()
+                                    sportsObj.sports = sportsObj.sports.reversed()
 
                                 }
                                 .tint(.blue)
@@ -103,6 +103,7 @@ struct SportsView: View {
                         }
                         .sheet(isPresented: $showingEditSport) {
                             SportEditView(sportsObj: sportsObj, existingSport: selectEditSport)
+                            
                         }
                     }
                 }
@@ -274,6 +275,10 @@ struct SportEditView: View {
                 sportsObj.sports.firstIndex(where: { $0.name == existingSport.name })!}
 
             sportsObj.sports[sportIndex].name = editString
+
+            sportsObj.sports = sportsObj.sports.reversed()
+            sportsObj.sports = sportsObj.sports.reversed()
+            
             presentationMode.wrappedValue.dismiss()
             
         }
