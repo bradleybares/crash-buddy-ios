@@ -7,21 +7,31 @@
 
 import SwiftUI
 
-class Sport: Identifiable, Equatable {
-    static func == (lhs: Sport, rhs: Sport) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    var id: String = UUID().uuidString
-    var name: String
-    var isSelected: Bool
-    
-    init(name: String) {
-        self.name = name
-        self.isSelected = false
-    }
-    
-}
+//class Sports: ObservableObject {
+//
+//    @Published var sports: [Sport]
+//
+//    init() {
+//        self.sports = []
+//    }
+//}
+//
+//class Sport: Identifiable, Equatable, ObservableObject {
+//    static func == (lhs: Sport, rhs: Sport) -> Bool {
+//        lhs.id == rhs.id
+//    }
+//
+//    var id: String = UUID().uuidString
+//    var name: String
+//    var isSelected: Bool
+//
+//
+//    init(name: String) {
+//        self.name = name
+//        self.isSelected = false
+//    }
+//
+//}
 
 struct EmergencyContact: Identifiable, Hashable {
     let id = UUID()
@@ -259,177 +269,247 @@ struct HardwareConnectivityView: View {
     }
 }
 
-struct SportsView: View {
-    
-    @State private var showingAddAlert = false
-    @State private var showingEditAlert = false
-    @State private var pingDuplicateAlert = false
-
-    @State private var addedSport = ""
-    @State private var editedSport = ""
-    @State private var addAlertMessage = "Add Sport"
-    @State private var duplicateButtonLogic = true
-
-    @State private var selectedSportLabel = ""
-    @State private var selectedSport: Sport = Sport(name: "Skiing")
-    @State private var previousSport: Sport = Sport(name: "Skiing")
-    
-    
-    @State var sports = [
-        Sport(name: "Skiing"),
-        Sport(name: "Biking"),
-        Sport(name: "Snowboarding")
-    ]
-    
-    
-    var duplicateAlert: Alert {
-        return Alert(title: Text("Duplicate Entry"), message: Text("\(addedSport) already exists."), dismissButton: .cancel())
-    }
-    
-    func addSport(name: String) {
-        sports.append(Sport(name: name))
-    }
-    
-    var body: some View {
-        
-        Form {
-            Section {
-                List {
-                    ForEach(sports)
-                    { sport in
-                        HStack {
-                            Text("\(sport.name)")
-                                .frame(alignment: .leading)
-                            Spacer()
-                            if sport.isSelected {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(Color.blue)
-                                    .frame(alignment: .trailing)
-                            }
-                            
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            previousSport = selectedSport
-                            selectedSport = sport
-                            previousSport.isSelected = false
-                            selectedSport.isSelected = true
-                        }
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            
-                            HStack {
-                                Button("Edit") {
-                                    print("Edit")
-                                    self.showingEditAlert = true
-                                    editedSport = sport.name
-                                    print(editedSport)
-                                    
-                                }
-                                
-                                
-                                
-                                Button("Delete", role: .destructive) {
-                                    let selectedIndex = sports.firstIndex(of: sport )
-                                    
-                                    if sport.isSelected {
-                                        selectedSport = Sport(name: "")
-                                        
-                                    }
-                                    sports.remove(at: selectedIndex!)
-                                }
-                            }
-                        }
-                        .popover(isPresented: $showingEditAlert) {
-
-                            Text("SOM")
-
-                            TextField("", text: $editedSport)
-                            Button("Cancel", role: .cancel, action: {})
-                            Button("Edit", action: {
-                                                    sport.name = editedSport
-                                                    })
-                            Button("OK", role: .cancel) { print("ehre")}
-
-                        }
-                        .tint(.blue)
-                    }
-                    
-                }
-                Text("Selected sport: \(selectedSport.name)")
-            }
-        }
-        
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                VStack {
-                    Text("Sports").font(.headline)
-                }
-            }
-            
-            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                ZStack {
-                    Button("Add") {
-                        showingAddAlert = true
-                        
-                    }
-                    .alert(addAlertMessage, isPresented:$showingAddAlert, actions:
-                            
-                        
-                        {
-                        TextField("", text: $addedSport)
-                        Text("dsa")
-                        VStack {
-                            
-                            Button("Cancel", role: .cancel, action: {})
-                                
-                            Button("Add", action: {
-                                duplicateButtonLogic = false
-                                var alreadyAdded = false
-                                pingDuplicateAlert = false
-                                for sport in sports {
-                                    if (addedSport == sport.name) {
-                                        alreadyAdded = true
-                                        pingDuplicateAlert = true
-                                    }
-                                }
-                                
-                                if (!alreadyAdded) {
-                                    addSport(name: addedSport)
-                                    duplicateButtonLogic = false
-                                }
-                                    
-                                else {
-                                    showingAddAlert = true
-                                    duplicateButtonLogic = false
-                                    addAlertMessage = "Duplicated Entry - Cannot Add"
-                                }
-                                
-                                addedSport = ""
-                                    
-                                }
-                            )
-                            .allowsHitTesting(false)
-                            
-                            //.disabled(duplicateButtonLogic)
-                        }
-//                        VStack {
-//                                EmptyView().alert("", isPresented: $pingDuplicateAlert, actions:
-//                                                    {
-//                                            duplicateAlert
-//                                        })
+//struct SportsView: View {
+//
+//    @State private var showingAddAlert = false
+//    @State private var showingEditAlert = false
+//    @State private var pingDuplicateAlert = false
+//    @State private var initializeView = false
+//    @State private var showingDetail = false
+//
+//    @State private var addedSport = ""
+//    @State private var editedSport = ""
+//    @State private var addAlertMessage = "Add Sport"
+//    @State private var duplicateButtonLogic = true
+//
+//    @State private var selectedSportLabel = ""
+//    @State private var selectedSport: Sport = Sport(name: "Skiing")
+//    @State private var previousSport: Sport = Sport(name: "Skiing")
+//
+//    //@EnvironmentObject var sportsObj: Sports
+//    @StateObject var sportsObj = Sports()
+//
+//    var duplicateAlert: Alert {
+//        return Alert(title: Text("Duplicate Entry"), message: Text("\(addedSport) already exists."), dismissButton: .cancel())
+//    }
+//
+//    func addSport(name: String) {
+//        sportsObj.sports.append(Sport(name: name))
+//    }
+//
+//    var body: some View {
+//        Form {
+//            Section {
+//                List {
+//                    ForEach(sportsObj.sports)
+//                    { sport in
+//                        HStack {
+//                            Text("\(sport.name)")
+//                                .frame(alignment: .leading)
+//                            Spacer()
+//                            if sport.isSelected {
+//                                Image(systemName: "checkmark")
+//                                    .foregroundColor(Color.blue)
+//                                    .frame(alignment: .trailing)
 //                            }
-                        
-                        
-                        
-                    })
-                    
-                    
-                }
-            }
-        }
-    }
-}
-
-
-
+//
+//                        }
+//                        .contentShape(Rectangle())
+//                        .onTapGesture {
+//                            previousSport = selectedSport
+//                            selectedSport = sport
+//                            previousSport.isSelected = false
+//                            selectedSport.isSelected = true
+//                        }
+//                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+//
+//                            HStack {
+//                                Button("Edit") {
+//                                    print("Edit")
+//                                    self.showingEditAlert = true
+//                                    editedSport = sport.name
+//                                    print(editedSport)
+//
+//                                }
+//
+//                                Button("Delete", role: .destructive) {
+//                                    let selectedIndex = sportsObj.sports.firstIndex(of: sport )
+//
+//                                    if sport.isSelected {
+//                                        selectedSport = Sport(name: "")
+//
+//                                    }
+//                                    sportsObj.sports.remove(at: selectedIndex!)
+//                                }
+//
+//
+//                            }
+//                        }
+//                    }
+//
+//                }
+//                Text("Selected sport: \(selectedSport.name)")
+//            }
+//        }
+//        .onAppear(){
+//            if (!initializeView) {
+//                addSport(name: "Skiing")
+//                addSport(name: "Biking")
+//                addSport(name: "Snowboarding")
+//            }
+//            initializeView = true
+//        }
+//        .navigationBarTitleDisplayMode(.inline)
+//        .toolbar {
+//            ToolbarItem(placement: .principal) {
+//                VStack {
+//                    Text("Sports").font(.headline)
+//                }
+//            }
+//
+//            ToolbarItemGroup(placement: .navigationBarTrailing) {
+//                ZStack {
+//
+//                    Button("Add") {
+//                        showingDetail = true
+//                    }
+//                    .sheet(isPresented: $showingDetail) {
+//                        SportAddView(sportsObj: sportsObj, sport: "")
+//                    }
+//
+//
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//
+//struct SportAddView: View {
+//
+//    @StateObject var sportsObj = Sports()
+//    @State var sport: String
+//    @State var showingAddAlert = false
+//    @State var showView = false
+//    @Environment(\.presentationMode) var presentationMode
+//
+//    var body: some View {
+//        NavigationView {
+//            Form {
+//                Section {
+//                    VStack(alignment: .leading) {
+//                        TextField("Enter sport", text: $sport)
+//                    }
+//                }
+//                Section {
+//                    Button("Add") {
+//                        checkDuplicates()
+//                    }
+//                    Button("Cancel", role: .cancel) {
+//                        presentationMode.wrappedValue.dismiss()
+//                    }
+//                    .tint(.red)
+//                }
+//
+//            }
+//        }
+//        .alert(isPresented: $showingAddAlert) {
+//            Alert(title: Text("Duplicate Entry"), message: Text("Entry already present and will not be added"))
+//        }
+//        .navigationBarTitleDisplayMode(.inline)
+//        .toolbar {
+//            ToolbarItem(placement: .principal) {
+//                Text("Add Sport").font(.headline)
+//            }
+//
+//        }
+//        .environmentObject(sportsObj)
+//    }
+//
+//
+//
+//    func checkDuplicates() {
+//        var alreadyAdded = false
+//        for existingSport in sportsObj.sports {
+//            if (sport == existingSport.name) {
+//                alreadyAdded = true
+//            }
+//        }
+//
+//        if (!alreadyAdded) {
+//            sportsObj.sports.append(Sport(name: sport))
+//            presentationMode.wrappedValue.dismiss()
+//
+//        }
+//
+//        else {
+//            showingAddAlert = true
+//        }
+//        sport = ""
+//    }
+//}
+//
+//struct SportEditView: View {
+//
+//    @StateObject var sportsObj = Sports()
+//    @State var sport: String
+//    @State var showingAddAlert = false
+//    @State var showView = false
+//    @Environment(\.presentationMode) var presentationMode
+//
+//    var body: some View {
+//        NavigationView {
+//            Form {
+//                Section {
+//                    VStack(alignment: .leading) {
+//                        TextField("Enter sport", text: $sport)
+//                    }
+//                }
+//                Section {
+//                    Button("Add") {
+//                        checkDuplicates()
+//                    }
+//                    Button("Cancel", role: .cancel) {
+//                        presentationMode.wrappedValue.dismiss()
+//                    }
+//                    .tint(.red)
+//                }
+//
+//            }
+//        }
+//        .alert(isPresented: $showingAddAlert) {
+//            Alert(title: Text("Duplicate Entry"), message: Text("Entry already present and will not be added"))
+//        }
+//        .navigationBarTitleDisplayMode(.inline)
+//        .toolbar {
+//            ToolbarItem(placement: .principal) {
+//                Text("Add Sport").font(.headline)
+//            }
+//
+//        }
+//        .environmentObject(sportsObj)
+//    }
+//
+//
+//
+//    func checkDuplicates() {
+//        var alreadyAdded = false
+//        for existingSport in sportsObj.sports {
+//            if (sport == existingSport.name) {
+//                alreadyAdded = true
+//            }
+//        }
+//
+//        if (!alreadyAdded) {
+//            sportsObj.sports.append(Sport(name: sport))
+//            presentationMode.wrappedValue.dismiss()
+//
+//        }
+//
+//        else {
+//            showingAddAlert = true
+//        }
+//        sport = ""
+//    }
+//}
+//
