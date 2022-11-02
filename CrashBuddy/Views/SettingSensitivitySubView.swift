@@ -126,7 +126,7 @@ struct CrashSensitivityView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 VStack {
-                    Text("Sports").font(.headline)
+                    Text("Crash Sensitivities").font(.headline)
                 }
             }
             
