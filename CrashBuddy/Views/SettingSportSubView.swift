@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 class Sports: ObservableObject {
     
     @Published var sports: [Sport]
@@ -16,6 +17,7 @@ class Sports: ObservableObject {
         self.sports = []
     }
 }
+
 
 class Sport: Identifiable, Equatable, ObservableObject {
     static func == (lhs: Sport, rhs: Sport) -> Bool {
@@ -32,6 +34,8 @@ class Sport: Identifiable, Equatable, ObservableObject {
     }
     
 }
+
+
 struct SportsView: View {
     
     @State private var initializeView = false
@@ -45,7 +49,6 @@ struct SportsView: View {
     @State private var previousSport: Sport = Sport(name: "Skiing")
     @State private var selectEditSport: Sport = Sport(name: "Skiing")
 
-    //@EnvironmentObject var sportsObj: Sports
     @StateObject var sportsObj = Sports()
     
     func addSport(name: String) {
