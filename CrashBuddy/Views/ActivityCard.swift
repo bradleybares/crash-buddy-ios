@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-enum ActivityType {
-    case snowboarding, cycling, skiing
-}
-
 struct ActivityCard: View {
     var data: ActivityData
     
@@ -21,9 +17,9 @@ struct ActivityCard: View {
                 .padding(.horizontal)
                 .frame(maxHeight: 80)
             HStack {
-                Text("🏂").font(.system(size: 36)).padding(.leading)
+                Text(data.getIcon()).font(.system(size: 36)).padding(.leading)
                 VStack(alignment: .leading) {
-                    Text("Snowboarding")
+                    Text(data.getActivityTypeName())
                         .font(.title)
                         .foregroundColor(Color.black)
                     HStack {

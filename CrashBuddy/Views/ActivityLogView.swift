@@ -14,12 +14,11 @@ struct ActivityLogView: View {
         ZStack {
             BackgroundView()
             VStack(alignment: .leading) {
-                
-                ForEach((1...6), id: \.self) {_ in
+                ForEach(activities, id: \.id) { activity in
                     NavigationLink(destination: ActivityView(data: ActivityData.sampleData)) {
-                        ActivityCard(data: ActivityData.sampleData)
-                            .frame(maxHeight: 80)
-                    }
+                                                ActivityCard(data: ActivityData.sampleData)
+                                                    .frame(maxHeight: 80)
+                                            }
                 }
                 Spacer()
             }
