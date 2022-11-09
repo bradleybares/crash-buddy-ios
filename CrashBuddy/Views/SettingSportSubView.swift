@@ -9,6 +9,11 @@
 import SwiftUI
 
 
+enum SportKeyValue: String {
+    case persistentSport, persistentSportList
+}
+
+
 class Sports: ObservableObject {
     
     @Published var sports: [Sport]
@@ -35,9 +40,27 @@ class Sport: Identifiable, Equatable, ObservableObject {
     
 }
 
+extension Array: RawRepresentable where Element: Codable {
+    public init?(rawValue: String) {
+        guard let data = rawValue.data(using: .utf8),
+              let result = try? JSONDecoder().decode([Element].self, from: data)
+        else {
+            return nil
+        }
+        self = result
+    }
 
+    public var rawValue: String {
+        guard let data = try? JSONEncoder().encode(self),
+              let result = String(data: data, encoding: .utf8)
+        else {
+            return "[]"
+        }
+        return result
+    }
+}
 struct SportsView: View {
-    
+        
     @State private var initializeView = false
     @State private var showingAddSport = false
     @State private var showingEditSport = false
@@ -50,6 +73,10 @@ struct SportsView: View {
     @State private var selectEditSport: Sport = Sport(name: "Skiing")
 
     @StateObject var sportsObj = Sports()
+    
+    @AppStorage(SportKeyValue.persistentSport.rawValue) private var persistentSport: String = ""
+    
+    @AppStorage(SportKeyValue.persistentSportList.rawValue) private var persistentSportList = ["s", "f"]
     
     func addSport(name: String) {
         sportsObj.sports.append(Sport(name: name))
@@ -65,7 +92,7 @@ struct SportsView: View {
                             Text("\(sport.name)")
                                 .frame(alignment: .leading)
                             Spacer()
-                            if sport.isSelected {
+                            if sport.isSelected || sport.name == persistentSport {
                                 Image(systemName: "checkmark")
                                     .foregroundColor(Color.blue)
                                     .frame(alignment: .trailing)
@@ -78,6 +105,7 @@ struct SportsView: View {
                             selectedSport = sport
                             previousSport.isSelected = false
                             selectedSport.isSelected = true
+                            persistentSport = sport.name
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             
@@ -113,6 +141,7 @@ struct SportsView: View {
                 
                 Section {
                     Text("Selected sport: \(selectedSport.name)")
+                    Text("Persisting sport: \(persistentSport)")
                 }
             }
         }
