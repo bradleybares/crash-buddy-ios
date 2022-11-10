@@ -26,7 +26,7 @@ class Sports: ObservableObject {
 
 class Sport: Identifiable, Equatable, ObservableObject {
     static func == (lhs: Sport, rhs: Sport) -> Bool {
-        lhs.id == rhs.id
+        lhs.name == rhs.name
     }
     
     var id: String = UUID().uuidString
@@ -40,25 +40,7 @@ class Sport: Identifiable, Equatable, ObservableObject {
     
 }
 
-extension Array: RawRepresentable where Element: Codable {
-    public init?(rawValue: String) {
-        guard let data = rawValue.data(using: .utf8),
-              let result = try? JSONDecoder().decode([Element].self, from: data)
-        else {
-            return nil
-        }
-        self = result
-    }
 
-    public var rawValue: String {
-        guard let data = try? JSONEncoder().encode(self),
-              let result = String(data: data, encoding: .utf8)
-        else {
-            return "[]"
-        }
-        return result
-    }
-}
 struct SportsView: View {
         
     @State private var initializeView = false
@@ -76,10 +58,26 @@ struct SportsView: View {
     
     @AppStorage(SportKeyValue.persistentSport.rawValue) private var persistentSport: String = ""
     
-    @AppStorage(SportKeyValue.persistentSportList.rawValue) private var persistentSportList = ["s", "f"]
+    @AppStorage(SportKeyValue.persistentSportList.rawValue) var persistentSportList = ["Skiing", "Biking", "Snowboarding"]
     
     func addSport(name: String) {
         sportsObj.sports.append(Sport(name: name))
+    }
+    
+    func updatePersistentList() {
+        for indiviudalSport in sportsObj.sports {
+            if !persistentSportList.contains(indiviudalSport.name) {
+                persistentSportList.append(indiviudalSport.name)
+            }
+        }
+    }
+    
+    func updatePersistentListEdit() {
+        for index in 0..<(sportsObj.sports.count) {
+            if (sportsObj.sports[index].name != persistentSportList[index]) {
+                persistentSportList[index] = sportsObj.sports[index].name
+            }
+        }
     }
     
     var body: some View {
@@ -129,10 +127,11 @@ struct SportsView: View {
                                         
                                     }
                                     sportsObj.sports.remove(at: selectedIndex!)
+                                    persistentSportList.remove(at: selectedIndex!)
                                 }
                             }
                         }
-                        .sheet(isPresented: $showingEditSport) {
+                        .sheet(isPresented: $showingEditSport, onDismiss: updatePersistentListEdit) {
                             SportEditView(sportsObj: sportsObj, existingSport: selectEditSport)
                             
                         }
@@ -142,16 +141,23 @@ struct SportsView: View {
                 Section {
                     Text("Selected sport: \(selectedSport.name)")
                     Text("Persisting sport: \(persistentSport)")
+                    Text("existing sport list size; \(sportsObj.sports.count)")
+                    Text("Persisting sport List size: \(persistentSportList.count)")
                 }
             }
         }
         .onAppear(){
-            if (!initializeView) {
-                addSport(name: "Skiing")
-                addSport(name: "Biking")
-                addSport(name: "Snowboarding")
+//            if (!initializeView) {
+//                addSport(name: "Skiing")
+//                addSport(name: "Biking")
+//                addSport(name: "Snowboarding")
+//            }
+            for individualSportString in persistentSportList {
+                if !(sportsObj.sports.contains(Sport(name: individualSportString))) {
+                    addSport(name: individualSportString)
+                }
             }
-            initializeView = true
+            //initializeView = true
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -167,7 +173,8 @@ struct SportsView: View {
                     Button("Add") {
                         showingAddSport = true
                     }
-                    .sheet(isPresented: $showingAddSport) {
+                    .sheet(isPresented: $showingAddSport,
+                    onDismiss: updatePersistentList) {
                         SportAddView(sportsObj: sportsObj, sport: "")
                     }
                     
@@ -232,6 +239,7 @@ struct SportAddView: View {
         
         if (!alreadyAdded) {
             sportsObj.sports.append(Sport(name: sport))
+             
             presentationMode.wrappedValue.dismiss()
             
         }
@@ -321,3 +329,23 @@ struct SportEditView: View {
     }
 }
 
+
+extension Array: RawRepresentable where Element: Codable {
+    public init?(rawValue: String) {
+        guard let data = rawValue.data(using: .utf8),
+              let result = try? JSONDecoder().decode([Element].self, from: data)
+        else {
+            return nil
+        }
+        self = result
+    }
+
+    public var rawValue: String {
+        guard let data = try? JSONEncoder().encode(self),
+              let result = String(data: data, encoding: .utf8)
+        else {
+            return "[]"
+        }
+        return result
+    }
+}
