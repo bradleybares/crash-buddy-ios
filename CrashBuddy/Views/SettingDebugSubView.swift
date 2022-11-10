@@ -12,6 +12,9 @@ struct DebugView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @GestureState private var dragOffset = CGSize.zero
     @State private var debugOn = true
+    @State private var sensorStatus = false
+    @State private var memoryStatus = true
+    @State private var powerStatus = true
     
     var body: some View {
         NavigationView {
@@ -22,21 +25,54 @@ struct DebugView: View {
                     })
                 }
                 
-                //TODO change from toggle
-                // how exactly do we determine whether this is on or not
-                // Does this display only if debug mode is on? or always is it always on display
                 Section {
-                    Toggle(isOn: $debugOn,
-                           label: {Text("Sensor Status")
-                    })
+                    HStack {
+                        Text("Sensor Status")
+                        Spacer()
+                        if sensorStatus {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(Color.green)
+                                .frame(alignment: .trailing)
+
+                        }
+                        else {
+                            Image(systemName: "xmark.circle")
+                                .foregroundColor(Color.red)
+                                .frame(alignment: .trailing)
+                        }
+                    }
                     
-                    Toggle(isOn: $debugOn,
-                           label: {Text("Memory Status")
-                    })
+                    HStack {
+                        Text("Memory Status")
+                        Spacer()
+                        if memoryStatus {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(Color.green)
+                                .frame(alignment: .trailing)
+
+                        }
+                        else {
+                            Image(systemName: "xmark.circle")
+                                .foregroundColor(Color.red)
+                                .frame(alignment: .trailing)
+                        }
+                    }
                     
-                    Toggle(isOn: $debugOn,
-                           label: {Text("Power Status")
-                    })
+                    HStack {
+                        Text("Power Status")
+                        Spacer()
+                        if powerStatus {
+                            Image(systemName: "checkmark.circle")
+                                .foregroundColor(Color.green)
+                                .frame(alignment: .trailing)
+
+                        }
+                        else {
+                            Image(systemName: "xmark.circle")
+                                .foregroundColor(Color.red)
+                                .frame(alignment: .trailing)
+                        }
+                    }
                 }
             }
         }

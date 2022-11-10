@@ -34,11 +34,7 @@ struct SettingsView: View {
                 NavigationLink(destination: EmergencyContactsView(), label: {
                     Text("Emergency Contacts")
                 })
-                
-                // Hardware Connectivity
-                NavigationLink(destination: HardwareConnectivityView(), label: {
-                    Text("Hardware Connectivity")
-                })
+
                 .navigationTitle(Text("Settings"))
                 
             }

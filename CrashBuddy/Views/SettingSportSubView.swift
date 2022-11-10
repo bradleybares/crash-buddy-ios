@@ -43,7 +43,6 @@ class Sport: Identifiable, Equatable, ObservableObject {
 
 struct SportsView: View {
         
-    @State private var initializeView = false
     @State private var showingAddSport = false
     @State private var showingEditSport = false
 
@@ -147,17 +146,11 @@ struct SportsView: View {
             }
         }
         .onAppear(){
-//            if (!initializeView) {
-//                addSport(name: "Skiing")
-//                addSport(name: "Biking")
-//                addSport(name: "Snowboarding")
-//            }
             for individualSportString in persistentSportList {
                 if !(sportsObj.sports.contains(Sport(name: individualSportString))) {
                     addSport(name: individualSportString)
                 }
             }
-            //initializeView = true
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
