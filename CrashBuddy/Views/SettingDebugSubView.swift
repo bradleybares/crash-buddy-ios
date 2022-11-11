@@ -7,14 +7,26 @@
 
 import SwiftUI
 
+enum DebugKeyValue: String {
+    case persistentDebugStatus, persistentSensorStatus, presistentMemoryStatus, persistentPowerStatus
+}
+
 struct DebugView: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @GestureState private var dragOffset = CGSize.zero
-    @State private var debugOn = true
-    @State private var sensorStatus = false
-    @State private var memoryStatus = true
-    @State private var powerStatus = true
+
+    @AppStorage(DebugKeyValue.persistentDebugStatus.rawValue) private var debugOn: Bool = true
+    @AppStorage(DebugKeyValue.persistentSensorStatus.rawValue) private var sensorStatus: Bool = true
+    @AppStorage(DebugKeyValue.presistentMemoryStatus.rawValue) private var memoryStatus: Bool = true
+    @AppStorage(DebugKeyValue.persistentPowerStatus.rawValue) private var powerStatus: Bool = true
+    
+    init(debugOnInit: Bool, sensorStatusInit: Bool, memoryStatusInit: Bool, powerStatusInit: Bool) {
+        debugOn = debugOnInit
+        sensorStatus = sensorStatusInit
+        memoryStatus = memoryStatusInit
+        powerStatus = powerStatusInit
+    }
     
     var body: some View {
         NavigationView {

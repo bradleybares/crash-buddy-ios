@@ -16,7 +16,7 @@ struct SettingsView: View {
         Form {
             Section {
                 // Debug Mode
-                NavigationLink(destination: DebugView(), label: {
+                NavigationLink(destination: DebugView(debugOnInit: false, sensorStatusInit: false, memoryStatusInit: true, powerStatusInit: true), label: {
                     Text("Debug Mode")
                 })
                 
