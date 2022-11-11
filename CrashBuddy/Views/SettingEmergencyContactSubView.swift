@@ -6,6 +6,19 @@
 //
 import SwiftUI
 
+
+enum ContactsKeyValue: String {
+    case persistentContact, persistentContactList
+}
+
+
+struct PersistentEmergencyContact: Codable {
+    let name: String
+    let phoneNumber: String
+    let address: String
+    let relationship: String
+}
+
 class EmergencyContacts: ObservableObject {
     
     @Published var emergencyContacts: [EmergencyContact]
@@ -17,7 +30,7 @@ class EmergencyContacts: ObservableObject {
 
 class EmergencyContact: Identifiable, Equatable, ObservableObject {
     static func == (lhs: EmergencyContact, rhs: EmergencyContact) -> Bool {
-        lhs.id == rhs.id
+        lhs.phoneNumber == rhs.phoneNumber
     }
     
     var id: String = UUID().uuidString
@@ -53,9 +66,32 @@ struct EmergencyContactsView: View {
     @State private var previousContact: EmergencyContact = EmergencyContact(name: "Contact 1", phoneNumber: "1234567689", address: "Address 1", relationship: "Friend")
     @State private var selectEditContact: EmergencyContact = EmergencyContact(name: "Contact 1", phoneNumber: "1234567689", address: "Address 1", relationship: "Friend")
     
+    @AppStorage(ContactsKeyValue.persistentContactList.rawValue) var persistentContactList = [Data()]
     
     func addContact(name: String, phoneNumber: String, address: String, relationship: String) {
         contactsObj.emergencyContacts.append(EmergencyContact(name: name, phoneNumber: phoneNumber, address: address, relationship: relationship))
+    }
+    
+    func updatePersistentList() {
+        for individualContact in contactsObj.emergencyContacts {
+            let tempData = Data()
+            guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {return}
+            
+            if decodedContact.phoneNumber != individualContact.phoneNumber {
+                //TODO USE THIS AS REFERENCe
+                let tempContact = PersistentEmergencyContact(name: individualContact.name, phoneNumber: individualContact.phoneNumber, address: individualContact.address, relationship: individualContact.relationship)
+                guard let tempContactData = try? JSONEncoder().encode(tempContact) else {return}
+                persistentContactList.append(tempContactData)
+            }
+        }
+    }
+    
+    func updatePersistentListEdit() {
+        for index in 0..<(contactsObj.emergencyContacts.count) {
+            if (contactsObj.emergencyContacts[index].name != persistentContactList[index]) {
+                persistentContactList[index] = contactsObj.emergencyContacts[index].name
+            }
+        }
     }
     
     var body: some View {
@@ -104,10 +140,12 @@ struct EmergencyContactsView: View {
                                         
                                     }
                                     contactsObj.emergencyContacts.remove(at: selectedIndex!)
+                                    persistentContactList.remove(at: selectedIndex!)
                                 }
                             }
                         }
-                        .sheet(isPresented: $showingEditContact) {
+                        .sheet(isPresented: $showingEditContact,
+                        onDismiss: updatePersistentListEdit) {
                             ContactEditView(contactsObj: contactsObj, existingContact: selectEditContact)
                             
                         }
@@ -115,17 +153,22 @@ struct EmergencyContactsView: View {
                 }
                 
                 Section {
-                    Text("Selected contact: \(selectedContact.name)")
-                }
+                    Text("Persisting sport List size: \(persistentContactList.count)")                }
             }
         }
         .onAppear(){
-            if (!initializeView) {
-                addContact(name: "Temp 1", phoneNumber: "1234567689", address: "Address 1", relationship: "Friend")
-                addContact(name: "Temp 2", phoneNumber: "1112223333", address: "Address 2", relationship: "Sibling")
-                addContact(name: "Temp 3", phoneNumber: "4445556666", address: "Address 3", relationship: "Mother")
+            for individualSportString in persistentSportList {
+                if !(sportsObj.sports.contains(Sport(name: individualSportString))) {
+                    addSport(name: individualSportString)
+                }
             }
-            initializeView = true
+
+//            if (!initializeView) {
+//                addContact(name: "Temp 1", phoneNumber: "1234567689", address: "Address 1", relationship: "Friend")
+//                addContact(name: "Temp 2", phoneNumber: "1112223333", address: "Address 2", relationship: "Sibling")
+//                addContact(name: "Temp 3", phoneNumber: "4445556666", address: "Address 3", relationship: "Mother")
+//            }
+//            initializeView = true
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -141,7 +184,8 @@ struct EmergencyContactsView: View {
                     Button("Add") {
                         showingAddContact = true
                     }
-                    .sheet(isPresented: $showingAddContact) {
+                    .sheet(isPresented: $showingAddContact,
+                    onDismiss: updatePersistentList) {
                         ContactAddView(contactsObj: contactsObj, name: "", phoneNumber: "", address: "", relationship: "")
                         
                     }

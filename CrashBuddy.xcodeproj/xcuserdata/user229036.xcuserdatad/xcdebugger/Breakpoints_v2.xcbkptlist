@@ -14,8 +14,8 @@
             filePath = "CrashBuddy/Views/SettingSensitivitySubView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "CrashSensitivityView"
             landmarkType = "14">
             <Locations>
@@ -48,6 +48,69 @@
                   startingLineNumber = "49"
                   endingLineNumber = "49"
                   offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C000A18-9B04-41F4-9087-032111BE5A8C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CrashBuddy/Views/SettingSportSubView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "SportsView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "0C000A18-9B04-41F4-9087-032111BE5A8C - 7383fbf85444a455"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of CrashBuddy.SportsView.persistentSport : Swift.String"
+                  moduleName = "CrashBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user229036/Documents/crash-buddy-ios/CrashBuddy/Views/SettingSportSubView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "0C000A18-9B04-41F4-9087-032111BE5A8C - 2fd88959e8b85912"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CrashBuddy.SportsView.init() -&gt; CrashBuddy.SportsView"
+                  moduleName = "CrashBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user229036/Documents/crash-buddy-ios/CrashBuddy/Views/SettingSportSubView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "628">
+               </Location>
+               <Location
+                  uuid = "0C000A18-9B04-41F4-9087-032111BE5A8C - b7468c606b1712b9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CrashBuddy.SportsView.init(sportsObj: @autoclosure () -&gt; CrashBuddy.Sports, persistentSportList: Swift.Array&lt;Swift.String&gt;) -&gt; CrashBuddy.SportsView"
+                  moduleName = "CrashBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user229036/Documents/crash-buddy-ios/CrashBuddy/Views/SettingSportSubView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "58"
+                  endingLineNumber = "58"
+                  offsetFromSymbolStart = "380">
                </Location>
             </Locations>
          </BreakpointContent>

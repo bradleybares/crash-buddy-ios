@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+
+enum SensitivityKeyValue: String {
+    case persistentSensitivity, persistentSensitivityList
+}
+
+
 class CrashSensitivities: ObservableObject {
     
     @Published var crashSensitivities: [CrashSensitivity]
@@ -36,7 +42,6 @@ class CrashSensitivity: Identifiable, Equatable, ObservableObject {
 
 struct CrashSensitivityView: View {
     
-    @State private var initializeView = false
     @State private var showingAddSensitivity = false
     @State private var showingEditSensitivity = false
     
@@ -49,8 +54,28 @@ struct CrashSensitivityView: View {
     
     @StateObject var crashSensitivitiesObj = CrashSensitivities()
     
+    @AppStorage(SensitivityKeyValue.persistentSensitivity.rawValue) private var persistentSensitivity: String = ""
+    
+    @AppStorage(SensitivityKeyValue.persistentSensitivityList.rawValue) var persistentSensitivityList = ["0", "50", "100"]
+    
     func addSensitivity(sensitivity: String) {
         crashSensitivitiesObj.crashSensitivities.append(CrashSensitivity(value: sensitivity))
+    }
+    
+    func updatePersistentList() {
+        for individualSensitivity in crashSensitivitiesObj.crashSensitivities {
+            if !persistentSensitivityList.contains(individualSensitivity.value) {
+                persistentSensitivityList.append(individualSensitivity.value)
+            }
+        }
+    }
+    
+    func updatePersistentListEdit() {
+        for index in 0..<(crashSensitivitiesObj.crashSensitivities.count) {
+            if (crashSensitivitiesObj.crashSensitivities[index].value != persistentSensitivityList[index]) {
+                persistentSensitivityList[index] = crashSensitivitiesObj.crashSensitivities[index].value
+            }
+        }
     }
     
     var body: some View {
@@ -63,7 +88,7 @@ struct CrashSensitivityView: View {
                             Text("\(sensitivity.value)")
                                 .frame(alignment: .leading)
                             Spacer()
-                            if sensitivity.isSelected {
+                            if sensitivity.isSelected || sensitivity.value == persistentSensitivity {
                                 Image(systemName: "checkmark")
                                     .foregroundColor(Color.blue)
                                     .frame(alignment: .trailing)
@@ -76,6 +101,7 @@ struct CrashSensitivityView: View {
                             selectedSensitivity = sensitivity
                             previousSensitivity.isSelected = false
                             selectedSensitivity.isSelected = true
+                            persistentSensitivity = sensitivity.value
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             
@@ -99,10 +125,13 @@ struct CrashSensitivityView: View {
                                         
                                     }
                                     crashSensitivitiesObj.crashSensitivities.remove(at: selectedIndex!)
+                                    
+                                    persistentSensitivityList.remove(at: selectedIndex!)
                                 }
                             }
                         }
-                        .sheet(isPresented: $showingEditSensitivity) {
+                        .sheet(isPresented: $showingEditSensitivity,
+                        onDismiss: updatePersistentListEdit) {
                             SensitivityEditView(crashSensitivitiesObj: crashSensitivitiesObj, existingSensitivity: selectEditSensitivity)
                             
                         }
@@ -111,16 +140,18 @@ struct CrashSensitivityView: View {
                 
                 Section {
                     Text("Selected Sensitivity: \(selectedSensitivity.value)")
+                    Text("Persisting sensitivity: \(persistentSensitivity)")
+                    Text("existing sens list size; \(crashSensitivitiesObj.crashSensitivities.count)")
+                    Text("Persisting sens List size: \(persistentSensitivityList.count)")
                 }
             }
         }
         .onAppear(){
-            if (!initializeView) {
-                addSensitivity(sensitivity: "0")
-                addSensitivity(sensitivity: "50")
-                addSensitivity(sensitivity: "100")
+            for individualSensitivityString in persistentSensitivityList {
+                if !(crashSensitivitiesObj.crashSensitivities.contains(CrashSensitivity(value: individualSensitivityString))) {
+                    addSensitivity(sensitivity: individualSensitivityString)
+                }
             }
-            initializeView = true
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -136,7 +167,8 @@ struct CrashSensitivityView: View {
                     Button("Add") {
                         showingAddSensitivity = true
                     }
-                    .sheet(isPresented: $showingAddSensitivity) {
+                    .sheet(isPresented: $showingAddSensitivity,
+                    onDismiss: updatePersistentList) {
                         SensitivityAddView(crashSensitivitiesObj: crashSensitivitiesObj, sensitivity: "")
                         
                     }
