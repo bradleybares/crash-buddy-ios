@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct CrashBuddyApp: App {
+    
     @StateObject private var store = ActivityStore()
     @StateObject private var settingsStore = SettingsStore()
 

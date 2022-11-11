@@ -7,19 +7,16 @@
 
 import SwiftUI
 
-enum Status {
-    case notConnected, connected, started
-}
-
 struct ContentView: View {
-
-    @State var connectionStatus: Status = .notConnected
+    
     @Binding var activities: [ActivityData]
     @Binding var settings: SettingModel
 
     @State private var newActivityData = ActivityData.sampleData
     let saveAction: ()->Void
-
+    
+    @StateObject var peripheralViewModel: PeripheralViewModel = PeripheralViewModel()
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -48,18 +45,23 @@ struct ContentView: View {
                         }
                     }
                     
-                    SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: "Not Connected")
+                    SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: peripheralViewModel.statusString)
                     Button(action: {
-                        print("button pressed")
+                        peripheralViewModel.updateTrackingStatus()
                     }, label: {
                         ZStack(alignment: .center) {
                             RoundedRectangle(cornerRadius: 14)
                                 .foregroundStyle(.white)
-                            Text("Connect")
+                            if peripheralViewModel.status == .tracking {
+                                Text("Stop Tracking").foregroundColor(.red)
+                            } else {
+                                Text("Start Tracking")
+                            }
                         }
                         .frame(maxHeight: 50)
                         .padding(.horizontal)
                     })
+                    .disabled(peripheralViewModel.status == .notConnected)
                     
                 }
                 .navigationTitle("Home")

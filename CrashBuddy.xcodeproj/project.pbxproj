@@ -29,6 +29,9 @@
 		1E83192629259B7A003E9D2E /* SettingDebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */; };
 		1E8E285A2929885800F286AB /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8E28592929885800F286AB /* SettingViewModel.swift */; };
 		1EFF69D3292545E90082C8F8 /* SettingSportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */; };
+		4A5472182906013F00B7FEE7 /* BluetoothLECentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */; };
+		4A54721B2906019F00B7FEE7 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */; };
+		4A54721E2906091A00B7FEE7 /* PeripheralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54721D2906091A00B7FEE7 /* PeripheralViewModel.swift */; };
 		4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */; };
 		4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202C28CFC0550068BB24 /* ContentView.swift */; };
 		4A9F202F28CFC0560068BB24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F202E28CFC0560068BB24 /* Assets.xcassets */; };
@@ -62,6 +65,10 @@
 		1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingDebugViewModel.swift; path = CrashBuddy/Views/SettingDebugViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1E8E28592929885800F286AB /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingViewModel.swift; path = CrashBuddy/Views/SettingViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSportModel.swift; path = CrashBuddy/Views/SettingSportModel.swift; sourceTree = SOURCE_ROOT; };
+		4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothLECentral.swift; sourceTree = "<group>"; };
+		4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		4A54721C290601CD00B7FEE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4A54721D2906091A00B7FEE7 /* PeripheralViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewModel.swift; sourceTree = "<group>"; };
 		4A9F202728CFC0550068BB24 /* CrashBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrashBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashBuddyApp.swift; sourceTree = "<group>"; };
 		4A9F202C28CFC0550068BB24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
@@ -81,6 +88,7 @@
 			files = (
 				AE409D985BD8B91F0005743E /* Pods_CrashBuddy.framework in Frameworks */,
 				178A204D292D2BA90095C00F /* Alamofire in Frameworks */,
+				4A54721B2906019F00B7FEE7 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,8 +126,25 @@
 				1E3E8A052926ECED0077F008 /* SettingSensitivityViewModel.swift */,
 				1E3E8A072926F8C40077F008 /* SettingContactViewModel.swift */,
 				1E8E28592929885800F286AB /* SettingViewModel.swift */,
+				4A54721D2906091A00B7FEE7 /* PeripheralViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4A547216290600DE00B7FEE7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4A5472192906019E00B7FEE7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4A9F201E28CFC0550068BB24 = {
@@ -128,7 +153,7 @@
 				B31D48B7E8A0A481AC6B5DF0 /* Pods */,
 				4A9F202928CFC0550068BB24 /* CrashBuddy */,
 				4A9F202828CFC0550068BB24 /* Products */,
-				2178C5A73AC5B05D12EBBB12 /* Frameworks */,
+				4A5472192906019E00B7FEE7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,11 +168,13 @@
 		4A9F202928CFC0550068BB24 /* CrashBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				4A547216290600DE00B7FEE7 /* Services */,
 				4A53BE9228CFC3630078C21C /* ViewModels */,
 				4A53BE9128CFC35A0078C21C /* Models */,
 				4A9F203828CFC25C0068BB24 /* Views */,
 				4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */,
 				4A9F202E28CFC0560068BB24 /* Assets.xcassets */,
+				4A54721C290601CD00B7FEE7 /* Info.plist */,
 				4A9F203028CFC0560068BB24 /* Preview Content */,
 			);
 			path = CrashBuddy;
@@ -327,10 +354,12 @@
 				4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */,
 				17091C8528EEA73C006007B5 /* ActivityLogView.swift in Sources */,
 				1E52BF45291204B60072643F /* SettingDebugSubView.swift in Sources */,
+				4A5472182906013F00B7FEE7 /* BluetoothLECentral.swift in Sources */,
 				4AF540E128F8E0F0006A4040 /* BackgroundView.swift in Sources */,
 				177D734528FDA93E001B5F11 /* ActivityCard.swift in Sources */,
 				177D734728FDDBA8001B5F11 /* ActivityView.swift in Sources */,
 				172BE740291B674B0076B0F0 /* ActivityStore.swift in Sources */,
+				4A54721E2906091A00B7FEE7 /* PeripheralViewModel.swift in Sources */,
 				4AF540DD28F8B020006A4040 /* ActivityChart.swift in Sources */,
 				4AF540DF28F8CB42006A4040 /* ActivityData.swift in Sources */,
 				4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */,
@@ -468,6 +497,7 @@
 				DEVELOPMENT_TEAM = C7GST4SKG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CrashBuddy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -499,6 +529,7 @@
 				DEVELOPMENT_TEAM = C7GST4SKG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CrashBuddy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
