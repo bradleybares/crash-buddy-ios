@@ -72,24 +72,43 @@ struct EmergencyContactsView: View {
         contactsObj.emergencyContacts.append(EmergencyContact(name: name, phoneNumber: phoneNumber, address: address, relationship: relationship))
     }
     
+    func getData() {
+        let tempData = Data()
+        guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {return}
+    }
+    
+    
+    func createData(individualContact: EmergencyContact) -> Data {
+        let tempContact = PersistentEmergencyContact(name: individualContact.name, phoneNumber: individualContact.phoneNumber, address: individualContact.address, relationship: individualContact.relationship)
+        guard let tempContactData = try? JSONEncoder().encode(tempContact) else {return Data()}
+        return tempContactData
+    }
+    
     func updatePersistentList() {
         for individualContact in contactsObj.emergencyContacts {
-            let tempData = Data()
-            guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {return}
-            
-            if decodedContact.phoneNumber != individualContact.phoneNumber {
-                //TODO USE THIS AS REFERENCe
-                let tempContact = PersistentEmergencyContact(name: individualContact.name, phoneNumber: individualContact.phoneNumber, address: individualContact.address, relationship: individualContact.relationship)
-                guard let tempContactData = try? JSONEncoder().encode(tempContact) else {return}
+            var contains = false
+            for tempData in persistentContactList {
+                //let tempData = Data()
+                guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {return}
+                
+                if decodedContact.phoneNumber == individualContact.phoneNumber {
+                    contains = true
+                }
+            }
+            if !contains {
+                let tempContactData = createData(individualContact: individualContact)
                 persistentContactList.append(tempContactData)
             }
+                
         }
     }
     
     func updatePersistentListEdit() {
         for index in 0..<(contactsObj.emergencyContacts.count) {
-            if (contactsObj.emergencyContacts[index].name != persistentContactList[index]) {
-                persistentContactList[index] = contactsObj.emergencyContacts[index].name
+            guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: persistentContactList[index]) else {return}
+            
+            if (contactsObj.emergencyContacts[index].phoneNumber != decodedContact.phoneNumber) {
+                persistentContactList[index] = createData(individualContact: contactsObj.emergencyContacts[index])
             }
         }
     }
@@ -157,11 +176,28 @@ struct EmergencyContactsView: View {
             }
         }
         .onAppear(){
-            for individualSportString in persistentSportList {
-                if !(sportsObj.sports.contains(Sport(name: individualSportString))) {
-                    addSport(name: individualSportString)
+            for tempData in persistentContactList {
+                var contains = false
+                guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {return}
+                
+                for individualContact in contactsObj.emergencyContacts {
+
+
+                    if decodedContact.phoneNumber == individualContact.phoneNumber {
+                        contains = true
+                    }
                 }
+                if !contains {
+                    addContact(name: decodedContact.name, phoneNumber: decodedContact.phoneNumber, address: decodedContact.address, relationship: decodedContact.relationship)
+                }
+                    
             }
+            
+//            for individualSportString in persistentSportList {
+//                if !(sportsObj.sports.contains(Sport(name: individualSportString))) {
+//                    addSport(name: individualSportString)
+//                }
+//            }
 
 //            if (!initializeView) {
 //                addContact(name: "Temp 1", phoneNumber: "1234567689", address: "Address 1", relationship: "Friend")
