@@ -39,14 +39,12 @@ class EmergencyContact: Identifiable, Equatable, ObservableObject {
     var phoneNumber: String
     var address: String
     var relationship: String
-    var isSelected: Bool
 
     init(name: String, phoneNumber: String, address: String, relationship: String) {
         self.name = name
         self.phoneNumber = phoneNumber
         self.address = address
         self.relationship = relationship
-        self.isSelected = false
     }
     
 }
@@ -62,8 +60,6 @@ struct EmergencyContactsView: View {
     @State private var addedContact = ""
     @State private var editedContact = ""
     
-    @State private var selectedContact: EmergencyContact = EmergencyContact(name: "Contact 1", phoneNumber: "1234567689", address: "Address 1", relationship: "Friend")
-    @State private var previousContact: EmergencyContact = EmergencyContact(name: "Contact 1", phoneNumber: "1234567689", address: "Address 1", relationship: "Friend")
     @State private var selectEditContact: EmergencyContact = EmergencyContact(name: "Contact 1", phoneNumber: "1234567689", address: "Address 1", relationship: "Friend")
     
     @AppStorage(ContactsKeyValue.persistentContactList.rawValue) var persistentContactList = [Data()]
@@ -71,13 +67,7 @@ struct EmergencyContactsView: View {
     func addContact(name: String, phoneNumber: String, address: String, relationship: String) {
         contactsObj.emergencyContacts.append(EmergencyContact(name: name, phoneNumber: phoneNumber, address: address, relationship: relationship))
     }
-    
-    func getData() {
-        let tempData = Data()
-        guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {return}
-    }
-    
-    
+        
     func createData(individualContact: EmergencyContact) -> Data {
         let tempContact = PersistentEmergencyContact(name: individualContact.name, phoneNumber: individualContact.phoneNumber, address: individualContact.address, relationship: individualContact.relationship)
         guard let tempContactData = try? JSONEncoder().encode(tempContact) else {return Data()}
@@ -88,14 +78,15 @@ struct EmergencyContactsView: View {
         for individualContact in contactsObj.emergencyContacts {
             var contains = false
             for tempData in persistentContactList {
-                //let tempData = Data()
-                guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {return}
-                
+
+                guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {
+                    continue}
                 if decodedContact.phoneNumber == individualContact.phoneNumber {
                     contains = true
                 }
             }
-            if !contains {
+
+            if (!contains) {
                 let tempContactData = createData(individualContact: individualContact)
                 persistentContactList.append(tempContactData)
             }
@@ -105,9 +96,12 @@ struct EmergencyContactsView: View {
     
     func updatePersistentListEdit() {
         for index in 0..<(contactsObj.emergencyContacts.count) {
-            guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: persistentContactList[index]) else {return}
+            guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: persistentContactList[index+1]) else {return}
             
-            if (contactsObj.emergencyContacts[index].phoneNumber != decodedContact.phoneNumber) {
+            if (contactsObj.emergencyContacts[index].phoneNumber != decodedContact.phoneNumber
+                || contactsObj.emergencyContacts[index].name != decodedContact.name
+                || contactsObj.emergencyContacts[index].address != decodedContact.address
+                || contactsObj.emergencyContacts[index].relationship != decodedContact.relationship) {
                 persistentContactList[index] = createData(individualContact: contactsObj.emergencyContacts[index])
             }
         }
@@ -122,20 +116,10 @@ struct EmergencyContactsView: View {
                         HStack {
                             Text("\(contact.name)")
                                 .frame(alignment: .leading)
-                            Spacer()
-                            if contact.isSelected {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(Color.blue)
-                                    .frame(alignment: .trailing)
-                            }
-                            
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            previousContact = selectedContact
-                            selectedContact = contact
-                            previousContact.isSelected = false
-                            selectedContact.isSelected = true
+                            
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             
@@ -154,12 +138,10 @@ struct EmergencyContactsView: View {
                                 Button("Delete", role: .destructive) {
                                     let selectedIndex = contactsObj.emergencyContacts.firstIndex(of: contact )
                                     
-                                    if contact.isSelected {
-                                        selectedContact = EmergencyContact(name: "", phoneNumber: "", address: "", relationship: "")
-                                        
-                                    }
+                                    let persistentIndex = (selectedIndex ?? 0) + 1
+                                    
                                     contactsObj.emergencyContacts.remove(at: selectedIndex!)
-                                    persistentContactList.remove(at: selectedIndex!)
+                                    persistentContactList.remove(at: persistentIndex)
                                 }
                             }
                         }
@@ -172,13 +154,17 @@ struct EmergencyContactsView: View {
                 }
                 
                 Section {
-                    Text("Persisting sport List size: \(persistentContactList.count)")                }
+                    Text("Persisting sport List size: \(persistentContactList.count)")
+                    Text("local sport list size \(contactsObj.emergencyContacts.count)")
+                }
+                
             }
         }
         .onAppear(){
             for tempData in persistentContactList {
                 var contains = false
-                guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {return}
+                guard let decodedContact = try? JSONDecoder().decode(PersistentEmergencyContact.self, from: tempData) else {
+                    continue}
                 
                 for individualContact in contactsObj.emergencyContacts {
 
@@ -192,19 +178,6 @@ struct EmergencyContactsView: View {
                 }
                     
             }
-            
-//            for individualSportString in persistentSportList {
-//                if !(sportsObj.sports.contains(Sport(name: individualSportString))) {
-//                    addSport(name: individualSportString)
-//                }
-//            }
-
-//            if (!initializeView) {
-//                addContact(name: "Temp 1", phoneNumber: "1234567689", address: "Address 1", relationship: "Friend")
-//                addContact(name: "Temp 2", phoneNumber: "1112223333", address: "Address 2", relationship: "Sibling")
-//                addContact(name: "Temp 3", phoneNumber: "4445556666", address: "Address 3", relationship: "Mother")
-//            }
-//            initializeView = true
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
