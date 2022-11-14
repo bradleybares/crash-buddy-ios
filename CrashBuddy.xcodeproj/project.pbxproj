@@ -40,6 +40,7 @@
 		4AF540DF28F8CB42006A4040 /* ActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540DE28F8CB42006A4040 /* ActivityData.swift */; };
 		4AF540E128F8E0F0006A4040 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540E028F8E0F0006A4040 /* BackgroundView.swift */; };
 		AE409D985BD8B91F0005743E /* Pods_CrashBuddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */; };
+		4AF8FB73291FEC5F00861F0A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4AF8FB72291FEC5F00861F0A /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +80,7 @@
 		4AF540E028F8E0F0006A4040 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		59EFAC2D953D4551D0E2CA65 /* Pods-CrashBuddy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrashBuddy.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-CrashBuddy/Pods-CrashBuddy.release.xcconfig"; sourceTree = "<group>"; };
 		703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CrashBuddy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AF8FB72291FEC5F00861F0A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 		4A547216290600DE00B7FEE7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4AF8FB72291FEC5F00861F0A /* README.md */,
 				4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */,
 			);
 			path = Services;
@@ -283,6 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF8FB73291FEC5F00861F0A /* README.md in Resources */,
 				4A9F203228CFC0560068BB24 /* Preview Assets.xcassets in Resources */,
 				4A9F202F28CFC0560068BB24 /* Assets.xcassets in Resources */,
 			);
