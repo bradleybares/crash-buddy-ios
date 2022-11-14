@@ -11,19 +11,34 @@ import CoreBluetooth
 import os
 
 struct TransferService {
-    static let serviceUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
-    // The Status of the Accelerometer
-    static let accelerometerStatusCharacteristicUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
-    // The Status of the Additional memory
-    static let memoryStatusCharacteristicUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
-    // The Crash Threshold
-    static let crashThresholdCharacteristicUUID = CBUUID(string: "6E400004-B5A3-F393-E0A9-E50E24DCCA9E")
-    // Data Available
-    static let dataAvailableCharacteristicUUID = CBUUID(string: "6E400004-B5A3-F393-E0A9-E50E24DCCA9E")
-    // The number of data points available
-    static let dataSizeCharacteristicUUID = CBUUID(string: "6E400005-B5A3-F393-E0A9-E50E24DCCA9E")
-    // The number of data points in a characteristic
-    static let charSizeCharacteristicUUID = CBUUID(string: "6E400006-B5A3-F393-E0A9-E50E24DCCA9E")
+    static func specificFromBaseUUID(_ shortUUID: String) -> CBUUID {
+        return CBUUID(string: "0998\(shortUUID)-1280-49A1-BACF-965209262E66")
+    }
+    
+    static let nameToShortUUID: [String: String] = [
+        "service": "0000",
+        "accelStatus": "0001",    // The Status of the Accelerometer
+        "memStatus": "0002",      // The Status of the Additional memory
+        "crashThreshold": "0003", // The Crash Threshold
+        "dataAvailable": "0004",  // Data Available
+        "dataSize": "0005"        // The number of data characteristics to be read
+    ]
+    
+    static let nameToSpecificUUID: [String: CBUUID] = nameToShortUUID.mapValues(specificFromBaseUUID(_:))
+    
+    static let numDataChars = 40
+    
+    static let firstDataCharShortUUID = "0010"
+    
+    static let firstDataCharShortUUIDInt = Int(firstDataCharShortUUID, radix: 16)!
+    
+    static let dataCharacteristicsUUIDs: [CBUUID] = (0..<numDataChars).map {
+        specificFromBaseUUID(String(format: "%04X", firstDataCharShortUUIDInt + $0))
+    }
+    
+    static let serviceUUID = nameToSpecificUUID["service"]!
+    
+    static let dataAvailableCharacteristicUUID = nameToSpecificUUID["dataAvailable"]!
 }
 
 enum BluetoothLECentralError: Error {
@@ -34,10 +49,9 @@ class DataCommunicationChannel: NSObject {
     var centralManager: CBCentralManager!
     var discoveredPeripheral: CBPeripheral?
     var discoveredPeripheralName: String?
-    var rxCharacteristic: CBCharacteristic?
-    var txCharacteristic: CBCharacteristic?
-    var connectionIterationsComplete = 0
+    var dataAvailableCharacteristic: CBCharacteristic?
     
+    var connectionIterationsComplete = 0
     // The number of times to retry scanning for accessories.
     // Change this value based on your app's testing use case.
     let defaultIterations = 5
@@ -293,13 +307,7 @@ extension DataCommunicationChannel: CBPeripheralDelegate {
         guard let peripheralServices = peripheral.services else { return }
         for service in peripheralServices {
             peripheral.discoverCharacteristics(
-                [
-                    TransferService.accelerometerStatusCharacteristicUUID,
-                    TransferService.memoryStatusCharacteristicUUID,
-                    TransferService.crashThresholdCharacteristicUUID,
-                    TransferService.dataSizeCharacteristicUUID,
-                    TransferService.charSizeCharacteristicUUID
-                ], for: service
+                Array(TransferService.nameToSpecificUUID.values), for: service
             )
         }
     }
@@ -315,11 +323,15 @@ extension DataCommunicationChannel: CBPeripheralDelegate {
 
         // Check the newly filled peripheral services array for more services.
         guard let serviceCharacteristics = service.characteristics else { return }
-        for characteristic in serviceCharacteristics where characteristic.uuid == TransferService.dataAvailableCharacteristicUUID {
-            // Subscribe to the transfer service's `rxCharacteristic`.
-            rxCharacteristic = characteristic
+        for characteristic in serviceCharacteristics {
+            
             logger.info("discovered characteristic: \(characteristic)")
-            peripheral.setNotifyValue(true, for: characteristic)
+            
+            if characteristic.uuid == TransferService.dataAvailableCharacteristicUUID {
+                // Subscribe to the transfer service's `dataAvailableCharacteristic`.
+                dataAvailableCharacteristic = characteristic
+                peripheral.setNotifyValue(true, for: characteristic)
+            }
         }
 
         // Wait for the peripheral to send data.

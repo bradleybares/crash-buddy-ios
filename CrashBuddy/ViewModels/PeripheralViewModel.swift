@@ -86,7 +86,7 @@ class PeripheralViewModel: ObservableObject {
         case .accessoryData:
             // Access the message data by skipping the message identifier.
             assert(data.count > 1)
-            let message = data.advanced(by: 1)
+            //let message = data.advanced(by: 1)
         case .crashDetected:
             logger.info("Test transmission received: \(data.count)bytes")
         case .initialize:
