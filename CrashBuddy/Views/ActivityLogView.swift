@@ -8,7 +8,27 @@
 import SwiftUI
 
 struct ActivityLogView: View {
+    var activities: [ActivityData]
+    
     var body: some View {
-        Text("Activity Log")
+        ZStack {
+            BackgroundView()
+            VStack(alignment: .leading) {
+                ForEach(activities, id: \.id) { activity in
+                    NavigationLink(destination: ActivityView(data: ActivityData.sampleData)) {
+                                                ActivityCard(data: ActivityData.sampleData)
+                                                    .frame(maxHeight: 80)
+                                            }
+                }
+                Spacer()
+            }
+            .navigationTitle("Activity Log")
+        }
+    }
+}
+
+struct ActivityLogView_Previews: PreviewProvider {
+    static var previews: some View {
+        ActivityLogView(activities: [ActivityData.sampleData])
     }
 }

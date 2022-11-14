@@ -13,29 +13,34 @@ enum Status {
 
 struct ContentView: View {
     @State var connectionStatus: Status = .notConnected
+    @Binding var activities: [ActivityData]
+    @State private var newActivityData = ActivityData.sampleData
+    let saveAction: ()->Void
     
     var body: some View {
         NavigationView {
             ZStack {
                 BackgroundView()
                 VStack(alignment: .leading) {
-                    SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "WEDNESDAY, SEP 28")
-                    ActivityChart(data: ActivityData.sampleData, includeCharacteristics: true)
+                    let recentActivity = activities.last ?? ActivityData.sampleData
+                    let recentDate = recentActivity.dataPoints[0].date
+                    SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "\(recentDate.formatted(.dateTime.weekday(.wide))), \(recentDate.formatted(.dateTime.month().day()))")
+                    ActivityChart(data: recentActivity, includeCharacteristics: true)
                         .padding(.horizontal)
-                        
+                    
                     SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
-                        NavigationLink(
-                            destination: ActivityLogView(),
-                            label: {
-                                Text("Show More")
-                            }
-                        )
+                                    NavigationLink(
+                                        destination: ActivityLogView(activities: activities),
+                                        label: {
+                                            Text("Show More")
+                                        }
+                                    )
                     )
-                    ForEach((1...3), id: \.self) {_ in
-                        RoundedRectangle(cornerRadius: 14)
-                            .foregroundStyle(.white)
-                            .padding(.horizontal)
-                            .frame(maxHeight: 70)
+                    ForEach(activities.prefix(3), id: \.self) {activity in
+                        NavigationLink(destination: ActivityView(data: activity)) {
+                            ActivityCard(data: activity)
+                                .frame(maxHeight: 80)
+                        }
                     }
                     
                     SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: "Not Connected")
@@ -98,6 +103,6 @@ struct SectionHeader<Content: View>: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(activities: .constant([ActivityData.sampleData]), saveAction: {})
     }
 }
