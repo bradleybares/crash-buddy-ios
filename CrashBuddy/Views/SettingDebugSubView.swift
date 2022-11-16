@@ -7,32 +7,28 @@
 
 import SwiftUI
 
-enum DebugKeyValue: String {
-    case persistentDebugStatus, persistentSensorStatus, presistentMemoryStatus, persistentPowerStatus
-}
 
 struct DebugView: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @GestureState private var dragOffset = CGSize.zero
 
-    @AppStorage(DebugKeyValue.persistentDebugStatus.rawValue) private var debugOn: Bool = true
-    @AppStorage(DebugKeyValue.persistentSensorStatus.rawValue) private var sensorStatus: Bool = true
-    @AppStorage(DebugKeyValue.presistentMemoryStatus.rawValue) private var memoryStatus: Bool = true
-    @AppStorage(DebugKeyValue.persistentPowerStatus.rawValue) private var powerStatus: Bool = true
+    let debugModelView: SettingDebugViewModel
     
-    init(debugOnInit: Bool, sensorStatusInit: Bool, memoryStatusInit: Bool, powerStatusInit: Bool) {
-        debugOn = debugOnInit
-        sensorStatus = sensorStatusInit
-        memoryStatus = memoryStatusInit
-        powerStatus = powerStatusInit
+    init(debugModelView: SettingDebugViewModel) {
+        self.debugModelView = debugModelView
     }
+//    init(debugOnInit: Bool, sensorStatusInit: Bool, memoryStatusInit: Bool) {
+//        debugOn = debugOnInit
+//        sensorStatus = sensorStatusInit
+//        memoryStatus = memoryStatusInit
+//    }
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    Toggle(isOn: $debugOn,
+                    Toggle(isOn: Binding.constant(self.debugModelView.debugModel.getDebugStatus()) ,
                            label: {Text("Debug")
                     })
                 }
@@ -41,7 +37,7 @@ struct DebugView: View {
                     HStack {
                         Text("Sensor Status")
                         Spacer()
-                        if sensorStatus {
+                        if self.debugModelView.debugModel.getSensorStatus() {
                             Image(systemName: "checkmark.circle")
                                 .foregroundColor(Color.green)
                                 .frame(alignment: .trailing)
@@ -57,23 +53,7 @@ struct DebugView: View {
                     HStack {
                         Text("Memory Status")
                         Spacer()
-                        if memoryStatus {
-                            Image(systemName: "checkmark.circle")
-                                .foregroundColor(Color.green)
-                                .frame(alignment: .trailing)
-
-                        }
-                        else {
-                            Image(systemName: "xmark.circle")
-                                .foregroundColor(Color.red)
-                                .frame(alignment: .trailing)
-                        }
-                    }
-                    
-                    HStack {
-                        Text("Power Status")
-                        Spacer()
-                        if powerStatus {
+                        if self.debugModelView.debugModel.getMemoryStatus() {
                             Image(systemName: "checkmark.circle")
                                 .foregroundColor(Color.green)
                                 .frame(alignment: .trailing)

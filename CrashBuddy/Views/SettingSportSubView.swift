@@ -9,75 +9,79 @@
 import SwiftUI
 
 
-enum SportKeyValue: String {
-    case persistentSport, persistentSportList
-}
-
-
-class Sports: ObservableObject {
-    
-    @Published var sports: [Sport]
-    
-    init() {
-        self.sports = []
-    }
-}
-
-
-class Sport: Identifiable, Equatable, ObservableObject {
-    static func == (lhs: Sport, rhs: Sport) -> Bool {
-        lhs.name == rhs.name
-    }
-    
-    var id: String = UUID().uuidString
-    var name: String
-    var isSelected: Bool
-    
-    init(name: String) {
-        self.name = name
-        self.isSelected = false
-    }
-    
-}
+//enum SportKeyValue: String {
+//    case persistentSport, persistentSportList
+//}
+//
+//
+//class Sports: ObservableObject {
+//
+//    @Published var sports: [Sport]
+//
+//    init() {
+//        self.sports = []
+//    }
+//}
+//
+//
+//class Sport: Identifiable, Equatable, ObservableObject {
+//    static func == (lhs: Sport, rhs: Sport) -> Bool {
+//        lhs.name == rhs.name
+//    }
+//
+//    var id: String = UUID().uuidString
+//    var name: String
+//    var isSelected: Bool
+//
+//    init(name: String) {
+//        self.name = name
+//        self.isSelected = false
+//    }
+//
+//}
 
 
 struct SportsView: View {
+    
+    let sportViewModel: SettingSportViewModel
         
+    //viewmodel
     @State private var showingAddSport = false
     @State private var showingEditSport = false
 
     @State private var addedSport = ""
     @State private var editedSport = ""
     
+    //model
     @State private var selectedSport: Sport = Sport(name: "Skiing")
     @State private var previousSport: Sport = Sport(name: "Skiing")
     @State private var selectEditSport: Sport = Sport(name: "Skiing")
 
-    @StateObject var sportsObj = Sports()
+    //@StateObject var sportsObj = Sports()
     
-    @AppStorage(SportKeyValue.persistentSport.rawValue) private var persistentSport: String = ""
-    
-    @AppStorage(SportKeyValue.persistentSportList.rawValue) var persistentSportList = ["Skiing", "Biking", "Snowboarding"]
-    
-    func addSport(name: String) {
-        sportsObj.sports.append(Sport(name: name))
-    }
-    
-    func updatePersistentList() {
-        for indiviudalSport in sportsObj.sports {
-            if !persistentSportList.contains(indiviudalSport.name) {
-                persistentSportList.append(indiviudalSport.name)
-            }
-        }
-    }
-    
-    func updatePersistentListEdit() {
-        for index in 0..<(sportsObj.sports.count) {
-            if (sportsObj.sports[index].name != persistentSportList[index]) {
-                persistentSportList[index] = sportsObj.sports[index].name
-            }
-        }
-    }
+//    @AppStorage(SportKeyValue.persistentSport.rawValue) private var persistentSport: String = ""
+//
+//    @AppStorage(SportKeyValue.persistentSportList.rawValue) var persistentSportList = ["Skiing", "Biking", "Snowboarding"]
+//
+//    func addSport(name: String) {
+//        sportsObj.sports.append(Sport(name: name))
+//    }
+//
+//    func updatePersistentList() {
+//        for indiviudalSport in sportsObj.sports {
+//            if !persistentSportList.contains(indiviudalSport.name) {
+//                persistentSportList.append(indiviudalSport.name)
+//            }
+//        }
+//    }
+//
+//    func updatePersistentListEdit() {
+//        for index in 0..<(sportsObj.sports.count) {
+//            if (sportsObj.sports[index].name != persistentSportList[index]) {
+//                persistentSportList[index] = sportsObj.sports[index].name
+//            }
+//        }
+//    }
     
     var body: some View {
         Form {
@@ -221,7 +225,7 @@ struct SportAddView: View {
     }
     
     
-    
+    // checkDUplciateEntry
     func checkDuplicates() {
         var alreadyAdded = false
         for existingSport in sportsObj.sports {

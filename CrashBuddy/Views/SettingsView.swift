@@ -11,17 +11,21 @@ import SwiftUI
 
 struct SettingsView: View {
 
-    
+    let settings: SettingModel
+    //let settingsViewModel: SettingsViewlModel(SettingsModel)
+    //
     var body: some View {
         Form {
             Section {
                 // Debug Mode
-                NavigationLink(destination: DebugView(debugOnInit: false, sensorStatusInit: false, memoryStatusInit: true, powerStatusInit: true), label: {
+                //settings.debugModel.getDebugStatus();
+                //DebugView(debugViewModel(settingsModel.debugModel))
+                NavigationLink(destination: DebugView(debugModelView: SettingDebugViewModel(debugModel: settings.debugModel)), label: {
                     Text("Debug Mode")
                 })
                 
                 // Sports
-                NavigationLink(destination: SportsView(), label: {
+                NavigationLink(destination: SportsView(sportViewModel: SettingSportViewModel(sportModel: settings.sportsModel)), label: {
                     Text("Sports")
                 })
                 
