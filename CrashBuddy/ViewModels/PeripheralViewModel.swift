@@ -12,30 +12,28 @@ enum Status {
     case notConnected, connected, tracking
 }
 
-enum MessageId: UInt8 {
-    // Messages from the accessory.
-    case accessoryData = 0x1
-    case crashDetected = 0x2
-    
-    // Messages to the accessory.
-    case initialize = 0xA
-    case startTracking = 0xB
-    case stopTracking = 0xC
-    
-}
-
 class PeripheralViewModel: ObservableObject {
-    private var dataChannel = DataCommunicationChannel()
-        
+    
     @Published private(set) var status: Status = .notConnected
+    @Published private(set) var activities: [ActivityData]
+    @Published private(set) var settings: SettingModel
+    @Published private(set) var receivingCrashData = false
+    
+    private var crashDataDateTime: Date?
+    
+    private let dataChannel = DataCommunicationChannel()
 
     let logger = os.Logger(subsystem: "com.crash-buddy.peripheral", category: "PeripheralViewModel")
     
-    init() {
+    init(activities: [ActivityData], settings: SettingModel) {
+        self.activities = activities
+        self.settings = settings
+        
         // Prepare the data communication channel.
         self.dataChannel.accessoryConnectedHandler = accessoryConnected
         self.dataChannel.accessoryDisconnectedHandler = accessoryDisconnected
-        self.dataChannel.accessoryDataHandler = accessorySharedData
+        self.dataChannel.accessoryDataAvailableHandler = accessoryDataAvailable
+        self.dataChannel.accessoryCrashDataHandler = accessoryCrashData
         self.dataChannel.start()
         
         logger.info("Scanning for accessories")
@@ -43,17 +41,14 @@ class PeripheralViewModel: ObservableObject {
     
     func updateTrackingStatus() {
         if status == .connected {
-            sendDataToAccessory(Data([MessageId.startTracking.rawValue]))
+            logger.info("Starting Tracking")
+            setThreshold(40)
             status = .tracking
         } else {
-            sendDataToAccessory(Data([MessageId.stopTracking.rawValue]))
+            logger.info("Stopping Tracking")
+            setThreshold(0)
             status = .connected
         }
-    }
-    
-    func startSession() {
-        logger.info("Requesting configuration data from accessory")
-        sendDataToAccessory(Data([MessageId.initialize.rawValue]))
     }
     
     // MARK: - Data channel methods
@@ -68,34 +63,24 @@ class PeripheralViewModel: ObservableObject {
         logger.info("Accessory Disconnected")
     }
     
-    func accessorySharedData(data: Data, accessoryName: String) {
-        // The accessory begins each message with an identifier byte.
-        // Ensure the message length is within a valid range.
-        if data.count < 1 {
-            logger.info("Accessory shared data length was less than 1.")
-            return
+    func accessoryDataAvailable() {
+        logger.info("Crash Data Available")
+        receivingCrashData = true
+        crashDataDateTime = Date()
+    }
+    
+    func accessoryCrashData(crashData: [CrashDataReader.DataPoint]) {
+        logger.info("Received \(crashData.count) Data Points")
+        if let crashDataDateTime = self.crashDataDateTime, let lastAccessoryDataPoint = crashData.last {
+            let appDataPointsFromAccessoryDataPoints: [ActivityData.DataPoint] = crashData.map { accessoryDataPoint in
+                let clockTimeDifference = lastAccessoryDataPoint.clockTime - accessoryDataPoint.clockTime
+                let appDateTime = Date(timeIntervalSinceReferenceDate: crashDataDateTime.timeIntervalSinceReferenceDate - Double(clockTimeDifference)/1000)
+                let appAccelerometerValue: Float = Float(accessoryDataPoint.accelerometerValue)/10
+                return ActivityData.DataPoint(dateTime: appDateTime, accelerometerReading: appAccelerometerValue)
+            }
+            activities.append(ActivityData(dataPoints: appDataPointsFromAccessoryDataPoints))
         }
-        
-        // Assign the first byte which is the message identifier.
-        guard let messageId = MessageId(rawValue: data.first!) else {
-            fatalError("\(data.first!) is not a valid MessageId.")
-        }
-        
-        // Handle the data portion of the message based on the message identifier.
-        switch messageId {
-        case .accessoryData:
-            // Access the message data by skipping the message identifier.
-            assert(data.count > 1)
-            //let message = data.advanced(by: 1)
-        case .crashDetected:
-            logger.info("Test transmission received: \(data.count)bytes")
-        case .initialize:
-            fatalError("Accessory should not send 'initialize'.")
-        case .startTracking:
-            fatalError("Accessory should not send 'startTracking'.")
-        case .stopTracking:
-            fatalError("Accessory should not send 'stopTracking'.")
-        }
+        receivingCrashData = false
     }
 }
 
@@ -103,9 +88,9 @@ class PeripheralViewModel: ObservableObject {
 
 extension PeripheralViewModel {
     
-    func sendDataToAccessory(_ data: Data) {
+    func setThreshold(_ threshold: Int) {
         do {
-            try dataChannel.sendData(data)
+            try dataChannel.writeThresholdCharacteristic(threshold)
         } catch {
             logger.info("Failed to send data to accessory: \(error)")
         }

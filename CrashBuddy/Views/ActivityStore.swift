@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import SwiftUI
 
-class ActivityStore: ObservableObject {
-    @Published var activites: [ActivityData] = []
+class ActivityStore {
+    var activites: [ActivityData] = []
     
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,

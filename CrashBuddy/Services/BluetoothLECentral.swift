@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import CoreBluetooth
 import os
 
@@ -18,10 +17,8 @@ struct TransferService {
     static let nameToShortUUID: [String: String] = [
         "service": "0000",
         "accelStatus": "0001",    // The Status of the Accelerometer
-        "memStatus": "0002",      // The Status of the Additional memory
-        "crashThreshold": "0003", // The Crash Threshold
-        "dataAvailable": "0004",  // Data Available
-        "dataSize": "0005"        // The number of data characteristics to be read
+        "crashThreshold": "0002", // The Crash Threshold
+        "dataAvailable": "0003",  // New Data Available
     ]
     
     static let nameToSpecificUUID: [String: CBUUID] = nameToShortUUID.mapValues(specificFromBaseUUID(_:))
@@ -38,7 +35,10 @@ struct TransferService {
     
     static let serviceUUID = nameToSpecificUUID["service"]!
     
+    static let crashThresholdUUID = nameToSpecificUUID["crashThreshold"]!
+    
     static let dataAvailableCharacteristicUUID = nameToSpecificUUID["dataAvailable"]!
+    
 }
 
 enum BluetoothLECentralError: Error {
@@ -49,14 +49,22 @@ class DataCommunicationChannel: NSObject {
     var centralManager: CBCentralManager!
     var discoveredPeripheral: CBPeripheral?
     var discoveredPeripheralName: String?
+    var crashThresholdCharacteristic: CBCharacteristic?
     var dataAvailableCharacteristic: CBCharacteristic?
+    var crashDataCharacteristics: [CBCharacteristic] = []
     
     var connectionIterationsComplete = 0
     // The number of times to retry scanning for accessories.
     // Change this value based on your app's testing use case.
     let defaultIterations = 5
     
-    var accessoryDataHandler: ((Data, String) -> Void)?
+    // Characteristic Information Handlers
+    var accessoryDataAvailableHandler: (() -> Void)?
+    var accessoryCrashDataHandler: (([CrashDataReader.DataPoint]) -> Void)?
+    
+    var crashDataReader: CrashDataReader?
+    
+    // State Handlers
     var accessoryConnectedHandler: (() -> Void)?
     var accessoryDisconnectedHandler: (() -> Void)?
     
@@ -75,18 +83,20 @@ class DataCommunicationChannel: NSObject {
         logger.info("Scanning stopped")
     }
     
-    func sendData(_ data: Data) throws {
-        if discoveredPeripheral == nil {
-            throw BluetoothLECentralError.noPeripheral
-        }
-        //writeData(data)
-    }
-    
     func start() {
         if bluetoothReady {
             retrievePeripheral()
         } else {
             shouldStartWhenReady = true
+        }
+    }
+    
+    func writeThresholdCharacteristic(_ threshold: Int) throws {
+        if discoveredPeripheral == nil {
+            throw BluetoothLECentralError.noPeripheral
+        }
+        if let crashThresholdCharacteristic = self.crashThresholdCharacteristic {
+            updateValueFor(characteristic: crashThresholdCharacteristic, data: withUnsafeBytes(of: threshold){ Data($0) })
         }
     }
 
@@ -137,7 +147,7 @@ class DataCommunicationChannel: NSObject {
     }
     
     // Write data to characteristic.
-    private func writeCharacteristic(targetCharacteristic: CBCharacteristic, data: Data) {
+    private func updateValueFor(characteristic: CBCharacteristic, data: Data) {
 
         guard let discoveredPeripheral = discoveredPeripheral
         else { return }
@@ -153,7 +163,7 @@ class DataCommunicationChannel: NSObject {
         let stringFromData = packetData.map { String(format: "0x%02x, ", $0) }.joined()
         logger.info("Writing \(bytesToCopy) bytes: \(String(describing: stringFromData))")
 
-        discoveredPeripheral.writeValue(packetData, for: targetCharacteristic, type: .withResponse)
+        discoveredPeripheral.writeValue(packetData, for: characteristic, type: .withResponse)
     }
 }
 
@@ -325,12 +335,14 @@ extension DataCommunicationChannel: CBPeripheralDelegate {
         guard let serviceCharacteristics = service.characteristics else { return }
         for characteristic in serviceCharacteristics {
             
-            logger.info("discovered characteristic: \(characteristic)")
+            logger.info("Discovered characteristic: \(characteristic)")
             
             if characteristic.uuid == TransferService.dataAvailableCharacteristicUUID {
                 // Subscribe to the transfer service's `dataAvailableCharacteristic`.
                 dataAvailableCharacteristic = characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
+            } else if TransferService.dataCharacteristicsUUIDs.contains(characteristic.uuid) {
+                self.crashDataCharacteristics.append(characteristic)
             }
         }
 
@@ -350,8 +362,33 @@ extension DataCommunicationChannel: CBPeripheralDelegate {
         let str = characteristicData.map { String(format: "0x%02x, ", $0) }.joined()
         logger.info("Received \(characteristicData.count) bytes: \(str)")
         
-        if let dataHandler = self.accessoryDataHandler, let accessoryName = discoveredPeripheralName {
-            dataHandler(characteristicData, accessoryName)
+        // If the the data available characteristic has been updated
+        if characteristic.uuid == TransferService.dataAvailableCharacteristicUUID {
+            if let dataAvailableHandler = self.accessoryDataAvailableHandler, let firstCrashDataCharacterstic = self.crashDataCharacteristics.first {
+                dataAvailableHandler()
+                crashDataReader = CrashDataReader()
+                peripheral.readValue(for: firstCrashDataCharacterstic)
+            }
+        // If the characteristic is a crash data characteristic, leverage the data  reader
+        } else if TransferService.dataCharacteristicsUUIDs.contains(characteristic.uuid) {
+            if let crashDataHandler = self.accessoryCrashDataHandler, let crashDataReader = self.crashDataReader {
+                // If there is data left to be read (i.e. an empty characteristic hasn't been found), read the data
+                if crashDataReader.remainingReads {
+                    crashDataReader.readCrashDataPoints(characteristicData)
+                    // If the next characteristic exists, read its value
+                    if crashDataReader.characteristicsRead < self.crashDataCharacteristics.count {
+                        peripheral.readValue(for: self.crashDataCharacteristics[crashDataReader.characteristicsRead])
+                    // Otherwise send the crash data to the handler
+                    } else {
+                        crashDataHandler(crashDataReader.crashData)
+                    }
+                // Otherwise send the crash data to the handler
+                } else {
+                    crashDataHandler(crashDataReader.crashData)
+                }
+            }
+        } else {
+            logger.info("Unexpected characteristic notification on \(characteristic)")
         }
     }
 
@@ -371,5 +408,45 @@ extension DataCommunicationChannel: CBPeripheralDelegate {
             logger.info("Notification stopped on \(characteristic). Disconnecting")
             cleanup()
         }
+    }
+}
+
+// MARK: - Crash Data Interpreter.
+class CrashDataReader {
+    var characteristicsRead = 0
+    var remainingReads = true
+    private(set) var crashData: [DataPoint] = []
+    
+    struct DataPoint {
+        let accelerometerValue: Int16
+        let clockTime: Int32
+    }
+    
+    func readCrashDataPoints(_ data: Data){
+        // Get the number of bytes occupied by the type T
+        let chunkSize = MemoryLayout<DataPoint>.size
+        
+        if data.count < chunkSize {
+            self.characteristicsRead += 1
+            self.remainingReads = false
+            return
+        }
+        
+        var remainingDataPoints = data.count / chunkSize
+        var cursor = 0
+        while remainingDataPoints > 0  {
+            // Get the bytes that contain next value
+            let nextDataChunk = Data(data[cursor..<cursor+chunkSize])
+            // Read the actual value from the data chunk
+            let dataPoint = nextDataChunk.withUnsafeBytes { bufferPointer in
+                bufferPointer.load(fromByteOffset: 0, as: DataPoint.self)
+            }
+            // Append Data Point to Reader Data
+            self.crashData.append(dataPoint)
+            // Move the cursor to the next position and decrement remaining points
+            remainingDataPoints -= 1
+            cursor += chunkSize
+        }
+        self.characteristicsRead += 1
     }
 }

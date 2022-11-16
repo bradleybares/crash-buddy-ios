@@ -14,7 +14,7 @@ struct ActivityView: View {
         ZStack {
             BackgroundView()
             VStack(alignment: .leading) {
-                Text(data.dataPoints[0].date.formatted(.dateTime.day().month().year().hour().minute().second()))
+                Text(data.dataPoints[0].dateTime.formatted(.dateTime.day().month().year().hour().minute().second()))
                     .font(.headline)
                     .padding(.leading)
                 ActivityChart(data: ActivityData.sampleData, includeCharacteristics: true)

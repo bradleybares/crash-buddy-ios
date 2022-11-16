@@ -15,9 +15,9 @@ struct ActivityChart: View {
         ZStack {
             RoundedRectangle(cornerRadius: 14).foregroundStyle(.white)
             VStack {
-                Chart(data.dataPoints, id: \.date) {
+                Chart(data.dataPoints, id: \.dateTime) {
                     LineMark(
-                        x: .value("Timestamp", $0.date),
+                        x: .value("Timestamp", $0.dateTime),
                         y: .value("Gs", $0.accelerometerReading)
                     )
                     RuleMark(

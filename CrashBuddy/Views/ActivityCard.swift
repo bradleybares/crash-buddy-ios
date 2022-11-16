@@ -28,7 +28,7 @@ struct ActivityCard: View {
                             .fontWeight(.bold)
                             .foregroundColor(Color.green)
                         Spacer()
-                        Text(data.dataPoints[0].date.formatted(date: .numeric, time: .shortened))
+                        Text(data.dataPoints[0].dateTime.formatted(date: .numeric, time: .shortened))
                             .font(.subheadline)
                             .foregroundColor(Color.black)
                         Image(systemName: "chevron.right")

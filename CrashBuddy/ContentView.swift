@@ -12,33 +12,29 @@ struct ContentView: View {
     @Binding var activities: [ActivityData]
     @Binding var settings: SettingModel
 
-    @State private var newActivityData = ActivityData.sampleData
     let saveAction: ()->Void
-    
-    @StateObject var peripheralViewModel: PeripheralViewModel = PeripheralViewModel()
+    @StateObject var peripheralViewModel: PeripheralViewModel
     
     var body: some View {
         NavigationView {
             ZStack {
                 BackgroundView()
                 VStack(alignment: .leading) {
-                    let recentActivity = activities.last ?? ActivityData.sampleData
-                    let recentDate = recentActivity.dataPoints[0].date
-                    TextEmergencyContactView(emergencyContact: settings.contactsModel.selectEditContact)
-                    
+                    let recentActivity = peripheralViewModel.activities.last ?? ActivityData.sampleData
+                    let recentDate = recentActivity.dataPoints[0].dateTime
                     SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "\(recentDate.formatted(.dateTime.weekday(.wide))), \(recentDate.formatted(.dateTime.month().day()))")
                     ActivityChart(data: recentActivity, includeCharacteristics: true)
                         .padding(.horizontal)
                     
                     SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
                                     NavigationLink(
-                                        destination: ActivityLogView(activities: activities),
+                                        destination: ActivityLogView(activities: peripheralViewModel.activities),
                                         label: {
                                             Text("Show More")
                                         }
                                     )
                     )
-                    ForEach(activities.prefix(3), id: \.self) {activity in
+                    ForEach(peripheralViewModel.activities.prefix(3), id: \.self) {activity in
                         NavigationLink(destination: ActivityView(data: activity)) {
                             ActivityCard(data: activity)
                                 .frame(maxHeight: 80)
