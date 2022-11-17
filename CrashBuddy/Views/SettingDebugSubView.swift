@@ -13,22 +13,30 @@ struct DebugView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @GestureState private var dragOffset = CGSize.zero
 
-    let debugModelView: SettingDebugViewModel
-    
-    init(debugModelView: SettingDebugViewModel) {
-        self.debugModelView = debugModelView
-    }
-//    init(debugOnInit: Bool, sensorStatusInit: Bool, memoryStatusInit: Bool) {
-//        debugOn = debugOnInit
-//        sensorStatus = sensorStatusInit
-//        memoryStatus = memoryStatusInit
+//    let debugModelView: SettingDebugViewModel
+//
+//
+//    init(debugModelView: SettingDebugViewModel) {
+//        self.debugModelView = debugModelView
 //    }
+    
+    @State private var debugOn: Bool = false
+    @State private var sensorStatus: Bool = true
+    @State private var memoryStatus: Bool = true
+    
+    init(debugOnBool: Bool, sensorStatusBool: Bool, memoryStatusBool: Bool) {
+        debugOn = debugOnBool
+        sensorStatus = sensorStatusBool
+        memoryStatus = memoryStatusBool
+    }
+
     
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    Toggle(isOn: Binding.constant(self.debugModelView.debugModel.getDebugStatus()) ,
+                    Toggle(isOn:
+                            $debugOn,
                            label: {Text("Debug")
                     })
                 }
@@ -37,7 +45,7 @@ struct DebugView: View {
                     HStack {
                         Text("Sensor Status")
                         Spacer()
-                        if self.debugModelView.debugModel.getSensorStatus() {
+                        if sensorStatus {
                             Image(systemName: "checkmark.circle")
                                 .foregroundColor(Color.green)
                                 .frame(alignment: .trailing)
@@ -53,7 +61,7 @@ struct DebugView: View {
                     HStack {
                         Text("Memory Status")
                         Spacer()
-                        if self.debugModelView.debugModel.getMemoryStatus() {
+                        if memoryStatus {
                             Image(systemName: "checkmark.circle")
                                 .foregroundColor(Color.green)
                                 .frame(alignment: .trailing)

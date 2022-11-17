@@ -6,14 +6,7 @@
 //
 
 
-
 import SwiftUI
-
-
-enum SportKeyValue: String {
-    case persistentSport, persistentSportList
-}
-
 
 class Sport: Identifiable, Equatable, ObservableObject {
     static func == (lhs: Sport, rhs: Sport) -> Bool {
@@ -31,12 +24,13 @@ class Sport: Identifiable, Equatable, ObservableObject {
 }
 
 
-class SportModel: Identifiable {
+class SportModel: ObservableObject {
     
     let id: UUID
     var selectedSport: Sport
     var previousSport: Sport
     var selectEditSport: Sport
+    var alreadyAdded: Bool
     var sports: [Sport]
     
     init() {
@@ -44,7 +38,8 @@ class SportModel: Identifiable {
         selectedSport = Sport(name: "Skiing")
         previousSport = Sport(name: "Skiing")
         selectEditSport = Sport(name: "Skiing")
-        sports = []
+        alreadyAdded = false
+        sports = [Sport(name: "Skiing"), Sport(name: "Cycling"), Sport(name: "Snowboarding")]
     }
     
     func addSport(name: String) {
@@ -56,7 +51,6 @@ class SportModel: Identifiable {
         selectedSport = sport
         previousSport.isSelected = false
         selectedSport.isSelected = true
-        //persistentSport = sport.name
     }
     
     func deleteSport(sport: Sport, selectedIndex: Int) {
@@ -65,26 +59,23 @@ class SportModel: Identifiable {
             selectedSport = Sport(name: "")
         }
         sports.remove(at: selectedIndex)
-        //persistentSportList.remove(at: selectedIndex!)
     }
     
     func editSport(selectEditIndex: Int, name: String) {
         sports[selectEditIndex].name = name
     }
     
-    func shuffleSports() {
-        sports = sports.reversed()
-        sports = sports.reversed()
-    }
-    
     func checkDuplicateEntry(sport: Sport) -> Bool {
-        var alreadyAdded = false
+        alreadyAdded = false
         for existingSport in sports {
             if (sport.name == existingSport.name) {
                 alreadyAdded = true
             }
         }
-        
+        return alreadyAdded
+    }
+    
+    func getAlreadyAdded() -> Bool {
         return alreadyAdded
     }
 }

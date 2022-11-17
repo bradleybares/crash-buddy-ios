@@ -9,16 +9,11 @@
 import SwiftUI
 
 
-enum DebugKeyValue: String {
-    case persistentDebugStatus, persistentSensorStatus, presistentMemoryStatus, persistentPowerStatus
-}
-
-
-class DebugModel {
+class DebugModel: ObservableObject {
     
-    @AppStorage(DebugKeyValue.persistentDebugStatus.rawValue) private var debugOn: Bool = true
-    @AppStorage(DebugKeyValue.persistentSensorStatus.rawValue) private var sensorStatus: Bool = true
-    @AppStorage(DebugKeyValue.presistentMemoryStatus.rawValue) private var memoryStatus: Bool = true
+    var debugOn: Bool = true
+    var sensorStatus: Bool = true
+    var memoryStatus: Bool = true
     
     init(debugOn: Bool, sensorStatus: Bool, memoryStatus: Bool) {
         self.debugOn = debugOn

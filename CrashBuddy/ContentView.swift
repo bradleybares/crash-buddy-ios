@@ -12,6 +12,7 @@ enum Status {
 }
 
 struct ContentView: View {
+<<<<<<< HEAD
     @State var connectionStatus: Status = .notConnected
     @Binding var activities: [ActivityData]
     @State private var newActivityData = ActivityData.sampleData
@@ -41,6 +42,17 @@ struct ContentView: View {
                             ActivityCard(data: activity)
                                 .frame(maxHeight: 80)
                         }
+=======
+    let settingModel = SettingModel(debugModel: DebugModel(debugOn: true, sensorStatus: false, memoryStatus: false), sportsModel: SportModel(), sensitivitiesModel: SensitivitiesModel(), contactsModel: ContactsModel())
+    
+    var body: some View {
+        NavigationView {
+            VStack() {
+                NavigationLink(
+                    destination: SettingsView(settings: settingModel),
+                    label: {
+                        SettingsButton()
+>>>>>>> 6c94ceb (good prog)
                     }
                     
                     SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: "Not Connected")

@@ -13,6 +13,8 @@
 		177D734528FDA93E001B5F11 /* ActivityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734428FDA93E001B5F11 /* ActivityCard.swift */; };
 		177D734728FDDBA8001B5F11 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734628FDDBA8001B5F11 /* ActivityView.swift */; };
 		1E275D5F2910A79B007964B9 /* SettingSportSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E275D5E2910A79B007964B9 /* SettingSportSubView.swift */; };
+		1E3E8A062926ECED0077F008 /* SettingSensitivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3E8A052926ECED0077F008 /* SettingSensitivityViewModel.swift */; };
+		1E3E8A082926F8C40077F008 /* SettingContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3E8A072926F8C40077F008 /* SettingContactViewModel.swift */; };
 		1E52BF432912043B0072643F /* SettingEmergencyContactSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52BF422912043B0072643F /* SettingEmergencyContactSubView.swift */; };
 		1E52BF45291204B60072643F /* SettingDebugSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52BF44291204B60072643F /* SettingDebugSubView.swift */; };
 		1E52BF47291204F40072643F /* SettingSensitivitySubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52BF46291204F40072643F /* SettingSensitivitySubView.swift */; };
@@ -23,7 +25,6 @@
 		1E83192429258C00003E9D2E /* SettingSportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83192329258C00003E9D2E /* SettingSportViewModel.swift */; };
 		1E83192629259B7A003E9D2E /* SettingDebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */; };
 		1EFF69D3292545E90082C8F8 /* SettingSportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */; };
-		1EFF69D529254A470082C8F8 /* RedoneSettingSportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF69D429254A470082C8F8 /* RedoneSettingSportView.swift */; };
 		4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */; };
 		4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202C28CFC0550068BB24 /* ContentView.swift */; };
 		4A9F202F28CFC0560068BB24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F202E28CFC0560068BB24 /* Assets.xcassets */; };
@@ -40,6 +41,8 @@
 		177D734428FDA93E001B5F11 /* ActivityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCard.swift; sourceTree = "<group>"; };
 		177D734628FDDBA8001B5F11 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		1E275D5E2910A79B007964B9 /* SettingSportSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSportSubView.swift; sourceTree = "<group>"; };
+		1E3E8A052926ECED0077F008 /* SettingSensitivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSensitivityViewModel.swift; path = CrashBuddy/Views/SettingSensitivityViewModel.swift; sourceTree = SOURCE_ROOT; };
+		1E3E8A072926F8C40077F008 /* SettingContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingContactViewModel.swift; path = CrashBuddy/Views/SettingContactViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1E52BF422912043B0072643F /* SettingEmergencyContactSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingEmergencyContactSubView.swift; sourceTree = "<group>"; };
 		1E52BF44291204B60072643F /* SettingDebugSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDebugSubView.swift; sourceTree = "<group>"; };
 		1E52BF46291204F40072643F /* SettingSensitivitySubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSensitivitySubView.swift; sourceTree = "<group>"; };
@@ -50,7 +53,6 @@
 		1E83192329258C00003E9D2E /* SettingSportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSportViewModel.swift; path = CrashBuddy/Views/SettingSportViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingDebugViewModel.swift; path = CrashBuddy/Views/SettingDebugViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSportModel.swift; path = CrashBuddy/Views/SettingSportModel.swift; sourceTree = SOURCE_ROOT; };
-		1EFF69D429254A470082C8F8 /* RedoneSettingSportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedoneSettingSportView.swift; sourceTree = "<group>"; };
 		4A9F202728CFC0550068BB24 /* CrashBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrashBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashBuddyApp.swift; sourceTree = "<group>"; };
 		4A9F202C28CFC0550068BB24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
@@ -91,6 +93,8 @@
 			children = (
 				1E83192329258C00003E9D2E /* SettingSportViewModel.swift */,
 				1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */,
+				1E3E8A052926ECED0077F008 /* SettingSensitivityViewModel.swift */,
+				1E3E8A072926F8C40077F008 /* SettingContactViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -147,7 +151,6 @@
 				1E52BF422912043B0072643F /* SettingEmergencyContactSubView.swift */,
 				1E52BF44291204B60072643F /* SettingDebugSubView.swift */,
 				1E52BF46291204F40072643F /* SettingSensitivitySubView.swift */,
-				1EFF69D429254A470082C8F8 /* RedoneSettingSportView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -222,10 +225,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E3E8A082926F8C40077F008 /* SettingContactViewModel.swift in Sources */,
 				1E831922292571C7003E9D2E /* SettingSensitivityModel.swift in Sources */,
 				1E83191C29256B19003E9D2E /* SettingModel.swift in Sources */,
 				1E275D5F2910A79B007964B9 /* SettingSportSubView.swift in Sources */,
-				1EFF69D529254A470082C8F8 /* RedoneSettingSportView.swift in Sources */,
+				1E3E8A062926ECED0077F008 /* SettingSensitivityViewModel.swift in Sources */,
 				1EFF69D3292545E90082C8F8 /* SettingSportModel.swift in Sources */,
 				1E83191E29256DB5003E9D2E /* SettingDebugModel.swift in Sources */,
 				1E52BF432912043B0072643F /* SettingEmergencyContactSubView.swift in Sources */,

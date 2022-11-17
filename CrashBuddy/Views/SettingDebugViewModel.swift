@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import Combine
 
-class SettingDebugViewModel {
+class SettingDebugViewModel : ObservableObject {
     
+    internal let objectWillChange = ObservableObjectPublisher()
+
     let debugModel: DebugModel
 
 
@@ -16,5 +19,7 @@ class SettingDebugViewModel {
         self.debugModel = debugModel
     }
 
-    
+    func updateUI() {
+        objectWillChange.send()
+    }
 }

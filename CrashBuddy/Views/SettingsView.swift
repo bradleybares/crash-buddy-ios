@@ -12,15 +12,14 @@ import SwiftUI
 struct SettingsView: View {
 
     let settings: SettingModel
-    //let settingsViewModel: SettingsViewlModel(SettingsModel)
-    //
+
     var body: some View {
         Form {
             Section {
                 // Debug Mode
                 //settings.debugModel.getDebugStatus();
                 //DebugView(debugViewModel(settingsModel.debugModel))
-                NavigationLink(destination: DebugView(debugModelView: SettingDebugViewModel(debugModel: settings.debugModel)), label: {
+                NavigationLink(destination: DebugView(debugOnBool: false, sensorStatusBool: true, memoryStatusBool: true), label: {
                     Text("Debug Mode")
                 })
                 
@@ -30,12 +29,12 @@ struct SettingsView: View {
                 })
                 
                 // Crash Sensitivity
-                NavigationLink(destination: CrashSensitivityView(), label: {
+                NavigationLink(destination: CrashSensitivityView(sensitivityViewModel: SettingSensitivityViewModel(sensitivityModel: settings.sensitivitiesModel)), label: {
                     Text("Crash Sensitivity")
                 })
                 
                 // Emergency Contacts
-                NavigationLink(destination: EmergencyContactsView(), label: {
+                NavigationLink(destination: EmergencyContactsView(contactViewModel: SettingContactViewModel(contactModel: settings.contactsModel)), label: {
                     Text("Emergency Contacts")
                 })
 
