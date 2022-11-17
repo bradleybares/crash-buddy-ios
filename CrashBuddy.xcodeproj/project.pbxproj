@@ -29,6 +29,7 @@
 		1E83192629259B7A003E9D2E /* SettingDebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */; };
 		1E8E285A2929885800F286AB /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8E28592929885800F286AB /* SettingViewModel.swift */; };
 		1EFF69D3292545E90082C8F8 /* SettingSportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */; };
+		4A4CB8102925CF070085A315 /* AssetColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CB80F2925CF060085A315 /* AssetColors.swift */; };
 		4A5472182906013F00B7FEE7 /* BluetoothLECentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */; };
 		4A54721B2906019F00B7FEE7 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */; };
 		4A54721E2906091A00B7FEE7 /* PeripheralViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54721D2906091A00B7FEE7 /* PeripheralViewModel.swift */; };
@@ -66,6 +67,7 @@
 		1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingDebugViewModel.swift; path = CrashBuddy/Views/SettingDebugViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1E8E28592929885800F286AB /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingViewModel.swift; path = CrashBuddy/Views/SettingViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSportModel.swift; path = CrashBuddy/Views/SettingSportModel.swift; sourceTree = SOURCE_ROOT; };
+		4A4CB80F2925CF060085A315 /* AssetColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetColors.swift; sourceTree = "<group>"; };
 		4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothLECentral.swift; sourceTree = "<group>"; };
 		4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		4A54721C290601CD00B7FEE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -97,12 +99,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2178C5A73AC5B05D12EBBB12 /* Frameworks */ = {
+		4A4CB80D2925CE770085A315 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
-				703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */,
+				172BE73F291B674B0076B0F0 /* ActivityStore.swift */,
 			);
-			name = Frameworks;
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		4A4CB80E2925CEBC0085A315 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4A9F202E28CFC0560068BB24 /* Assets.xcassets */,
+				4A4CB80F2925CF060085A315 /* AssetColors.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		4A53BE9128CFC35A0078C21C /* Models */ = {
@@ -146,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */,
+				703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,12 +183,13 @@
 		4A9F202928CFC0550068BB24 /* CrashBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				4A4CB80E2925CEBC0085A315 /* Resources */,
+				4A4CB80D2925CE770085A315 /* Stores */,
 				4A547216290600DE00B7FEE7 /* Services */,
 				4A53BE9228CFC3630078C21C /* ViewModels */,
 				4A53BE9128CFC35A0078C21C /* Models */,
 				4A9F203828CFC25C0068BB24 /* Views */,
 				4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */,
-				4A9F202E28CFC0560068BB24 /* Assets.xcassets */,
 				4A54721C290601CD00B7FEE7 /* Info.plist */,
 				4A9F203028CFC0560068BB24 /* Preview Content */,
 			);
@@ -369,6 +382,7 @@
 				4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */,
 				1723514E292D24690000BB6E /* TextEmergencyContactView.swift in Sources */,
 				1E831920292570BA003E9D2E /* SettingContactModel.swift in Sources */,
+				4A4CB8102925CF070085A315 /* AssetColors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

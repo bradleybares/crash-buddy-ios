@@ -9,62 +9,30 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @Binding var activities: [ActivityData]
-    @Binding var settings: SettingModel
-
-    let saveAction: ()->Void
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject var peripheralViewModel: PeripheralViewModel
+    let saveAction: ()->Void
     
     var body: some View {
         NavigationView {
             ZStack {
                 BackgroundView()
-                VStack(alignment: .leading) {
-                    let recentActivity = peripheralViewModel.activities.last ?? ActivityData.sampleData
-                    let recentDate = recentActivity.dataPoints[0].dateTime
-                    SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "\(recentDate.formatted(.dateTime.weekday(.wide))), \(recentDate.formatted(.dateTime.month().day()))")
-                    ActivityChart(data: recentActivity, includeCharacteristics: true)
-                        .padding(.horizontal)
+                VStack {
+                    RecentActivitySection(activities: peripheralViewModel.activities)
                     
-                    SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
-                                    NavigationLink(
-                                        destination: ActivityLogView(activities: peripheralViewModel.activities),
-                                        label: {
-                                            Text("Show More")
-                                        }
-                                    )
-                    )
-                    ForEach(peripheralViewModel.activities.prefix(3), id: \.self) {activity in
-                        NavigationLink(destination: ActivityView(data: activity)) {
-                            ActivityCard(data: activity)
-                                .frame(maxHeight: 80)
-                        }
-                    }
+                    ActivityLogSection(activities: peripheralViewModel.activities)
                     
-                    SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: peripheralViewModel.statusString)
-                    Button(action: {
-                        peripheralViewModel.updateTrackingStatus()
-                    }, label: {
-                        ZStack(alignment: .center) {
-                            RoundedRectangle(cornerRadius: 14)
-                                .foregroundStyle(.white)
-                            if peripheralViewModel.status == .tracking {
-                                Text("Stop Tracking").foregroundColor(.red)
-                            } else {
-                                Text("Start Tracking")
-                            }
-                        }
-                        .frame(maxHeight: 50)
-                        .padding(.horizontal)
-                    })
-                    .disabled(peripheralViewModel.status == .notConnected)
+                    Spacer()
+                    
+                    PeripheralInteractionSection(status: peripheralViewModel.status, statusString: peripheralViewModel.statusString, updateTrackingStatus: peripheralViewModel.updateTrackingStatus)
                     
                 }
+                .padding(.horizontal)
                 .navigationTitle("Home")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink {
-                            SettingsView(settingsViewModel: SettingsViewModel(settingsModel: settings))
+                            SettingsView(settingsViewModel: SettingsViewModel(settingsModel: peripheralViewModel.settings))
                         } label: {
                             Label("Settings", systemImage: "gear")
                                 .labelStyle(.titleAndIcon)
@@ -72,6 +40,9 @@ struct ContentView: View {
                     }
                 }
             }
+        }
+        .onChange(of: scenePhase) { phase in
+            if phase == .inactive { saveAction() }
         }
     }
 }
@@ -100,9 +71,75 @@ struct SectionHeader<Content: View>: View {
                     .font(.subheadline)
                     .foregroundColor(Color.gray)
             }
-        }.padding(.horizontal)
+        }
     }
 }
+
+struct RecentActivitySection: View {
+    
+    var activities: [ActivityData]
+    
+    var body: some View {
+        VStack {
+            let recentActivity = activities.last ?? ActivityData.sampleData
+            let recentDate = recentActivity.dataPoints[0].dateTime
+            SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "\(recentDate.formatted(.dateTime.weekday(.wide))), \(recentDate.formatted(.dateTime.month().day()))")
+            ActivityChart(data: recentActivity, includeCharacteristics: true, loading: false
+            ).frame(maxHeight: 280)
+        }
+    }
+}
+
+struct ActivityLogSection: View {
+    
+    var activities: [ActivityData]
+    
+    var body: some View {
+        VStack {
+            SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
+                            NavigationLink(
+                                destination: ActivityLogView(activities: activities),
+                                label: {
+                                    Text("Show More")
+                                }
+                            )
+            )
+            ForEach(activities.prefix(3), id: \.self) { activity in
+                NavigationLink(destination: ActivityView(data: activity)) {
+                    ActivityCard(data: activity)
+                        .frame(maxHeight: 80)
+                }
+            }
+        }
+    }
+}
+
+struct PeripheralInteractionSection: View {
+    
+    var status: PeripheralStatus
+    var statusString: String
+    var updateTrackingStatus: (() -> Void)
+    
+    var body: some View {
+        VStack {
+            SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: statusString)
+            Button(action: updateTrackingStatus, label: {
+                ZStack(alignment: .center) {
+                    RoundedRectangle(cornerRadius: 14)
+                        .foregroundStyle(Color.componentBackground)
+                    if (status == .tracking) {
+                        Text("Stop Tracking").foregroundColor(.red)
+                    } else {
+                        Text("Start Tracking")
+                    }
+                }
+                .frame(maxHeight: 50)
+            })
+            .disabled(status == .notConnected)
+        }
+    }
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

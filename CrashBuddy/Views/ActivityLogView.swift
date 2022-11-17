@@ -24,6 +24,7 @@ struct ActivityLogView: View {
                     Spacer()
                 }
             }
+            .padding(.horizontal)
             .navigationTitle("Activity Log")
         }
     }

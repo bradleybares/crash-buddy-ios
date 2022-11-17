@@ -8,13 +8,13 @@
 import Foundation
 import os.log
 
-enum Status {
+enum PeripheralStatus {
     case notConnected, connected, tracking
 }
 
 class PeripheralViewModel: ObservableObject {
     
-    @Published private(set) var status: Status = .notConnected
+    @Published private(set) var status: PeripheralStatus = .notConnected
     @Published private(set) var activities: [ActivityData]
     @Published private(set) var settings: SettingModel
     @Published private(set) var receivingCrashData = false

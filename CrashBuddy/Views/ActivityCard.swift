@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct ActivityCard: View {
+    
+    @Environment(\.colorScheme) private var colorScheme
+    
     var data: ActivityData
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 14)
-                .foregroundStyle(.white)
-                .padding(.horizontal)
+                .foregroundStyle(Color.componentBackground)
                 .frame(maxHeight: 80)
             HStack {
                 Text(data.getIcon()).font(.system(size: 36)).padding(.leading)
                 VStack(alignment: .leading) {
                     Text(data.getActivityTypeName())
                         .font(.title)
-                        .foregroundColor(Color.black)
                     HStack {
                         Text("\(Int(data.maxAccel))G")
                             .font(.title)
@@ -30,14 +31,13 @@ struct ActivityCard: View {
                         Spacer()
                         Text(data.dataPoints[0].dateTime.formatted(date: .numeric, time: .shortened))
                             .font(.subheadline)
-                            .foregroundColor(Color.black)
                         Image(systemName: "chevron.right")
-                            .foregroundColor(Color.black)
                     }
                 }
                 .padding()
             }
-            .padding()
+            .foregroundColor(Color.componentForeground)
+            .padding(.vertical)
         }
     }
 }
