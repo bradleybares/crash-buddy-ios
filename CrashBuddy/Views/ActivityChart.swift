@@ -9,11 +9,11 @@ import SwiftUI
 import Charts
 
 struct ActivityChart: View {
-    let data: ActivityData
+    let data: ActivityDataModel
     let loading: Bool
     let includeCharacteristics: Bool
     
-    init(data: ActivityData, includeCharacteristics: Bool = false, loading: Bool = false) {
+    init(data: ActivityDataModel, includeCharacteristics: Bool = false, loading: Bool = false) {
         self.data = data
         self.loading = loading
         self.includeCharacteristics = includeCharacteristics
@@ -71,11 +71,11 @@ struct ActivityChart: View {
 
 struct ActivityChart_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityChart(data: ActivityData.sampleData)
+        ActivityChart(data: ActivityDataModel.sampleData)
             .previewLayout(.fixed(width: 250, height: 250))
-        ActivityChart(data: ActivityData.sampleData, includeCharacteristics: true)
+        ActivityChart(data: ActivityDataModel.sampleData, includeCharacteristics: true)
             .previewLayout(.fixed(width: 250, height: 250))
-        ActivityChart(data: ActivityData.sampleData, loading: true)
+        ActivityChart(data: ActivityDataModel.sampleData, loading: true)
             .previewLayout(.fixed(width: 250, height: 250))
     }
 }

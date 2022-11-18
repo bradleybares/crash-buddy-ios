@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ActivityLogView: View {
-    var activities: [ActivityData]
+    var activities: [ActivityDataModel]
     
     var body: some View {
         ZStack {
@@ -32,6 +32,6 @@ struct ActivityLogView: View {
 
 struct ActivityLogView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityLogView(activities: [ActivityData.sampleData])
+        ActivityLogView(activities: [ActivityDataModel.sampleData])
     }
 }

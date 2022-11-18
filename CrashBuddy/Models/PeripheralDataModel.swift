@@ -1,8 +1,8 @@
 //
-//  PeripheralViewModel.swift
+//  PeripheralDataModel.swift
 //  CrashBuddy
 //
-//  Created by Bradley G Bares on 10/23/22.
+//  Created by Bradley G Bares on 11/17/22.
 //
 
 import Foundation
@@ -12,23 +12,19 @@ enum PeripheralStatus {
     case notConnected, connected, tracking
 }
 
-class PeripheralViewModel: ObservableObject {
-    
-    @Published private(set) var status: PeripheralStatus = .notConnected
-    @Published private(set) var activities: [ActivityData]
-    @Published private(set) var settings: SettingModel
-    @Published private(set) var receivingCrashData = false
+class PeripheralDataModel {
+    private(set) var status: PeripheralStatus = .notConnected
+    private(set) var receivingCrashData = false
     
     private var crashDataDateTime: Date?
     
+    var newActivityHandler: ((ActivityDataModel) -> Void)?
+    
     private let dataChannel = DataCommunicationChannel()
 
-    let logger = os.Logger(subsystem: "com.crash-buddy.peripheral", category: "PeripheralViewModel")
+    let logger = os.Logger(subsystem: "com.crash-buddy.peripheral", category: "PeripheralDataModel")
     
-    init(activities: [ActivityData], settings: SettingModel) {
-        self.activities = activities
-        self.settings = settings
-        
+    init() {        
         // Prepare the data communication channel.
         self.dataChannel.accessoryConnectedHandler = accessoryConnected
         self.dataChannel.accessoryDisconnectedHandler = accessoryDisconnected
@@ -39,20 +35,7 @@ class PeripheralViewModel: ObservableObject {
         logger.info("Scanning for accessories")
     }
     
-    func updateTrackingStatus() {
-        if status == .connected {
-            logger.info("Starting Tracking")
-            setThreshold(40)
-            status = .tracking
-        } else {
-            logger.info("Stopping Tracking")
-            setThreshold(0)
-            status = .connected
-        }
-    }
-    
-    // MARK: - Data channel methods
-    
+    // MARK: - From Peripheral
     func accessoryConnected() {
         self.status = .connected
         logger.info("Accessory Connected")
@@ -71,22 +54,30 @@ class PeripheralViewModel: ObservableObject {
     
     func accessoryCrashData(crashData: [CrashDataReader.DataPoint]) {
         logger.info("Received \(crashData.count) Data Points")
-        if let crashDataDateTime = self.crashDataDateTime, let lastAccessoryDataPoint = crashData.last {
-            let appDataPointsFromAccessoryDataPoints: [ActivityData.DataPoint] = crashData.map { accessoryDataPoint in
+        if let lastAccessoryDataPoint = crashData.last, let crashDataDateTime = self.crashDataDateTime, let newActivityHandler = self.newActivityHandler {
+            let appDataPointsFromAccessoryDataPoints: [ActivityDataModel.DataPoint] = crashData.map { accessoryDataPoint in
                 let clockTimeDifference = lastAccessoryDataPoint.clockTime - accessoryDataPoint.clockTime
                 let appDateTime = Date(timeIntervalSinceReferenceDate: crashDataDateTime.timeIntervalSinceReferenceDate - Double(clockTimeDifference)/1000)
                 let appAccelerometerValue: Float = Float(accessoryDataPoint.accelerometerValue)/10
-                return ActivityData.DataPoint(dateTime: appDateTime, accelerometerReading: appAccelerometerValue)
+                return ActivityDataModel.DataPoint(dateTime: appDateTime, accelerometerReading: appAccelerometerValue)
             }
-            activities.append(ActivityData(dataPoints: appDataPointsFromAccessoryDataPoints))
+            newActivityHandler(ActivityDataModel(dataPoints: appDataPointsFromAccessoryDataPoints))
         }
-        receivingCrashData = false
+        self.receivingCrashData = false
     }
-}
-
-// MARK: - Bluetooth Helpers.
-
-extension PeripheralViewModel {
+    
+    // MARK: - To Peripheral
+    func updateTrackingStatus() {
+        if self.status == .connected {
+            logger.info("Starting Tracking")
+            setThreshold(10)
+            self.status = .tracking
+        } else {
+            logger.info("Stopping Tracking")
+            setThreshold(0)
+            self.status = .connected
+        }
+    }
     
     func setThreshold(_ threshold: Int) {
         do {
@@ -95,22 +86,6 @@ extension PeripheralViewModel {
             logger.info("Failed to send data to accessory: \(error)")
         }
     }
-    
 }
 
-// MARK: - View Helpers.
 
-extension PeripheralViewModel {
-    
-    var statusString: String {
-        switch self.status {
-        case .notConnected:
-            return "Not Connected"
-        case .connected:
-            return "Connected"
-        case .tracking:
-            return "Tracking"
-        }
-    }
-    
-}

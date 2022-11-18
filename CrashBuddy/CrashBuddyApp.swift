@@ -15,8 +15,9 @@ struct CrashBuddyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(peripheralViewModel: PeripheralViewModel(activities: activityStore.activites, settings: settingsStore.settings)) {
-                ActivityStore.save(activities: peripheralViewModel.activities) { result in
+            let homepageViewModel = HomepageViewModel(activities: store.activites)
+            ContentView(homepageViewModel: homepageViewModel) {
+                ActivityStore.save(activities: homepageViewModel.activities) { result in
                     if case .failure(let error) = result {
                         fatalError(error.localizedDescription)
                     }

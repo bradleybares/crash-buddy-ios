@@ -11,7 +11,7 @@ struct ActivityCard: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
-    var data: ActivityData
+    var data: ActivityDataModel
     
     var body: some View {
         ZStack {
@@ -44,6 +44,6 @@ struct ActivityCard: View {
 
 struct ActivityCard_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityCard(data: ActivityData.sampleData)
+        ActivityCard(data: ActivityDataModel.sampleData)
     }
 }

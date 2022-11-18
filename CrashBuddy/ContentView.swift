@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @Environment(\.scenePhase) private var scenePhase
-    @StateObject var peripheralViewModel: PeripheralViewModel
+    @StateObject var homepageViewModel: HomepageViewModel
     let saveAction: ()->Void
     
     var body: some View {
@@ -18,13 +18,13 @@ struct ContentView: View {
             ZStack {
                 BackgroundView()
                 VStack {
-                    RecentActivitySection(activities: peripheralViewModel.activities)
+                    RecentActivitySection(activities: homepageViewModel.activities)
                     
-                    ActivityLogSection(activities: peripheralViewModel.activities)
+                    ActivityLogSection(activities: homepageViewModel.activities)
                     
                     Spacer()
                     
-                    PeripheralInteractionSection(status: peripheralViewModel.status, statusString: peripheralViewModel.statusString, updateTrackingStatus: peripheralViewModel.updateTrackingStatus)
+                    PeripheralInteractionSection(status: homepageViewModel.status, statusString: homepageViewModel.statusString, updateTrackingStatus: homepageViewModel.updateTrackingStatus)
                     
                 }
                 .padding(.horizontal)
@@ -77,11 +77,11 @@ struct SectionHeader<Content: View>: View {
 
 struct RecentActivitySection: View {
     
-    var activities: [ActivityData]
+    var activities: [ActivityDataModel]
     
     var body: some View {
         VStack {
-            let recentActivity = activities.last ?? ActivityData.sampleData
+            let recentActivity = activities.last ?? ActivityDataModel.sampleData
             let recentDate = recentActivity.dataPoints[0].dateTime
             SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "\(recentDate.formatted(.dateTime.weekday(.wide))), \(recentDate.formatted(.dateTime.month().day()))")
             ActivityChart(data: recentActivity, includeCharacteristics: true, loading: false
@@ -92,17 +92,17 @@ struct RecentActivitySection: View {
 
 struct ActivityLogSection: View {
     
-    var activities: [ActivityData]
+    var activities: [ActivityDataModel]
     
     var body: some View {
         VStack {
             SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
-                            NavigationLink(
-                                destination: ActivityLogView(activities: activities),
-                                label: {
-                                    Text("Show More")
-                                }
-                            )
+                NavigationLink(
+                    destination: ActivityLogView(activities: activities),
+                    label: {
+                        Text("Show More")
+                    }
+                )
             )
             ForEach(activities.prefix(3), id: \.self) { activity in
                 NavigationLink(destination: ActivityView(data: activity)) {

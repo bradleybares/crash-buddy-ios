@@ -43,6 +43,7 @@ struct TransferService {
 
 enum BluetoothLECentralError: Error {
     case noPeripheral
+    case noCharacteristic
 }
 
 class DataCommunicationChannel: NSObject {
@@ -95,9 +96,11 @@ class DataCommunicationChannel: NSObject {
         if discoveredPeripheral == nil {
             throw BluetoothLECentralError.noPeripheral
         }
-        if let crashThresholdCharacteristic = self.crashThresholdCharacteristic {
-            updateValueFor(characteristic: crashThresholdCharacteristic, data: withUnsafeBytes(of: threshold){ Data($0) })
-        }
+        
+        guard let crashThresholdCharacteristic = self.crashThresholdCharacteristic
+        else { throw BluetoothLECentralError.noCharacteristic }
+        
+        updateValueFor(characteristic: crashThresholdCharacteristic, data: withUnsafeBytes(of: threshold){ Data($0) })
     }
 
     // MARK: - Helper Methods.

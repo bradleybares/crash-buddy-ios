@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ActivityView: View {
-    let data: ActivityData
+    let data: ActivityDataModel
     
     var body: some View {
         ZStack {
@@ -17,7 +17,7 @@ struct ActivityView: View {
                 Text(data.dataPoints[0].dateTime.formatted(.dateTime.day().month().year().hour().minute().second()))
                     .font(.headline)
                     .padding(.leading)
-                ActivityChart(data: ActivityData.sampleData, includeCharacteristics: true)
+                ActivityChart(data: data)
                     .padding(.horizontal)
                 StatSection(statName: "Total Time", statVal: "\(Int(data.totalTime) / 3600) hr \(Int(data.totalTime) / 60 % 60) min")
                     .padding(.horizontal)
@@ -71,6 +71,6 @@ struct StatSection<Content: View>: View {
 
 struct ActivityView_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityView(data: ActivityData.sampleData)
+        ActivityView(data: ActivityDataModel.sampleData)
     }
 }

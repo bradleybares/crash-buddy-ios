@@ -8,7 +8,7 @@
 import Foundation
 
 class ActivityStore {
-    var activites: [ActivityData] = []
+    var activites: [ActivityDataModel] = []
     
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
@@ -18,7 +18,7 @@ class ActivityStore {
         .appendingPathComponent("activities.data")
     }
     
-    static func load(completion: @escaping (Result<[ActivityData], Error>)->Void) {
+    static func load(completion: @escaping (Result<[ActivityDataModel], Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
@@ -28,7 +28,7 @@ class ActivityStore {
                     }
                     return
                 }
-                let activityDatas = try JSONDecoder().decode([ActivityData].self, from: file.availableData)
+                let activityDatas = try JSONDecoder().decode([ActivityDataModel].self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(activityDatas))
                 }
@@ -40,7 +40,7 @@ class ActivityStore {
         }
     }
     
-    static func save(activities: [ActivityData], completion: @escaping (Result<Int, Error>)->Void) {
+    static func save(activities: [ActivityDataModel], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let data = try JSONEncoder().encode(activities)
