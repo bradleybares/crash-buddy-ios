@@ -210,10 +210,9 @@ struct ContactEditView: View {
         }
         .onAppear() {
             editName = contactViewModel.selectEditContact.name
-            editPhoneNumber = contactViewModel.selectEditContact.name
-            editAddress = contactViewModel.selectEditContact.name
-            editRelationship = contactViewModel.selectEditContact.name
-            
+            editPhoneNumber = contactViewModel.selectEditContact.phoneNumber
+            editAddress = contactViewModel.selectEditContact.address
+            editRelationship = contactViewModel.selectEditContact.relationship
         }
     }
 }

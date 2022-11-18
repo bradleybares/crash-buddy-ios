@@ -76,8 +76,6 @@ struct SportsView: View {
                 }
             }
         }
-        .onAppear(){
-        }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .principal) {

@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-class DebugModel: ObservableObject {
+class DebugModel: ObservableObject, Codable {
     
     var debugOn: Bool = true
     var sensorStatus: Bool = true

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class SettingModel {
+class SettingModel: Codable {
     let debugModel: DebugModel
     let sportsModel: SportModel
     let sensitivitiesModel: SensitivitiesModel

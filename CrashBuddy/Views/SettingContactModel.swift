@@ -8,9 +8,9 @@
 import SwiftUI
 
 
-class EmergencyContact: Identifiable, Equatable, ObservableObject {
+class EmergencyContact: Identifiable, Equatable, ObservableObject, Codable {
     static func == (lhs: EmergencyContact, rhs: EmergencyContact) -> Bool {
-        lhs.phoneNumber == rhs.phoneNumber && lhs.name == rhs.name && lhs.relationship == rhs.relationship && lhs.address == rhs.address
+        ((lhs.phoneNumber == rhs.phoneNumber) && (lhs.name == rhs.name) && (lhs.relationship == rhs.relationship) && (lhs.address == rhs.address))
     }
 
     var id: String = UUID().uuidString
@@ -28,7 +28,7 @@ class EmergencyContact: Identifiable, Equatable, ObservableObject {
     }
 }
 
-class ContactsModel: ObservableObject {
+class ContactsModel: ObservableObject, Codable {
     
     let id: UUID
     var selectEditContact: EmergencyContact

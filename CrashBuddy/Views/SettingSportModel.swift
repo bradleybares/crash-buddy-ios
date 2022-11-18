@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class Sport: Identifiable, Equatable, ObservableObject {
+class Sport: Identifiable, Equatable, ObservableObject, Codable {
     static func == (lhs: Sport, rhs: Sport) -> Bool {
         lhs.name == rhs.name
     }
@@ -24,7 +24,7 @@ class Sport: Identifiable, Equatable, ObservableObject {
 }
 
 
-class SportModel: ObservableObject {
+class SportModel: ObservableObject, Codable {
     
     let id: UUID
     var selectedSport: Sport

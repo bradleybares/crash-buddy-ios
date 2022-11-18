@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-class CrashSensitivity: Identifiable, Equatable, ObservableObject {
+class CrashSensitivity: Identifiable, Equatable, ObservableObject, Codable {
     static func == (lhs: CrashSensitivity, rhs: CrashSensitivity) -> Bool {
         lhs.value == rhs.value
     }
@@ -24,7 +24,7 @@ class CrashSensitivity: Identifiable, Equatable, ObservableObject {
 
 }
 
-class SensitivitiesModel: ObservableObject {
+class SensitivitiesModel: ObservableObject, Codable {
     
     let id: UUID
     var selectedSensitivity: CrashSensitivity

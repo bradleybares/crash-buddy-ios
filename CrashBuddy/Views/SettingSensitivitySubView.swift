@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct CrashSensitivityView: View {
-
+    
     @ObservedObject var sensitivityViewModel: SettingSensitivityViewModel
     @ObservedObject var sensitivityModel: SensitivitiesModel
     
@@ -20,8 +20,8 @@ struct CrashSensitivityView: View {
     
     @State private var showingAddSensitivity = false
     @State private var showingEditSensitivity = false
-
-
+    
+    
     var body: some View {
         Form {
             Section {
@@ -37,7 +37,7 @@ struct CrashSensitivityView: View {
                                     .foregroundColor(Color.blue)
                                     .frame(alignment: .trailing)
                             }
-
+                            
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
@@ -45,18 +45,18 @@ struct CrashSensitivityView: View {
                             sensitivityViewModel.updateUI()
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-
+                            
                             HStack {
                                 Button("Edit") {
                                     showingEditSensitivity = true
                                     sensitivityViewModel.selectEditSensitivity = sensitivity
                                 }
                                 .tint(.blue)
-
-
+                                
+                                
                                 Button("Delete", role: .destructive) {
                                     let selectedIndex = sensitivityModel.sensitivities.firstIndex(of: sensitivity )
-
+                                    
                                     sensitivityModel.deleteSensitivity(sensitivity: sensitivity, selectedIndex: selectedIndex ?? 0)
                                 }
                             }
@@ -64,17 +64,10 @@ struct CrashSensitivityView: View {
                         .sheet(isPresented: $showingEditSensitivity,
                                onDismiss: sensitivityViewModel.updateUI) {
                             SensitivityEditView(sensitivityViewModel: sensitivityViewModel)
-
+                            
                         }
                     }
                 }
-//
-//                Section {
-//                    Text("Selected Sensitivity: \(selectedSensitivity.value)")
-//                    Text("Persisting sensitivity: \(persistentSensitivity)")
-//                    Text("existing sens list size; \(crashSensitivitiesObj.crashSensitivities.count)")
-//                    Text("Persisting sens List size: \(persistentSensitivityList.count)")
-//                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -84,10 +77,10 @@ struct CrashSensitivityView: View {
                     Text("Crash Sensitivities").font(.headline)
                 }
             }
-
+            
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 ZStack {
-
+                    
                     Button("Add") {
                         showingAddSensitivity = true
                     }
@@ -103,12 +96,12 @@ struct CrashSensitivityView: View {
 
 
 struct SensitivityAddView: View {
-
+    
     @State var sensitivity: String = ""
     @State var showingAddAlert = false
-
+    
     @Environment(\.presentationMode) var presentationMode
-
+    
     let sensitivityViewModel: SettingSensitivityViewModel
     
     init(sensitivityViewModel: SettingSensitivityViewModel) {
@@ -126,10 +119,8 @@ struct SensitivityAddView: View {
                 Section {
                     Button("Add") {
                         
-                        
-                        
-                        if (sensitivityViewModel.checkInput(sensitivity: sensitivity))
-                            {
+                        if (!sensitivityViewModel.checkInput(sensitivity: sensitivity))
+                        {
                             
                             sensitivityViewModel.checkAddDuplicates(potentialString: sensitivity)
                             
@@ -137,10 +128,13 @@ struct SensitivityAddView: View {
                                 (!sensitivityViewModel.sensitivityModel.getAlreadyAdded()) {
                                 presentationMode.wrappedValue.dismiss()
                             }
+                            else {
+                                showingAddAlert = true
+                            }
                             
                         }
-                            
-                            else {
+                        
+                        else {
                             showingAddAlert = true
                         }
                     }
@@ -149,7 +143,7 @@ struct SensitivityAddView: View {
                     }
                     .tint(.red)
                 }
-
+                
             }
         }
         .alert(isPresented: $showingAddAlert) {
@@ -160,19 +154,19 @@ struct SensitivityAddView: View {
             ToolbarItem(placement: .principal) {
                 Text("Add Crash Sensitivity").font(.headline)
             }
-
+            
         }
     }
 }
 
 struct SensitivityEditView: View {
-
-
+    
+    
     @State var editString: String = ""
     @State var showingAddAlert = false
-
+    
     @Environment(\.presentationMode) var presentationMode
-
+    
     let sensitivityViewModel: SettingSensitivityViewModel
     
     init(sensitivityViewModel: SettingSensitivityViewModel) {
@@ -181,9 +175,9 @@ struct SensitivityEditView: View {
     }
     
     var body: some View {
-
+        
         NavigationView {
-
+            
             Form {
                 Section {
                     VStack(alignment: .leading) {
@@ -192,23 +186,31 @@ struct SensitivityEditView: View {
                 }
                 Section {
                     Button("Done") {
-                        if (sensitivityViewModel.checkInput(sensitivity: editString))
-                            {
+                        if (!sensitivityViewModel.checkInput(sensitivity: editString))
+                        {
                             
-                            sensitivityViewModel.checkAddDuplicates(potentialString: editString)
+                            sensitivityViewModel.checkEditDuplicates(editString: editString)
                             
                             if
                                 (!sensitivityViewModel.sensitivityModel.getAlreadyAdded()) {
                                 presentationMode.wrappedValue.dismiss()
                             }
+                            else {
+                                showingAddAlert = true
+                            }
                             
-                        }                    }
+                        }
+                        else {
+                            showingAddAlert = true
+                        }
+                        
+                    }
                     Button("Cancel", role: .cancel) {
                         presentationMode.wrappedValue.dismiss()
                     }
                     .tint(.red)
                 }
-
+                
             }
         }
         .alert(isPresented: $showingAddAlert) {
@@ -219,7 +221,7 @@ struct SensitivityEditView: View {
             ToolbarItem(placement: .principal) {
                 Text("Edit Crash Sensitivity").font(.headline)
             }
-
+            
         }
         .onAppear() {
             editString = sensitivityViewModel.selectEditSensitivity.value
