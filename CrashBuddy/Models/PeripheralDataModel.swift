@@ -18,7 +18,7 @@ class PeripheralDataModel {
     
     private var crashDataDateTime: Date?
     
-    var newActivityHandler: ((ActivityDataModel) -> Void)?
+    var newCrashHandler: ((CrashDataModel) -> Void)?
     
     private let dataChannel = DataCommunicationChannel()
 
@@ -54,14 +54,14 @@ class PeripheralDataModel {
     
     func accessoryCrashData(crashData: [CrashDataReader.DataPoint]) {
         logger.info("Received \(crashData.count) Data Points")
-        if let lastAccessoryDataPoint = crashData.last, let crashDataDateTime = self.crashDataDateTime, let newActivityHandler = self.newActivityHandler {
-            let appDataPointsFromAccessoryDataPoints: [ActivityDataModel.DataPoint] = crashData.map { accessoryDataPoint in
+        if let lastAccessoryDataPoint = crashData.last, let crashDataDateTime = self.crashDataDateTime, let newCrashHandler = self.newCrashHandler {
+            let appDataPointsFromAccessoryDataPoints: [CrashDataModel.DataPoint] = crashData.map { accessoryDataPoint in
                 let clockTimeDifference = lastAccessoryDataPoint.clockTime - accessoryDataPoint.clockTime
                 let appDateTime = Date(timeIntervalSinceReferenceDate: crashDataDateTime.timeIntervalSinceReferenceDate - Double(clockTimeDifference)/1000)
                 let appAccelerometerValue: Float = Float(accessoryDataPoint.accelerometerValue)/10
-                return ActivityDataModel.DataPoint(dateTime: appDateTime, accelerometerReading: appAccelerometerValue)
+                return CrashDataModel.DataPoint(dateTime: appDateTime, accelerometerReading: appAccelerometerValue)
             }
-            newActivityHandler(ActivityDataModel(dataPoints: appDataPointsFromAccessoryDataPoints))
+            newCrashHandler(CrashDataModel(dataPoints: appDataPointsFromAccessoryDataPoints))
         }
         self.receivingCrashData = false
     }

@@ -1,5 +1,5 @@
 //
-//  ActivityCard.swift
+//  CrashCard.swift
 //  CrashBuddy
 //
 //  Created by Matthew Chan on 10/17/22.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct ActivityCard: View {
+struct CrashCard: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
-    var data: ActivityDataModel
+    var data: CrashDataModel
     
     var body: some View {
         ZStack {
@@ -42,8 +42,8 @@ struct ActivityCard: View {
     }
 }
 
-struct ActivityCard_Previews: PreviewProvider {
+struct CrashCard_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityCard(data: ActivityDataModel.sampleData)
+        CrashCard(data: CrashDataModel.sampleData)
     }
 }

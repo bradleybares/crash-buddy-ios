@@ -10,14 +10,14 @@ import SwiftUI
 @main
 struct CrashBuddyApp: App {
     
-    @StateObject private var activityStore = ActivityStore()
-    @StateObject private var settingsStore = SettingsStore()
+    private var activityStore = ActivityStore()
+    private var settingsStore = SettingsStore()
     
     var body: some Scene {
         WindowGroup {
-            let homepageViewModel = HomepageViewModel(activities: store.activites)
+            let homepageViewModel = HomepageViewModel(crashes: store.crashes)
             ContentView(homepageViewModel: homepageViewModel) {
-                ActivityStore.save(activities: homepageViewModel.activities) { result in
+                CrashStore.save(crashes: homepageViewModel.crashes) { result in
                     if case .failure(let error) = result {
                         fatalError(error.localizedDescription)
                     }
@@ -29,12 +29,12 @@ struct CrashBuddyApp: App {
                 }
             }
             .onAppear {
-                ActivityStore.load { result in
+                CrashStore.load { result in
                     switch result {
                     case .failure(let error):
                         fatalError(error.localizedDescription)
-                    case .success(let activities):
-                        activityStore.activites = activities
+                    case .success(let crashes):
+                        store.crashes = crashes
                     }
                 }
                 SettingsStore.load { result in
@@ -43,7 +43,6 @@ struct CrashBuddyApp: App {
                         fatalError(error.localizedDescription)
                     case .success(let settings):
                         settingsStore.settings = settings
-                    }
                 }
             }
         }

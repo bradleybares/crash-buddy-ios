@@ -1,5 +1,5 @@
 //
-//  ActivityStore.swift
+//  CrashStore.swift
 //  CrashBuddy
 //
 //  Created by Matthew Chan on 11/8/22.
@@ -7,18 +7,18 @@
 
 import Foundation
 
-class ActivityStore {
-    var activites: [ActivityDataModel] = []
+class CrashStore {
+    var crashes: [CrashDataModel] = []
     
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
                                     in: .userDomainMask,
                                     appropriateFor: nil,
                                     create: false)
-        .appendingPathComponent("activities.data")
+        .appendingPathComponent("crashes.data")
     }
     
-    static func load(completion: @escaping (Result<[ActivityDataModel], Error>)->Void) {
+    static func load(completion: @escaping (Result<[CrashDataModel], Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
@@ -28,9 +28,9 @@ class ActivityStore {
                     }
                     return
                 }
-                let activityDatas = try JSONDecoder().decode([ActivityDataModel].self, from: file.availableData)
+                let crashDatas = try JSONDecoder().decode([CrashDataModel].self, from: file.availableData)
                 DispatchQueue.main.async {
-                    completion(.success(activityDatas))
+                    completion(.success(crashDatas))
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -40,14 +40,14 @@ class ActivityStore {
         }
     }
     
-    static func save(activities: [ActivityDataModel], completion: @escaping (Result<Int, Error>)->Void) {
+    static func save(crashes: [CrashDataModel], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
-                let data = try JSONEncoder().encode(activities)
+                let data = try JSONEncoder().encode(crashes)
                 let outfile = try fileURL()
                 try data.write(to: outfile)
                 DispatchQueue.main.async {
-                    completion(.success(activities.count))
+                    completion(.success(crashes.count))
                 }
             } catch {
                 DispatchQueue.main.async {

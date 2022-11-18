@@ -18,11 +18,20 @@ struct ContentView: View {
             ZStack {
                 BackgroundView()
                 VStack {
-                    RecentActivitySection(activities: homepageViewModel.activities)
                     
-                    ActivityLogSection(activities: homepageViewModel.activities)
-                    
-                    Spacer()
+                    if homepageViewModel.crashes.count > 0 {
+                        RecentCrashSection(crashes: homepageViewModel.crashes)
+                        
+                        CrashLogSection(crashes: homepageViewModel.crashes)
+                        
+                        Spacer()
+                    } else {
+                        Spacer()
+                        Text("Logged crashes will appear here")
+                            .font(.headline)
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                    }
                     
                     PeripheralInteractionSection(status: homepageViewModel.status, statusString: homepageViewModel.statusString, updateTrackingStatus: homepageViewModel.updateTrackingStatus)
                     
@@ -75,38 +84,39 @@ struct SectionHeader<Content: View>: View {
     }
 }
 
-struct RecentActivitySection: View {
+struct RecentCrashSection: View {
     
-    var activities: [ActivityDataModel]
+    var crashes: [CrashDataModel]
     
     var body: some View {
         VStack {
-            let recentActivity = activities.last ?? ActivityDataModel.sampleData
-            let recentDate = recentActivity.dataPoints[0].dateTime
-            SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "\(recentDate.formatted(.dateTime.weekday(.wide))), \(recentDate.formatted(.dateTime.month().day()))")
-            ActivityChart(data: recentActivity, includeCharacteristics: true, loading: false
-            ).frame(maxHeight: 280)
+            if let recentCrash = crashes.last {
+                let recentDate = recentCrash.dataPoints[0].dateTime
+                SectionHeader(sectionTitle: "Recent Crash", sectionSubTitle: "\(recentDate.formatted(.dateTime.weekday(.wide))), \(recentDate.formatted(.dateTime.month().day()))")
+                CrashChart(data: recentCrash, includeCharacteristics: true, loading: false
+                ).frame(maxHeight: 280)
+            }
         }
     }
 }
 
-struct ActivityLogSection: View {
+struct CrashLogSection: View {
     
-    var activities: [ActivityDataModel]
+    var crashes: [CrashDataModel]
     
     var body: some View {
         VStack {
-            SectionHeader(sectionTitle: "Activity Log", sectionToolbarItem:
+            SectionHeader(sectionTitle: "Crash Log", sectionToolbarItem:
                 NavigationLink(
-                    destination: ActivityLogView(activities: activities),
+                    destination: CrashLogView(crashes: crashes),
                     label: {
                         Text("Show More")
                     }
                 )
             )
-            ForEach(activities.prefix(3), id: \.self) { activity in
-                NavigationLink(destination: ActivityView(data: activity)) {
-                    ActivityCard(data: activity)
+            ForEach(crashes.prefix(3), id: \.self) { crash in
+                NavigationLink(destination: CrashView(data: crash)) {
+                    CrashCard(data: crash)
                         .frame(maxHeight: 80)
                 }
             }

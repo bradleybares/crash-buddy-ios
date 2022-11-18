@@ -9,20 +9,20 @@ import Foundation
 
 class HomepageViewModel: ObservableObject {
     
-    @Published private(set) var activities: [ActivityDataModel]
     @Published private(set) var settings: SettingModel
+    @Published private(set) var crashes: [CrashDataModel]
     @Published private(set) var peripheralDataModel: PeripheralDataModel
     
-    init(activities: [ActivityDataModel]){
-        self.activities = activities
+    init(crashes: [CrashDataModel]){
+        self.crashes = crashes
         
         self.peripheralDataModel = PeripheralDataModel()
-        self.peripheralDataModel.newActivityHandler = appendActivity
+        self.peripheralDataModel.newCrashHandler = appendCrash
     }
     
     // Peripheral Data Model Method
-    func appendActivity(activity: ActivityDataModel) {
-        self.activities.append(activity)
+    func appendCrash(crash: CrashDataModel) {
+        self.crashes.append(crash)
     }
     
     func updateTrackingStatus() {

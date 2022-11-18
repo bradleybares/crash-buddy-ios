@@ -1,5 +1,5 @@
 //
-//  ActivityChart.swift
+//  CrashChart.swift
 //  CrashBuddy
 //
 //  Created by Bradley G Bares on 10/13/22.
@@ -8,12 +8,12 @@
 import SwiftUI
 import Charts
 
-struct ActivityChart: View {
-    let data: ActivityDataModel
+struct CrashChart: View {
+    let data: CrashDataModel
     let loading: Bool
     let includeCharacteristics: Bool
     
-    init(data: ActivityDataModel, includeCharacteristics: Bool = false, loading: Bool = false) {
+    init(data: CrashDataModel, includeCharacteristics: Bool = false, loading: Bool = false) {
         self.data = data
         self.loading = loading
         self.includeCharacteristics = includeCharacteristics
@@ -69,13 +69,13 @@ struct ActivityChart: View {
     }
 }
 
-struct ActivityChart_Previews: PreviewProvider {
+struct CrashChart_Previews: PreviewProvider {
     static var previews: some View {
-        ActivityChart(data: ActivityDataModel.sampleData)
+        CrashChart(data: CrashDataModel.sampleData)
             .previewLayout(.fixed(width: 250, height: 250))
-        ActivityChart(data: ActivityDataModel.sampleData, includeCharacteristics: true)
+        CrashChart(data: CrashDataModel.sampleData, includeCharacteristics: true)
             .previewLayout(.fixed(width: 250, height: 250))
-        ActivityChart(data: ActivityDataModel.sampleData, loading: true)
+        CrashChart(data: CrashDataModel.sampleData, loading: true)
             .previewLayout(.fixed(width: 250, height: 250))
     }
 }

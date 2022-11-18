@@ -11,8 +11,8 @@ enum ActivityType: Codable {
     case snowboarding, cycling, skiing
 }
 
-class ActivityDataModel: Hashable, Codable {
-    static func == (lhs: ActivityDataModel, rhs: ActivityDataModel) -> Bool {
+class CrashDataModel: Hashable, Codable {
+    static func == (lhs: CrashDataModel, rhs: CrashDataModel) -> Bool {
         return lhs.id == rhs.id
     }
     
@@ -87,8 +87,8 @@ class ActivityDataModel: Hashable, Codable {
     }
 }
 
-extension ActivityDataModel {
-    static let sampleData = ActivityDataModel(dataPoints:
+extension CrashDataModel {
+    static let sampleData = CrashDataModel(dataPoints:
                                             (0..<100).map({DataPoint(dateTime: Date(timeIntervalSinceReferenceDate:  Double($0 * 20)), accelerometerReading: Float.random(in: 0.345...2.386))})
                                          + [DataPoint(dateTime: Date(timeIntervalSinceReferenceDate: 2020), accelerometerReading: 45.162),
                                             DataPoint(dateTime: Date(timeIntervalSinceReferenceDate: 2040), accelerometerReading: 93.729),
