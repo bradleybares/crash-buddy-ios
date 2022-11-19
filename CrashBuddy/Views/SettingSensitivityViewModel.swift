@@ -35,7 +35,6 @@ class SettingSensitivityViewModel : ObservableObject {
         if (!alreadyAdded) {
             self.sensitivityModel.addSensitivity(value: potentialString)
         }
-        //shuffleSportsList()
     }
     
     func checkEditDuplicates(editString: String) {
@@ -45,7 +44,6 @@ class SettingSensitivityViewModel : ObservableObject {
             let sensitivityIndex = self.sensitivityModel.sensitivities.firstIndex(where: {$0.value == selectEditSensitivity.value})!
             
             self.sensitivityModel.sensitivities[sensitivityIndex].value = editString
-//            shuffleSportsList()
         }
     }
     

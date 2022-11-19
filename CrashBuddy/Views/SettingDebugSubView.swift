@@ -12,13 +12,6 @@ struct DebugView: View {
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @GestureState private var dragOffset = CGSize.zero
-
-//    let debugModelView: SettingDebugViewModel
-//
-//
-//    init(debugModelView: SettingDebugViewModel) {
-//        self.debugModelView = debugModelView
-//    }
     
     @State private var debugOn: Bool = false
     @State private var sensorStatus: Bool = true

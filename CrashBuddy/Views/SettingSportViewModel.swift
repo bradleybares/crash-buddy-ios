@@ -35,7 +35,6 @@ class SettingSportViewModel : ObservableObject {
         if (!alreadyAdded) {
             self.sportModel.addSport(name: potentialString)
         }
-//        shuffleSportsList()
     }
     
     func checkEditDuplicates(editString: String) {
@@ -45,7 +44,6 @@ class SettingSportViewModel : ObservableObject {
             let sportIndex = self.sportModel.sports.firstIndex(where: {$0.name == selectEditSport.name})!
             
             self.sportModel.sports[sportIndex].name = editString
-//            shuffleSportsList()
         }
     }
     

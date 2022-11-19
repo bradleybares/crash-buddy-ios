@@ -32,7 +32,6 @@ class SettingContactViewModel : ObservableObject {
         if (!alreadyAdded) {
             self.contactModel.addContact(name: potentialName, phoneNumber: potentialPhoneNumber, address: potentialAddress, relationship: potentialRelationship)
         }
-//        shufflecontactsList()
     }
     
     func checkEditDuplicates(editPotentialName: String, editPotentialPhoneNumber: String, editPotentialAddress: String, editPotentialRelationship: String) {
@@ -45,7 +44,6 @@ class SettingContactViewModel : ObservableObject {
             self.contactModel.contacts[contactIndex].phoneNumber = editPotentialPhoneNumber
             self.contactModel.contacts[contactIndex].address = editPotentialAddress
             self.contactModel.contacts[contactIndex].relationship = editPotentialRelationship
-//            shufflecontactsList()
         }
     }
     

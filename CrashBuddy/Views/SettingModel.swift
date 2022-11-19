@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 class SettingModel: Codable {
     let debugModel: DebugModel
@@ -19,4 +20,5 @@ class SettingModel: Codable {
         self.sensitivitiesModel = sensitivitiesModel
         self.contactsModel = contactsModel
     }
+
 }

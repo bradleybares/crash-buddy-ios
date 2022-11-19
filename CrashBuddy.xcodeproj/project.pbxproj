@@ -25,6 +25,7 @@
 		1E831922292571C7003E9D2E /* SettingSensitivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E831921292571C7003E9D2E /* SettingSensitivityModel.swift */; };
 		1E83192429258C00003E9D2E /* SettingSportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83192329258C00003E9D2E /* SettingSportViewModel.swift */; };
 		1E83192629259B7A003E9D2E /* SettingDebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */; };
+		1E8E285A2929885800F286AB /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8E28592929885800F286AB /* SettingViewModel.swift */; };
 		1EFF69D3292545E90082C8F8 /* SettingSportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */; };
 		4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */; };
 		4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202C28CFC0550068BB24 /* ContentView.swift */; };
@@ -54,6 +55,7 @@
 		1E831921292571C7003E9D2E /* SettingSensitivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSensitivityModel.swift; path = CrashBuddy/Views/SettingSensitivityModel.swift; sourceTree = SOURCE_ROOT; };
 		1E83192329258C00003E9D2E /* SettingSportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSportViewModel.swift; path = CrashBuddy/Views/SettingSportViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingDebugViewModel.swift; path = CrashBuddy/Views/SettingDebugViewModel.swift; sourceTree = SOURCE_ROOT; };
+		1E8E28592929885800F286AB /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingViewModel.swift; path = CrashBuddy/Views/SettingViewModel.swift; sourceTree = SOURCE_ROOT; };
 		1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSportModel.swift; path = CrashBuddy/Views/SettingSportModel.swift; sourceTree = SOURCE_ROOT; };
 		4A9F202728CFC0550068BB24 /* CrashBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrashBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashBuddyApp.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */,
 				1E3E8A052926ECED0077F008 /* SettingSensitivityViewModel.swift */,
 				1E3E8A072926F8C40077F008 /* SettingContactViewModel.swift */,
+				1E8E28592929885800F286AB /* SettingViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E3E8A082926F8C40077F008 /* SettingContactViewModel.swift in Sources */,
+				1E8E285A2929885800F286AB /* SettingViewModel.swift in Sources */,
 				1E831922292571C7003E9D2E /* SettingSensitivityModel.swift in Sources */,
 				1E83191C29256B19003E9D2E /* SettingModel.swift in Sources */,
 				1E275D5F2910A79B007964B9 /* SettingSportSubView.swift in Sources */,

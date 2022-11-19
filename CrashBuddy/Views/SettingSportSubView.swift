@@ -48,7 +48,7 @@ struct SportsView: View {
                             HStack {
                                 Button("Edit") {
                                     showingEditSport = true
-
+                                    
                                     sportViewModel.selectEditSport = sport
                                 }
                                 .tint(.blue)
@@ -63,16 +63,10 @@ struct SportsView: View {
                         }
                         .sheet(isPresented: $showingEditSport,
                                onDismiss: sportViewModel.updateUI)
-                         {
+                        {
                             SportEditView(sportViewModel: sportViewModel)
                         }
                     }
-                }
-                
-                Section {
-                    Text("Selected sport: \(sportViewModel.sportModel.selectedSport.name)")
-                    Text("size list: \(sportViewModel.sportModel.sports.count)")
-
                 }
             }
         }
