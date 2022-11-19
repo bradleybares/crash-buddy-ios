@@ -15,7 +15,7 @@ struct ContentView: View {
 
     @State var connectionStatus: Status = .notConnected
     @Binding var activities: [ActivityData]
-    @Binding var settings: [SettingModel]
+    @Binding var settings: SettingModel
 
     @State private var newActivityData = ActivityData.sampleData
     let saveAction: ()->Void
@@ -64,7 +64,7 @@ struct ContentView: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink {
-                            SettingsView()
+                            SettingsView(settingsViewModel: SettingsViewModel(settingsModel: settings))
                         } label: {
                             Label("Settings", systemImage: "gear")
                                 .labelStyle(.titleAndIcon)
@@ -106,6 +106,7 @@ struct SectionHeader<Content: View>: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(activities: .constant([ActivityData.sampleData]), saveAction: {})
+        ContentView(activities: .constant([ActivityData.sampleData]), settings: .constant(SettingModel(debugModel: DebugModel(debugOn: false, sensorStatus: true, memoryStatus: true), sportsModel: SportModel(), sensitivitiesModel: SensitivitiesModel(), contactsModel: ContactsModel())),
+            saveAction: {})
     }
 }

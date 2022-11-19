@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 class SettingsStore: ObservableObject {
-    @Published var settings: [SettingModel] = []
+    @Published var settings: SettingModel = SettingModel(debugModel: DebugModel(debugOn: false, sensorStatus: true, memoryStatus: true), sportsModel: SportModel(), sensitivitiesModel: SensitivitiesModel(), contactsModel: ContactsModel())
     
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
@@ -19,17 +19,18 @@ class SettingsStore: ObservableObject {
         .appendingPathComponent("settings")
     }
     
-    static func load(completion: @escaping (Result<[SettingModel], Error>)->Void) {
+    static func load(completion: @escaping (Result<SettingModel, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                     DispatchQueue.main.async {
-                        completion(.success([]))
+                        completion(.success(SettingModel(debugModel: DebugModel(debugOn: false, sensorStatus: true, memoryStatus: true), sportsModel: SportModel(), sensitivitiesModel: SensitivitiesModel(), contactsModel: ContactsModel())
+                                           ))
                     }
                     return
                 }
-                let SettingModels = try JSONDecoder().decode([SettingModel].self, from: file.availableData)
+                let SettingModels = try JSONDecoder().decode(SettingModel.self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(SettingModels))
                 }
@@ -41,14 +42,14 @@ class SettingsStore: ObservableObject {
         }
     }
     
-    static func save(settings: [SettingModel], completion: @escaping (Result<Int, Error>)->Void) {
+    static func save(settings: SettingModel, completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let data = try JSONEncoder().encode(settings)
                 let outfile = try fileURL()
                 try data.write(to: outfile)
                 DispatchQueue.main.async {
-                    completion(.success(settings.count))
+                    completion(.success(1))
                 }
             } catch {
                 DispatchQueue.main.async {

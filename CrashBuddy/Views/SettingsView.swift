@@ -10,18 +10,20 @@ import SwiftUI
 
 
 struct SettingsView: View {
-
+    
     @ObservedObject var settingsViewModel: SettingsViewModel
-
+    
     init(settingsViewModel: SettingsViewModel) {
         self.settingsViewModel = settingsViewModel
     }
-
+    
     var body: some View {
         Form {
             Section {
                 // Debug Mode
-                NavigationLink(destination: DebugView(debugOnBool: false, sensorStatusBool: true, memoryStatusBool: true), label: {
+                NavigationLink(destination:
+                    DebugView(debugOnBool: false, sensorStatusBool: true, memoryStatusBool: true),
+                               label: {
                     Text("Debug Mode")
                 })
                 
