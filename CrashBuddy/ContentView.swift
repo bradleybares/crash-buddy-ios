@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @Environment(\.scenePhase) private var scenePhase
-    @StateObject var homepageViewModel: HomepageViewModel
+    @ObservedObject var homepageViewModel: HomepageViewModel
     let saveAction: ()->Void
     
     var body: some View {
@@ -114,7 +114,7 @@ struct CrashLogSection: View {
                     }
                 )
             )
-            ForEach(crashes.prefix(3), id: \.self) { crash in
+            ForEach(crashes.suffix(3).reversed(), id: \.self) { crash in
                 NavigationLink(destination: CrashView(data: crash)) {
                     CrashCard(data: crash)
                         .frame(maxHeight: 80)

@@ -19,12 +19,14 @@ class PeripheralDataModel {
     private var crashDataDateTime: Date?
     
     var newCrashHandler: ((CrashDataModel) -> Void)?
+    var statusUpdateHandler: ((PeripheralStatus) -> Void)?
     
     private let dataChannel = DataCommunicationChannel()
 
     let logger = os.Logger(subsystem: "com.crash-buddy.peripheral", category: "PeripheralDataModel")
     
-    init() {        
+    init() {
+        
         // Prepare the data communication channel.
         self.dataChannel.accessoryConnectedHandler = accessoryConnected
         self.dataChannel.accessoryDisconnectedHandler = accessoryDisconnected
@@ -37,12 +39,12 @@ class PeripheralDataModel {
     
     // MARK: - From Peripheral
     func accessoryConnected() {
-        self.status = .connected
+        updateStatus(newStatus: .connected)
         logger.info("Accessory Connected")
     }
     
     func accessoryDisconnected() {
-        self.status = .notConnected
+        updateStatus(newStatus: .notConnected)
         logger.info("Accessory Disconnected")
     }
     
@@ -70,22 +72,31 @@ class PeripheralDataModel {
     func updateTrackingStatus() {
         if self.status == .connected {
             logger.info("Starting Tracking")
-            setThreshold(10)
-            self.status = .tracking
+            do {
+                try dataChannel.writeThresholdCharacteristic(10)
+                updateStatus(newStatus: .tracking)
+            } catch {
+                logger.info("Failed to Start Tracking: \(error)")
+            }
         } else {
             logger.info("Stopping Tracking")
-            setThreshold(0)
-            self.status = .connected
+            do {
+                try dataChannel.writeThresholdCharacteristic(0)
+                updateStatus(newStatus: .connected)
+            } catch {
+                logger.info("Failed to Stop Tracking: \(error)")
+            }
         }
     }
     
-    func setThreshold(_ threshold: Int) {
-        do {
-            try dataChannel.writeThresholdCharacteristic(threshold)
-        } catch {
-            logger.info("Failed to send data to accessory: \(error)")
+    // MARK: - Helper Methods
+    func updateStatus(newStatus: PeripheralStatus) {
+        self.status = newStatus
+        if let statusUpdateHandler = self.statusUpdateHandler {
+            statusUpdateHandler(newStatus)
         }
     }
+    
 }
 
 

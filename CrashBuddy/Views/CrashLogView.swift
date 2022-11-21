@@ -13,14 +13,16 @@ struct CrashLogView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-            VStack(alignment: .leading) {
-                ForEach(crashes, id: \.id) { crash in
-                    NavigationLink(destination: CrashView(data: CrashDataModel.sampleData)) {
-                        CrashCard(data: CrashDataModel.sampleData)
-                            .frame(maxHeight: 80)
+            ScrollView {
+                VStack(alignment: .leading) {
+                    ForEach(crashes, id: \.id) { crash in
+                        NavigationLink(destination: CrashView(data: crash)) {
+                            CrashCard(data: crash)
+                                .frame(maxHeight: 80)
+                        }
                     }
+                    Spacer()
                 }
-                Spacer()
             }
             .padding(.horizontal)
             .navigationTitle("Crash Log")

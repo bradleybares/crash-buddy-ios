@@ -11,13 +11,17 @@ class HomepageViewModel: ObservableObject {
     
     @Published private(set) var settings: SettingModel
     @Published private(set) var crashes: [CrashDataModel]
-    @Published private(set) var peripheralDataModel: PeripheralDataModel
+    @Published private(set) var status: PeripheralStatus
+    
+    private var peripheralDataModel: PeripheralDataModel = PeripheralDataModel()
     
     init(crashes: [CrashDataModel]){
         self.crashes = crashes
         
-        self.peripheralDataModel = PeripheralDataModel()
+        self.status = self.peripheralDataModel.status
+        
         self.peripheralDataModel.newCrashHandler = appendCrash
+        self.peripheralDataModel.statusUpdateHandler = updateStatus
     }
     
     // Peripheral Data Model Method
@@ -25,13 +29,12 @@ class HomepageViewModel: ObservableObject {
         self.crashes.append(crash)
     }
     
-    func updateTrackingStatus() {
-        peripheralDataModel.updateTrackingStatus()
+    func updateStatus(newStatus: PeripheralStatus) {
+        self.status = newStatus
     }
     
-    // MARK: - View Getters
-    var status: PeripheralStatus {
-        peripheralDataModel.status
+    func updateTrackingStatus() {
+        peripheralDataModel.updateTrackingStatus()
     }
     
     var statusString: String {

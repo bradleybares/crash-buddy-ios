@@ -16,10 +16,14 @@ struct TransferService {
     
     static let nameToShortUUID: [String: String] = [
         "service": "0000",
-        "accelStatus": "0001",    // The Status of the Accelerometer
-        "crashThreshold": "0002", // The Crash Threshold
-        "dataAvailable": "0003",  // New Data Available
+        "status": "0001",    // The Status of the Accelerometer
+        "crashThreshold": "0003", // The Crash Threshold
+        "dataAvailable": "0004",  // New Data Available
     ]
+    
+    static func specificToName(_ specificUUID: CBUUID) -> String {
+        return nameToSpecificUUID.first(where: { $1 == specificUUID })?.key ?? "Unknown"
+    }
     
     static let nameToSpecificUUID: [String: CBUUID] = nameToShortUUID.mapValues(specificFromBaseUUID(_:))
     
@@ -33,9 +37,11 @@ struct TransferService {
         specificFromBaseUUID(String(format: "%04X", firstDataCharShortUUIDInt + $0))
     }
     
+    static let discoverableCharacteristics = nameToSpecificUUID.filter({$0.key != "service"}).values + dataCharacteristicsUUIDs
+    
     static let serviceUUID = nameToSpecificUUID["service"]!
     
-    static let crashThresholdUUID = nameToSpecificUUID["crashThreshold"]!
+    static let crashThresholdCharacteristicUUID = nameToSpecificUUID["crashThreshold"]!
     
     static let dataAvailableCharacteristicUUID = nameToSpecificUUID["dataAvailable"]!
     
@@ -164,7 +170,7 @@ class DataCommunicationChannel: NSObject {
         let packetData = Data(bytes: &rawPacket, count: bytesToCopy)
 
         let stringFromData = packetData.map { String(format: "0x%02x, ", $0) }.joined()
-        logger.info("Writing \(bytesToCopy) bytes: \(String(describing: stringFromData))")
+        logger.info("Writing \(bytesToCopy) bytes to \(TransferService.specificToName(characteristic.uuid)) (\(characteristic.uuid): \(String(describing: stringFromData))")
 
         discoveredPeripheral.writeValue(packetData, for: characteristic, type: .withResponse)
     }
@@ -320,7 +326,7 @@ extension DataCommunicationChannel: CBPeripheralDelegate {
         guard let peripheralServices = peripheral.services else { return }
         for service in peripheralServices {
             peripheral.discoverCharacteristics(
-                Array(TransferService.nameToSpecificUUID.values), for: service
+                Array(TransferService.discoverableCharacteristics), for: service
             )
         }
     }
@@ -344,6 +350,8 @@ extension DataCommunicationChannel: CBPeripheralDelegate {
                 // Subscribe to the transfer service's `dataAvailableCharacteristic`.
                 dataAvailableCharacteristic = characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
+            } else if characteristic.uuid == TransferService.crashThresholdCharacteristicUUID {
+                crashThresholdCharacteristic = characteristic
             } else if TransferService.dataCharacteristicsUUIDs.contains(characteristic.uuid) {
                 self.crashDataCharacteristics.append(characteristic)
             }
@@ -363,7 +371,7 @@ extension DataCommunicationChannel: CBPeripheralDelegate {
         guard let characteristicData = characteristic.value else { return }
     
         let str = characteristicData.map { String(format: "0x%02x, ", $0) }.joined()
-        logger.info("Received \(characteristicData.count) bytes: \(str)")
+        logger.info("Received \(characteristicData.count) bytes on \(TransferService.specificToName(characteristic.uuid)) (\(characteristic.uuid)): \(str) ")
         
         // If the the data available characteristic has been updated
         if characteristic.uuid == TransferService.dataAvailableCharacteristicUUID {
