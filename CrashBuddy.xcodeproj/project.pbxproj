@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		17091C8328EEA689006007B5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17091C8228EEA689006007B5 /* SettingsView.swift */; };
 		17091C8528EEA73C006007B5 /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17091C8428EEA73C006007B5 /* ActivityLogView.swift */; };
+		1723514E292D24690000BB6E /* TextEmergencyContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1723514D292D24690000BB6E /* TextEmergencyContactView.swift */; };
 		172BE740291B674B0076B0F0 /* ActivityStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172BE73F291B674B0076B0F0 /* ActivityStore.swift */; };
 		177D734528FDA93E001B5F11 /* ActivityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734428FDA93E001B5F11 /* ActivityCard.swift */; };
 		177D734728FDDBA8001B5F11 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734628FDDBA8001B5F11 /* ActivityView.swift */; };
+		178A204D292D2BA90095C00F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 178A204C292D2BA90095C00F /* Alamofire */; };
 		1E275D5F2910A79B007964B9 /* SettingSportSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E275D5E2910A79B007964B9 /* SettingSportSubView.swift */; };
 		1E3E8A062926ECED0077F008 /* SettingSensitivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3E8A052926ECED0077F008 /* SettingSensitivityViewModel.swift */; };
 		1E3E8A082926F8C40077F008 /* SettingContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3E8A072926F8C40077F008 /* SettingContactViewModel.swift */; };
@@ -34,11 +36,14 @@
 		4AF540DD28F8B020006A4040 /* ActivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540DC28F8B020006A4040 /* ActivityChart.swift */; };
 		4AF540DF28F8CB42006A4040 /* ActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540DE28F8CB42006A4040 /* ActivityData.swift */; };
 		4AF540E128F8E0F0006A4040 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540E028F8E0F0006A4040 /* BackgroundView.swift */; };
+		AE409D985BD8B91F0005743E /* Pods_CrashBuddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		009BD6EF54CE8507E8E6619B /* Pods-CrashBuddy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrashBuddy.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CrashBuddy/Pods-CrashBuddy.debug.xcconfig"; sourceTree = "<group>"; };
 		17091C8228EEA689006007B5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		17091C8428EEA73C006007B5 /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
+		1723514D292D24690000BB6E /* TextEmergencyContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmergencyContactView.swift; sourceTree = "<group>"; };
 		172BE73F291B674B0076B0F0 /* ActivityStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityStore.swift; path = CrashBuddy/Views/ActivityStore.swift; sourceTree = SOURCE_ROOT; };
 		177D734428FDA93E001B5F11 /* ActivityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCard.swift; sourceTree = "<group>"; };
 		177D734628FDDBA8001B5F11 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
@@ -65,6 +70,8 @@
 		4AF540DC28F8B020006A4040 /* ActivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChart.swift; sourceTree = "<group>"; };
 		4AF540DE28F8CB42006A4040 /* ActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityData.swift; path = CrashBuddy/Views/ActivityData.swift; sourceTree = SOURCE_ROOT; };
 		4AF540E028F8E0F0006A4040 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		59EFAC2D953D4551D0E2CA65 /* Pods-CrashBuddy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrashBuddy.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-CrashBuddy/Pods-CrashBuddy.release.xcconfig"; sourceTree = "<group>"; };
+		703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CrashBuddy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,12 +79,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE409D985BD8B91F0005743E /* Pods_CrashBuddy.framework in Frameworks */,
+				178A204D292D2BA90095C00F /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2178C5A73AC5B05D12EBBB12 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4A53BE9128CFC35A0078C21C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,8 +125,10 @@
 		4A9F201E28CFC0550068BB24 = {
 			isa = PBXGroup;
 			children = (
+				B31D48B7E8A0A481AC6B5DF0 /* Pods */,
 				4A9F202928CFC0550068BB24 /* CrashBuddy */,
 				4A9F202828CFC0550068BB24 /* Products */,
+				2178C5A73AC5B05D12EBBB12 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,13 +171,23 @@
 				4AF540DC28F8B020006A4040 /* ActivityChart.swift */,
 				177D734428FDA93E001B5F11 /* ActivityCard.swift */,
 				177D734628FDDBA8001B5F11 /* ActivityView.swift */,
-
 				1E275D5E2910A79B007964B9 /* SettingSportSubView.swift */,
 				1E52BF422912043B0072643F /* SettingEmergencyContactSubView.swift */,
 				1E52BF44291204B60072643F /* SettingDebugSubView.swift */,
 				1E52BF46291204F40072643F /* SettingSensitivitySubView.swift */,
+				1723514D292D24690000BB6E /* TextEmergencyContactView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B31D48B7E8A0A481AC6B5DF0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				009BD6EF54CE8507E8E6619B /* Pods-CrashBuddy.debug.xcconfig */,
+				59EFAC2D953D4551D0E2CA65 /* Pods-CrashBuddy.release.xcconfig */,
+			);
+			name = Pods;
+			path = CrashBuddy/Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,15 +197,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A9F203528CFC0560068BB24 /* Build configuration list for PBXNativeTarget "CrashBuddy" */;
 			buildPhases = (
+				0E13043E1E9BF38BA8C8183E /* [CP] Check Pods Manifest.lock */,
 				4A9F202328CFC0550068BB24 /* Sources */,
 				4A9F202428CFC0550068BB24 /* Frameworks */,
 				4A9F202528CFC0550068BB24 /* Resources */,
+				06B3EE98868CA63B432A57F1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = CrashBuddy;
+			packageProductDependencies = (
+				178A204C292D2BA90095C00F /* Alamofire */,
+			);
 			productName = CrashBuddy;
 			productReference = 4A9F202728CFC0550068BB24 /* CrashBuddy.app */;
 			productType = "com.apple.product-type.application";
@@ -205,6 +239,9 @@
 				Base,
 			);
 			mainGroup = 4A9F201E28CFC0550068BB24;
+			packageReferences = (
+				178A204B292D2BA90095C00F /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 4A9F202828CFC0550068BB24 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -225,6 +262,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		06B3EE98868CA63B432A57F1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CrashBuddy/Pods-CrashBuddy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CrashBuddy/Pods-CrashBuddy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CrashBuddy/Pods-CrashBuddy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0E13043E1E9BF38BA8C8183E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CrashBuddy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4A9F202328CFC0550068BB24 /* Sources */ = {
@@ -255,6 +334,7 @@
 				4AF540DD28F8B020006A4040 /* ActivityChart.swift in Sources */,
 				4AF540DF28F8CB42006A4040 /* ActivityData.swift in Sources */,
 				4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */,
+				1723514E292D24690000BB6E /* TextEmergencyContactView.swift in Sources */,
 				1E831920292570BA003E9D2E /* SettingContactModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +458,7 @@
 		};
 		4A9F203628CFC0560068BB24 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 009BD6EF54CE8507E8E6619B /* Pods-CrashBuddy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -408,6 +489,7 @@
 		};
 		4A9F203728CFC0560068BB24 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59EFAC2D953D4551D0E2CA65 /* Pods-CrashBuddy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -458,6 +540,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		178A204B292D2BA90095C00F /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		178A204C292D2BA90095C00F /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 178A204B292D2BA90095C00F /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A9F201F28CFC0550068BB24 /* Project object */;
 }
