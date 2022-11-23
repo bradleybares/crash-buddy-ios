@@ -27,6 +27,8 @@ struct ContentView: View {
                 VStack(alignment: .leading) {
                     let recentActivity = activities.last ?? ActivityData.sampleData
                     let recentDate = recentActivity.dataPoints[0].date
+                    TextEmergencyContactView(emergencyContact: settings.contactsModel.selectEditContact)
+                    
                     SectionHeader(sectionTitle: "Recent Activity", sectionSubTitle: "\(recentDate.formatted(.dateTime.weekday(.wide))), \(recentDate.formatted(.dateTime.month().day()))")
                     ActivityChart(data: recentActivity, includeCharacteristics: true)
                         .padding(.horizontal)
