@@ -6,38 +6,89 @@
 //
 
 import Foundation
+import Combine
 
 class HomepageViewModel: ObservableObject {
+        
+    @Published private(set) var crashes: [CrashDataModel] = []
+    private(set) var settings: SettingsModel = SettingsModel()
     
-    @Published private(set) var settings: SettingModel
-    @Published private(set) var crashes: [CrashDataModel]
-    @Published private(set) var status: PeripheralStatus
+    @Published var isShowingTrackingSheet: Bool = false
+    @Published var isShowingCrashAlert: Bool = false
     
-    private var peripheralDataModel: PeripheralDataModel = PeripheralDataModel()
+    let emergencyContactDelay: Int = 30
     
-    init(crashes: [CrashDataModel]){
+    var selectedActivity: ActivityProfile?
+    var selectedContact: EmergencyContact?
+    
+    private(set) var peripheralDataModel: PeripheralDataModel = PeripheralDataModel()
+    
+    // Test Data Initializer
+    init(crashes: [CrashDataModel], settings: SettingsModel){
+
+        self.peripheralDataModel.newCrashHandler = emergencyContactProtocol
+        self.peripheralDataModel.crashDataHandler = addCrashData
+        
         self.crashes = crashes
-        
-        self.status = self.peripheralDataModel.status
-        
-        self.peripheralDataModel.newCrashHandler = appendCrash
-        self.peripheralDataModel.statusUpdateHandler = updateStatus
+        self.settings = settings
     }
     
-    // Peripheral Data Model Method
-    func appendCrash(crash: CrashDataModel) {
-        self.crashes.append(crash)
+    // Persitent Data Initializer
+    init(crashStore: CrashStore, settingsStore: SettingsStore){
+
+        self.peripheralDataModel.newCrashHandler = emergencyContactProtocol
+        self.peripheralDataModel.crashDataHandler = addCrashData
+        
+        CrashStore.load { result in
+            switch result {
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            case .success(let crashes):
+                self.crashes = crashes
+            }
+        }
+        
+        SettingsStore.load { result in
+            switch result {
+            case .failure(let error):
+                fatalError(error.localizedDescription)
+            case .success(let settings):
+                self.settings = settings
+            }
+        }
     }
     
-    func updateStatus(newStatus: PeripheralStatus) {
-        self.status = newStatus
+    // Peripheral Data Model Methods
+    func emergencyContactProtocol() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double(emergencyContactDelay)) {
+            if let selectedContact = self.selectedContact, self.isShowingCrashAlert {
+                TextEmergencyContact.sendText(selectedContact)
+            }
+        }
+        self.isShowingCrashAlert = true
+    }
+    
+    func addCrashData(crashDataPoints: [CrashDataModel.DataPoint]) {
+        if let selectedActivity = self.selectedActivity {
+            self.crashes.append(CrashDataModel(dataPoints: crashDataPoints, activityProfile: selectedActivity))
+        }
     }
     
     func updateTrackingStatus() {
         peripheralDataModel.updateTrackingStatus()
     }
     
-    var statusString: String {
+    
+    // MARK: - Computed View Vars
+    var receivingCrashData: Bool {
+        return peripheralDataModel.receivingCrashData
+    }
+    
+    var peripheralStatus: PeripheralStatus {
+        return peripheralDataModel.status
+    }
+    
+    var peripheralStatusString: String {
         switch self.peripheralDataModel.status {
         case .notConnected:
             return "Not Connected"

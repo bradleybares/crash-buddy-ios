@@ -12,13 +12,14 @@ enum PeripheralStatus {
     case notConnected, connected, tracking
 }
 
-class PeripheralDataModel {
-    private(set) var status: PeripheralStatus = .notConnected
-    private(set) var receivingCrashData = false
+class PeripheralDataModel: ObservableObject {
+    @Published private(set) var status: PeripheralStatus = .notConnected
+    @Published private(set) var receivingCrashData = false
     
     private var crashDataDateTime: Date?
     
-    var newCrashHandler: ((CrashDataModel) -> Void)?
+    var newCrashHandler: (() -> Void)?
+    var crashDataHandler: (([CrashDataModel.DataPoint]) -> Void)?
     var statusUpdateHandler: ((PeripheralStatus) -> Void)?
     
     private let dataChannel = DataCommunicationChannel()
@@ -56,14 +57,14 @@ class PeripheralDataModel {
     
     func accessoryCrashData(crashData: [CrashDataReader.DataPoint]) {
         logger.info("Received \(crashData.count) Data Points")
-        if let lastAccessoryDataPoint = crashData.last, let crashDataDateTime = self.crashDataDateTime, let newCrashHandler = self.newCrashHandler {
+        if let lastAccessoryDataPoint = crashData.last, let crashDataDateTime = self.crashDataDateTime, let crashDataHandler = self.crashDataHandler {
             let appDataPointsFromAccessoryDataPoints: [CrashDataModel.DataPoint] = crashData.map { accessoryDataPoint in
                 let clockTimeDifference = lastAccessoryDataPoint.clockTime - accessoryDataPoint.clockTime
                 let appDateTime = Date(timeIntervalSinceReferenceDate: crashDataDateTime.timeIntervalSinceReferenceDate - Double(clockTimeDifference)/1000)
                 let appAccelerometerValue: Float = Float(accessoryDataPoint.accelerometerValue)/10
                 return CrashDataModel.DataPoint(dateTime: appDateTime, accelerometerReading: appAccelerometerValue)
             }
-            newCrashHandler(CrashDataModel(dataPoints: appDataPointsFromAccessoryDataPoints))
+            crashDataHandler(appDataPointsFromAccessoryDataPoints)
         }
         self.receivingCrashData = false
     }

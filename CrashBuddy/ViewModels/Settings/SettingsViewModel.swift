@@ -1,8 +1,8 @@
 //
-//  SettingViewModel.swift
+//  SettingsViewModel.swift
 //  CrashBuddy
 //
-//  Created by user229036 on 11/19/22.
+//  Created by Joshua An on 11/19/22.
 //
 
 import Combine
@@ -12,9 +12,9 @@ class SettingsViewModel : ObservableObject {
     
     internal let objectWillChange = ObservableObjectPublisher()
 
-    let settingsModel: SettingModel
+    let settingsModel: SettingsModel
     
-    init(settingsModel: SettingModel) {
+    init(settingsModel: SettingsModel) {
         self.settingsModel = settingsModel
     }
     

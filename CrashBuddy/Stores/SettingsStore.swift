@@ -2,14 +2,13 @@
 //  SettingsStore.swift
 //  CrashBuddy
 //
-//  Created by user229036 on 11/17/22.
+//  Created by Joshua An on 11/17/22.
 //
 
 import Foundation
 import SwiftUI
 
-class SettingsStore: ObservableObject {
-    @Published var settings: SettingModel = SettingModel(debugModel: DebugModel(debugOn: false, sensorStatus: true, memoryStatus: true), sportsModel: SportModel(), sensitivitiesModel: SensitivitiesModel(), contactsModel: ContactsModel())
+class SettingsStore {
     
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
@@ -19,18 +18,18 @@ class SettingsStore: ObservableObject {
         .appendingPathComponent("settings")
     }
     
-    static func load(completion: @escaping (Result<SettingModel, Error>)->Void) {
+    static func load(completion: @escaping (Result<SettingsModel, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
                 guard let file = try? FileHandle(forReadingFrom: fileURL) else {
                     DispatchQueue.main.async {
-                        completion(.success(SettingModel(debugModel: DebugModel(debugOn: false, sensorStatus: true, memoryStatus: true), sportsModel: SportModel(), sensitivitiesModel: SensitivitiesModel(), contactsModel: ContactsModel())
-                                           ))
+                        completion(.success(SettingsModel(debugModel: DebugModel(), activityProfilesModel: ActivityProfilesModel(), emergencyContactsModel: EmergencyContactsModel()))
+                        )
                     }
                     return
                 }
-                let SettingModels = try JSONDecoder().decode(SettingModel.self, from: file.availableData)
+                let SettingModels = try JSONDecoder().decode(SettingsModel.self, from: file.availableData)
                 DispatchQueue.main.async {
                     completion(.success(SettingModels))
                 }
@@ -42,7 +41,7 @@ class SettingsStore: ObservableObject {
         }
     }
     
-    static func save(settings: SettingModel, completion: @escaping (Result<Int, Error>)->Void) {
+    static func save(settings: SettingsModel, completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let data = try JSONEncoder().encode(settings)

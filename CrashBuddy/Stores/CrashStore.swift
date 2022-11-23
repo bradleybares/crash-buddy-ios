@@ -8,7 +8,6 @@
 import Foundation
 
 class CrashStore {
-    var crashes: [CrashDataModel] = []
     
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,

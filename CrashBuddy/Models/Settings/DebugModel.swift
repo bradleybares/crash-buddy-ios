@@ -2,7 +2,7 @@
 //  SettingDebugModel.swift
 //  CrashBuddy
 //
-//  Created by user229036 on 11/16/22.
+//  Created by Joshua An on 11/16/22.
 //
 
 
@@ -11,15 +11,9 @@ import SwiftUI
 
 class DebugModel: ObservableObject, Codable {
     
-    var debugOn: Bool = true
-    var sensorStatus: Bool = true
-    var memoryStatus: Bool = true
-    
-    init(debugOn: Bool, sensorStatus: Bool, memoryStatus: Bool) {
-        self.debugOn = debugOn
-        self.sensorStatus = sensorStatus
-        self.memoryStatus = memoryStatus
-    }
+    var debugOn: Bool = false
+    var sensorStatus: Bool = false
+    var memoryStatus: Bool = false
     
     func setDebugStatus(status: Bool) {
         self.debugOn = status

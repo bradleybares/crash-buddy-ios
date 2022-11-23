@@ -11,7 +11,7 @@ struct CrashCard: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
-    var data: CrashDataModel
+    var crashData: CrashDataModel
     
     var body: some View {
         ZStack {
@@ -19,31 +19,33 @@ struct CrashCard: View {
                 .foregroundStyle(Color.componentBackground)
                 .frame(maxHeight: 80)
             HStack {
-                Text(data.getIcon()).font(.system(size: 36)).padding(.leading)
+                Text(crashData.activity.emoji)
+                    .font(.system(size: 36))
+                    .padding(.leading)
+                Divider()
                 VStack(alignment: .leading) {
-                    Text(data.getActivityTypeName())
+                    Text(crashData.activity.name)
                         .font(.title)
                     HStack {
-                        Text("\(Int(data.maxAccel))G")
+                        Text("\(Int(crashData.maxAccel))G")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(Color.green)
+                            .foregroundColor(Color.red)
                         Spacer()
-                        Text(data.dataPoints[0].dateTime.formatted(date: .numeric, time: .shortened))
+                        Text(crashData.dataPoints[0].dateTime.formatted(date: .numeric, time: .shortened))
                             .font(.subheadline)
                         Image(systemName: "chevron.right")
                     }
                 }
-                .padding()
             }
-            .foregroundColor(Color.componentForeground)
             .padding(.vertical)
+            .foregroundColor(Color.componentForeground)
         }
     }
 }
 
 struct CrashCard_Previews: PreviewProvider {
     static var previews: some View {
-        CrashCard(data: CrashDataModel.sampleData)
+        CrashCard(crashData: CrashDataModel.sampleData).frame(maxHeight: 80)
     }
 }

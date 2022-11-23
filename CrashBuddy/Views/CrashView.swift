@@ -8,29 +8,26 @@
 import SwiftUI
 
 struct CrashView: View {
-    let data: CrashDataModel
+    let crashData: CrashDataModel
     
     var body: some View {
         ZStack {
             BackgroundView()
             VStack(alignment: .leading) {
-                Text(data.dataPoints[0].dateTime.formatted(.dateTime.day().month().year().hour().minute().second()))
+                Text(crashData.dataPoints[0].dateTime.formatted(.dateTime.day().month().year().hour().minute().second()))
                     .font(.headline)
-                    .padding(.leading)
-                CrashChart(data: data)
-                    .padding(.horizontal)
-                StatSection(statName: "Total Time", statVal: "\(Int(data.totalTime) / 3600) hr \(Int(data.totalTime) / 60 % 60) min")
-                    .padding(.horizontal)
+                CrashChart(crashData: crashData)
+                    .frame(maxHeight: 320)
+                StatSection(statName: "Total Time", statVal: "\(Int(crashData.totalTime) / 3600) hr \(Int(crashData.totalTime) / 60 % 60) min")
                     .frame(maxHeight: 80)
-                StatSection(statName: "Average Acceleration", statVal: "\(String(format: "%.2f", data.avgAccel)) G")
-                    .padding(.horizontal)
+                StatSection(statName: "Average Acceleration", statVal: "\(String(format: "%.2f", crashData.avgAccel)) G")
                     .frame(maxHeight: 80)
-                StatSection(statName: "Max Acceleration", statVal: "\(String(format: "%.2f", data.maxAccel)) G")
-                    .padding(.horizontal)
+                StatSection(statName: "Max Acceleration", statVal: "\(String(format: "%.2f", crashData.maxAccel)) G")
                     .frame(maxHeight: 80)
                 Spacer()
             }
-            .navigationTitle("Snowboarding")
+            .padding(.horizontal)
+            .navigationTitle(crashData.activity.name)
         }
     }
 }
@@ -71,6 +68,6 @@ struct StatSection<Content: View>: View {
 
 struct CrashView_Previews: PreviewProvider {
     static var previews: some View {
-        CrashView(data: CrashDataModel.sampleData)
+        CrashView(crashData: CrashDataModel.sampleData)
     }
 }

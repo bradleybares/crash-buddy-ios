@@ -16,8 +16,8 @@ struct CrashLogView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(crashes, id: \.id) { crash in
-                        NavigationLink(destination: CrashView(data: crash)) {
-                            CrashCard(data: crash)
+                        NavigationLink(destination: CrashView(crashData: crash)) {
+                            CrashCard(crashData: crash)
                                 .frame(maxHeight: 80)
                         }
                     }

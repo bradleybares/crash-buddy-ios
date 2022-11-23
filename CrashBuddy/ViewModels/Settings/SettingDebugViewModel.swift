@@ -2,7 +2,7 @@
 //  SettingDebugViewModel.swift
 //  CrashBuddy
 //
-//  Created by user229036 on 11/16/22.
+//  Created by Joshua An on 11/16/22.
 //
 
 import SwiftUI
