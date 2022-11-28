@@ -21,4 +21,4 @@ def send_sms():
     return message.sid
 
 if __name__ == '__main__':
-        app.run()
+        app.run(port=5005)

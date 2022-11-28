@@ -9,39 +9,22 @@ import SwiftUI
 
 @main
 struct CrashBuddyApp: App {
-    @StateObject private var store = ActivityStore()
-    @StateObject private var settingsStore = SettingsStore()
-
+    
+    private var crashStore = CrashStore()
+    private var settingsStore = SettingsStore()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView(activities: $store.activites, settings: $settingsStore.settings) {
-                ActivityStore.save(activities: store.activites) { result in
+            let homepageViewModel = HomepageViewModel(crashStore: crashStore, settingsStore: settingsStore)
+            ContentView(homepageViewModel: homepageViewModel) {
+                CrashStore.save(crashes: homepageViewModel.crashes) { result in
                     if case .failure(let error) = result {
                         fatalError(error.localizedDescription)
                     }
                 }
-            
-                SettingsStore.save(settings: settingsStore.settings) { result in
-                        if case .failure(let error) = result {
+                SettingsStore.save(settings: homepageViewModel.settings) { result in
+                    if case .failure(let error) = result {
                         fatalError(error.localizedDescription)
-                    }
-                }
-            }
-            .onAppear {
-                ActivityStore.load { result in
-                    switch result {
-                    case .failure(let error):
-                        fatalError(error.localizedDescription)
-                    case .success(let activities):
-                        store.activites = activities
-                    }
-                }
-                SettingsStore.load { result in
-                    switch result {
-                    case .failure(let error):
-                        fatalError(error.localizedDescription)
-                    case .success(let settings):
-                        settingsStore.settings = settings
                     }
                 }
             }

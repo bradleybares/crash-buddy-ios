@@ -8,68 +8,75 @@
 
 /* Begin PBXBuildFile section */
 		17091C8328EEA689006007B5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17091C8228EEA689006007B5 /* SettingsView.swift */; };
-		17091C8528EEA73C006007B5 /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17091C8428EEA73C006007B5 /* ActivityLogView.swift */; };
-		1723514E292D24690000BB6E /* TextEmergencyContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1723514D292D24690000BB6E /* TextEmergencyContactView.swift */; };
-		172BE740291B674B0076B0F0 /* ActivityStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172BE73F291B674B0076B0F0 /* ActivityStore.swift */; };
-		177D734528FDA93E001B5F11 /* ActivityCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734428FDA93E001B5F11 /* ActivityCard.swift */; };
-		177D734728FDDBA8001B5F11 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734628FDDBA8001B5F11 /* ActivityView.swift */; };
+		17091C8528EEA73C006007B5 /* CrashLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17091C8428EEA73C006007B5 /* CrashLogView.swift */; };
+		1723514E292D24690000BB6E /* TextEmergencyContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1723514D292D24690000BB6E /* TextEmergencyContact.swift */; };
+		172BE740291B674B0076B0F0 /* CrashStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172BE73F291B674B0076B0F0 /* CrashStore.swift */; };
+		177D734528FDA93E001B5F11 /* CrashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734428FDA93E001B5F11 /* CrashCard.swift */; };
+		177D734728FDDBA8001B5F11 /* CrashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D734628FDDBA8001B5F11 /* CrashView.swift */; };
 		178A204D292D2BA90095C00F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 178A204C292D2BA90095C00F /* Alamofire */; };
-		1E275D5F2910A79B007964B9 /* SettingSportSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E275D5E2910A79B007964B9 /* SettingSportSubView.swift */; };
-		1E3E8A062926ECED0077F008 /* SettingSensitivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3E8A052926ECED0077F008 /* SettingSensitivityViewModel.swift */; };
-		1E3E8A082926F8C40077F008 /* SettingContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3E8A072926F8C40077F008 /* SettingContactViewModel.swift */; };
+		1E275D5F2910A79B007964B9 /* SettingsActivityProfilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E275D5E2910A79B007964B9 /* SettingsActivityProfilesView.swift */; };
+		1E3E8A082926F8C40077F008 /* SettingsEmergencyContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3E8A072926F8C40077F008 /* SettingsEmergencyContactsViewModel.swift */; };
 		1E3E8A0A29270E100077F008 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3E8A0929270E100077F008 /* SettingsStore.swift */; };
-		1E52BF432912043B0072643F /* SettingEmergencyContactSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52BF422912043B0072643F /* SettingEmergencyContactSubView.swift */; };
+		1E52BF432912043B0072643F /* SettingEmergencyContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52BF422912043B0072643F /* SettingEmergencyContactsView.swift */; };
 		1E52BF45291204B60072643F /* SettingDebugSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52BF44291204B60072643F /* SettingDebugSubView.swift */; };
-		1E52BF47291204F40072643F /* SettingSensitivitySubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E52BF46291204F40072643F /* SettingSensitivitySubView.swift */; };
-		1E83191C29256B19003E9D2E /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83191B29256B19003E9D2E /* SettingModel.swift */; };
-		1E83191E29256DB5003E9D2E /* SettingDebugModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83191D29256DB5003E9D2E /* SettingDebugModel.swift */; };
-		1E831920292570BA003E9D2E /* SettingContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83191F292570BA003E9D2E /* SettingContactModel.swift */; };
-		1E831922292571C7003E9D2E /* SettingSensitivityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E831921292571C7003E9D2E /* SettingSensitivityModel.swift */; };
-		1E83192429258C00003E9D2E /* SettingSportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83192329258C00003E9D2E /* SettingSportViewModel.swift */; };
+		1E83191C29256B19003E9D2E /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83191B29256B19003E9D2E /* SettingsModel.swift */; };
+		1E83191E29256DB5003E9D2E /* DebugModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83191D29256DB5003E9D2E /* DebugModel.swift */; };
+		1E831920292570BA003E9D2E /* EmergencyContactsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83191F292570BA003E9D2E /* EmergencyContactsModel.swift */; };
+		1E83192429258C00003E9D2E /* SettingsActivitiesProfilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83192329258C00003E9D2E /* SettingsActivitiesProfilesViewModel.swift */; };
 		1E83192629259B7A003E9D2E /* SettingDebugViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */; };
-		1E8E285A2929885800F286AB /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8E28592929885800F286AB /* SettingViewModel.swift */; };
-		1EFF69D3292545E90082C8F8 /* SettingSportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */; };
+		1E8E285A2929885800F286AB /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8E28592929885800F286AB /* SettingsViewModel.swift */; };
+		1EFF69D3292545E90082C8F8 /* ActivityProfilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF69D2292545E90082C8F8 /* ActivityProfilesModel.swift */; };
+		4A4CB8102925CF070085A315 /* AssetColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CB80F2925CF060085A315 /* AssetColors.swift */; };
+		4A4CB8122926B9260085A315 /* PeripheralDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4CB8112926B9260085A315 /* PeripheralDataModel.swift */; };
+		4A5472182906013F00B7FEE7 /* BluetoothLECentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */; };
+		4A54721B2906019F00B7FEE7 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */; };
+		4A54721E2906091A00B7FEE7 /* HomepageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54721D2906091A00B7FEE7 /* HomepageViewModel.swift */; };
 		4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */; };
 		4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202C28CFC0550068BB24 /* ContentView.swift */; };
 		4A9F202F28CFC0560068BB24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F202E28CFC0560068BB24 /* Assets.xcassets */; };
 		4A9F203228CFC0560068BB24 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F203128CFC0560068BB24 /* Preview Assets.xcassets */; };
-		4AF540DD28F8B020006A4040 /* ActivityChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540DC28F8B020006A4040 /* ActivityChart.swift */; };
-		4AF540DF28F8CB42006A4040 /* ActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540DE28F8CB42006A4040 /* ActivityData.swift */; };
+		4AF540DD28F8B020006A4040 /* CrashChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540DC28F8B020006A4040 /* CrashChart.swift */; };
+		4AF540DF28F8CB42006A4040 /* CrashDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540DE28F8CB42006A4040 /* CrashDataModel.swift */; };
 		4AF540E128F8E0F0006A4040 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF540E028F8E0F0006A4040 /* BackgroundView.swift */; };
+		4AF8FB73291FEC5F00861F0A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4AF8FB72291FEC5F00861F0A /* README.md */; };
 		AE409D985BD8B91F0005743E /* Pods_CrashBuddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		009BD6EF54CE8507E8E6619B /* Pods-CrashBuddy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrashBuddy.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-CrashBuddy/Pods-CrashBuddy.debug.xcconfig"; sourceTree = "<group>"; };
 		17091C8228EEA689006007B5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		17091C8428EEA73C006007B5 /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
-		1723514D292D24690000BB6E /* TextEmergencyContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmergencyContactView.swift; sourceTree = "<group>"; };
-		172BE73F291B674B0076B0F0 /* ActivityStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityStore.swift; path = CrashBuddy/Views/ActivityStore.swift; sourceTree = SOURCE_ROOT; };
-		177D734428FDA93E001B5F11 /* ActivityCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCard.swift; sourceTree = "<group>"; };
-		177D734628FDDBA8001B5F11 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
-		1E275D5E2910A79B007964B9 /* SettingSportSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSportSubView.swift; sourceTree = "<group>"; };
-		1E3E8A052926ECED0077F008 /* SettingSensitivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSensitivityViewModel.swift; path = CrashBuddy/Views/SettingSensitivityViewModel.swift; sourceTree = SOURCE_ROOT; };
-		1E3E8A072926F8C40077F008 /* SettingContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingContactViewModel.swift; path = CrashBuddy/Views/SettingContactViewModel.swift; sourceTree = SOURCE_ROOT; };
-		1E3E8A0929270E100077F008 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsStore.swift; path = CrashBuddy/Views/SettingsStore.swift; sourceTree = SOURCE_ROOT; };
-		1E52BF422912043B0072643F /* SettingEmergencyContactSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingEmergencyContactSubView.swift; sourceTree = "<group>"; };
+		17091C8428EEA73C006007B5 /* CrashLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashLogView.swift; sourceTree = "<group>"; };
+		1723514D292D24690000BB6E /* TextEmergencyContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEmergencyContact.swift; sourceTree = "<group>"; };
+		172BE73F291B674B0076B0F0 /* CrashStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CrashStore.swift; path = CrashBuddy/Stores/CrashStore.swift; sourceTree = SOURCE_ROOT; };
+		177D734428FDA93E001B5F11 /* CrashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashCard.swift; sourceTree = "<group>"; };
+		177D734628FDDBA8001B5F11 /* CrashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashView.swift; sourceTree = "<group>"; };
+		1E275D5E2910A79B007964B9 /* SettingsActivityProfilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsActivityProfilesView.swift; sourceTree = "<group>"; };
+		1E3E8A072926F8C40077F008 /* SettingsEmergencyContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsEmergencyContactsViewModel.swift; path = CrashBuddy/ViewModels/Settings/SettingsEmergencyContactsViewModel.swift; sourceTree = SOURCE_ROOT; };
+		1E3E8A0929270E100077F008 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsStore.swift; path = CrashBuddy/Stores/SettingsStore.swift; sourceTree = SOURCE_ROOT; };
+		1E52BF422912043B0072643F /* SettingEmergencyContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingEmergencyContactsView.swift; sourceTree = "<group>"; };
 		1E52BF44291204B60072643F /* SettingDebugSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDebugSubView.swift; sourceTree = "<group>"; };
-		1E52BF46291204F40072643F /* SettingSensitivitySubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSensitivitySubView.swift; sourceTree = "<group>"; };
-		1E83191B29256B19003E9D2E /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingModel.swift; path = CrashBuddy/Views/SettingModel.swift; sourceTree = SOURCE_ROOT; };
-		1E83191D29256DB5003E9D2E /* SettingDebugModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingDebugModel.swift; path = CrashBuddy/Views/SettingDebugModel.swift; sourceTree = SOURCE_ROOT; };
-		1E83191F292570BA003E9D2E /* SettingContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingContactModel.swift; path = CrashBuddy/Views/SettingContactModel.swift; sourceTree = SOURCE_ROOT; };
-		1E831921292571C7003E9D2E /* SettingSensitivityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSensitivityModel.swift; path = CrashBuddy/Views/SettingSensitivityModel.swift; sourceTree = SOURCE_ROOT; };
-		1E83192329258C00003E9D2E /* SettingSportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSportViewModel.swift; path = CrashBuddy/Views/SettingSportViewModel.swift; sourceTree = SOURCE_ROOT; };
-		1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingDebugViewModel.swift; path = CrashBuddy/Views/SettingDebugViewModel.swift; sourceTree = SOURCE_ROOT; };
-		1E8E28592929885800F286AB /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingViewModel.swift; path = CrashBuddy/Views/SettingViewModel.swift; sourceTree = SOURCE_ROOT; };
-		1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingSportModel.swift; path = CrashBuddy/Views/SettingSportModel.swift; sourceTree = SOURCE_ROOT; };
+		1E83191B29256B19003E9D2E /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsModel.swift; path = CrashBuddy/Models/Settings/SettingsModel.swift; sourceTree = SOURCE_ROOT; };
+		1E83191D29256DB5003E9D2E /* DebugModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DebugModel.swift; path = CrashBuddy/Models/Settings/DebugModel.swift; sourceTree = SOURCE_ROOT; };
+		1E83191F292570BA003E9D2E /* EmergencyContactsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmergencyContactsModel.swift; path = CrashBuddy/Models/Settings/EmergencyContactsModel.swift; sourceTree = SOURCE_ROOT; };
+		1E83192329258C00003E9D2E /* SettingsActivitiesProfilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsActivitiesProfilesViewModel.swift; path = CrashBuddy/ViewModels/Settings/SettingsActivitiesProfilesViewModel.swift; sourceTree = SOURCE_ROOT; };
+		1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingDebugViewModel.swift; path = CrashBuddy/ViewModels/Settings/SettingDebugViewModel.swift; sourceTree = SOURCE_ROOT; };
+		1E8E28592929885800F286AB /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsViewModel.swift; path = CrashBuddy/ViewModels/Settings/SettingsViewModel.swift; sourceTree = SOURCE_ROOT; };
+		1EFF69D2292545E90082C8F8 /* ActivityProfilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityProfilesModel.swift; path = CrashBuddy/Models/Settings/ActivityProfilesModel.swift; sourceTree = SOURCE_ROOT; };
+		4A4CB80F2925CF060085A315 /* AssetColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetColors.swift; sourceTree = "<group>"; };
+		4A4CB8112926B9260085A315 /* PeripheralDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralDataModel.swift; sourceTree = "<group>"; };
+		4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothLECentral.swift; sourceTree = "<group>"; };
+		4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		4A54721C290601CD00B7FEE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4A54721D2906091A00B7FEE7 /* HomepageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewModel.swift; sourceTree = "<group>"; };
 		4A9F202728CFC0550068BB24 /* CrashBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrashBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashBuddyApp.swift; sourceTree = "<group>"; };
 		4A9F202C28CFC0550068BB24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
 		4A9F202E28CFC0560068BB24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A9F203128CFC0560068BB24 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		4AF540DC28F8B020006A4040 /* ActivityChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityChart.swift; sourceTree = "<group>"; };
-		4AF540DE28F8CB42006A4040 /* ActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActivityData.swift; path = CrashBuddy/Views/ActivityData.swift; sourceTree = SOURCE_ROOT; };
+		4AF540DC28F8B020006A4040 /* CrashChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashChart.swift; sourceTree = "<group>"; };
+		4AF540DE28F8CB42006A4040 /* CrashDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CrashDataModel.swift; path = CrashBuddy/Views/CrashDataModel.swift; sourceTree = SOURCE_ROOT; };
 		4AF540E028F8E0F0006A4040 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		4AF8FB72291FEC5F00861F0A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		59EFAC2D953D4551D0E2CA65 /* Pods-CrashBuddy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrashBuddy.release.xcconfig"; path = "../../Pods/Target Support Files/Pods-CrashBuddy/Pods-CrashBuddy.release.xcconfig"; sourceTree = "<group>"; };
 		703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CrashBuddy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -81,31 +88,37 @@
 			files = (
 				AE409D985BD8B91F0005743E /* Pods_CrashBuddy.framework in Frameworks */,
 				178A204D292D2BA90095C00F /* Alamofire in Frameworks */,
+				4A54721B2906019F00B7FEE7 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2178C5A73AC5B05D12EBBB12 /* Frameworks */ = {
+		4A4CB80D2925CE770085A315 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
-				703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */,
+				1E3E8A0929270E100077F008 /* SettingsStore.swift */,
+				172BE73F291B674B0076B0F0 /* CrashStore.swift */,
 			);
-			name = Frameworks;
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		4A4CB80E2925CEBC0085A315 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4A9F202E28CFC0560068BB24 /* Assets.xcassets */,
+				4A4CB80F2925CF060085A315 /* AssetColors.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		4A53BE9128CFC35A0078C21C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4AF540DE28F8CB42006A4040 /* ActivityData.swift */,
-				172BE73F291B674B0076B0F0 /* ActivityStore.swift */,
-				1EFF69D2292545E90082C8F8 /* SettingSportModel.swift */,
-				1E83191B29256B19003E9D2E /* SettingModel.swift */,
-				1E83191D29256DB5003E9D2E /* SettingDebugModel.swift */,
-				1E83191F292570BA003E9D2E /* SettingContactModel.swift */,
-				1E831921292571C7003E9D2E /* SettingSensitivityModel.swift */,
-				1E3E8A0929270E100077F008 /* SettingsStore.swift */,
+				4A59360F2932DBDB008A2CF5 /* Settings */,
+				4AF540DE28F8CB42006A4040 /* CrashDataModel.swift */,
+				4A4CB8112926B9260085A315 /* PeripheralDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -113,13 +126,62 @@
 		4A53BE9228CFC3630078C21C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				1E83192329258C00003E9D2E /* SettingSportViewModel.swift */,
-				1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */,
-				1E3E8A052926ECED0077F008 /* SettingSensitivityViewModel.swift */,
-				1E3E8A072926F8C40077F008 /* SettingContactViewModel.swift */,
-				1E8E28592929885800F286AB /* SettingViewModel.swift */,
+				4A5936102932DBFE008A2CF5 /* Settings */,
+				4A54721D2906091A00B7FEE7 /* HomepageViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4A547216290600DE00B7FEE7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4AF8FB72291FEC5F00861F0A /* README.md */,
+				4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */,
+				1723514D292D24690000BB6E /* TextEmergencyContact.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		4A5472192906019E00B7FEE7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */,
+				703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4A59360E2932DBB0008A2CF5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				17091C8228EEA689006007B5 /* SettingsView.swift */,
+				1E275D5E2910A79B007964B9 /* SettingsActivityProfilesView.swift */,
+				1E52BF422912043B0072643F /* SettingEmergencyContactsView.swift */,
+				1E52BF44291204B60072643F /* SettingDebugSubView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		4A59360F2932DBDB008A2CF5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1EFF69D2292545E90082C8F8 /* ActivityProfilesModel.swift */,
+				1E83191B29256B19003E9D2E /* SettingsModel.swift */,
+				1E83191D29256DB5003E9D2E /* DebugModel.swift */,
+				1E83191F292570BA003E9D2E /* EmergencyContactsModel.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		4A5936102932DBFE008A2CF5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				1E83192329258C00003E9D2E /* SettingsActivitiesProfilesViewModel.swift */,
+				1E83192529259B7A003E9D2E /* SettingDebugViewModel.swift */,
+				1E3E8A072926F8C40077F008 /* SettingsEmergencyContactsViewModel.swift */,
+				1E8E28592929885800F286AB /* SettingsViewModel.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		4A9F201E28CFC0550068BB24 = {
@@ -128,7 +190,7 @@
 				B31D48B7E8A0A481AC6B5DF0 /* Pods */,
 				4A9F202928CFC0550068BB24 /* CrashBuddy */,
 				4A9F202828CFC0550068BB24 /* Products */,
-				2178C5A73AC5B05D12EBBB12 /* Frameworks */,
+				4A5472192906019E00B7FEE7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,11 +205,14 @@
 		4A9F202928CFC0550068BB24 /* CrashBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				4A4CB80E2925CEBC0085A315 /* Resources */,
+				4A4CB80D2925CE770085A315 /* Stores */,
+				4A547216290600DE00B7FEE7 /* Services */,
 				4A53BE9228CFC3630078C21C /* ViewModels */,
 				4A53BE9128CFC35A0078C21C /* Models */,
 				4A9F203828CFC25C0068BB24 /* Views */,
 				4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */,
-				4A9F202E28CFC0560068BB24 /* Assets.xcassets */,
+				4A54721C290601CD00B7FEE7 /* Info.plist */,
 				4A9F203028CFC0560068BB24 /* Preview Content */,
 			);
 			path = CrashBuddy;
@@ -164,18 +229,13 @@
 		4A9F203828CFC25C0068BB24 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4A59360E2932DBB0008A2CF5 /* Settings */,
 				4A9F202C28CFC0550068BB24 /* ContentView.swift */,
-				17091C8428EEA73C006007B5 /* ActivityLogView.swift */,
-				17091C8228EEA689006007B5 /* SettingsView.swift */,
+				17091C8428EEA73C006007B5 /* CrashLogView.swift */,
 				4AF540E028F8E0F0006A4040 /* BackgroundView.swift */,
-				4AF540DC28F8B020006A4040 /* ActivityChart.swift */,
-				177D734428FDA93E001B5F11 /* ActivityCard.swift */,
-				177D734628FDDBA8001B5F11 /* ActivityView.swift */,
-				1E275D5E2910A79B007964B9 /* SettingSportSubView.swift */,
-				1E52BF422912043B0072643F /* SettingEmergencyContactSubView.swift */,
-				1E52BF44291204B60072643F /* SettingDebugSubView.swift */,
-				1E52BF46291204F40072643F /* SettingSensitivitySubView.swift */,
-				1723514D292D24690000BB6E /* TextEmergencyContactView.swift */,
+				4AF540DC28F8B020006A4040 /* CrashChart.swift */,
+				177D734428FDA93E001B5F11 /* CrashCard.swift */,
+				177D734628FDDBA8001B5F11 /* CrashView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -256,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF8FB73291FEC5F00861F0A /* README.md in Resources */,
 				4A9F203228CFC0560068BB24 /* Preview Assets.xcassets in Resources */,
 				4A9F202F28CFC0560068BB24 /* Assets.xcassets in Resources */,
 			);
@@ -310,32 +371,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E3E8A082926F8C40077F008 /* SettingContactViewModel.swift in Sources */,
-				1E8E285A2929885800F286AB /* SettingViewModel.swift in Sources */,
-				1E831922292571C7003E9D2E /* SettingSensitivityModel.swift in Sources */,
-				1E83191C29256B19003E9D2E /* SettingModel.swift in Sources */,
-				1E275D5F2910A79B007964B9 /* SettingSportSubView.swift in Sources */,
+				1E3E8A082926F8C40077F008 /* SettingsEmergencyContactsViewModel.swift in Sources */,
+				1E8E285A2929885800F286AB /* SettingsViewModel.swift in Sources */,
+				1E83191C29256B19003E9D2E /* SettingsModel.swift in Sources */,
+				1E275D5F2910A79B007964B9 /* SettingsActivityProfilesView.swift in Sources */,
 				1E3E8A0A29270E100077F008 /* SettingsStore.swift in Sources */,
-				1E3E8A062926ECED0077F008 /* SettingSensitivityViewModel.swift in Sources */,
-				1EFF69D3292545E90082C8F8 /* SettingSportModel.swift in Sources */,
-				1E83191E29256DB5003E9D2E /* SettingDebugModel.swift in Sources */,
-				1E52BF432912043B0072643F /* SettingEmergencyContactSubView.swift in Sources */,
+				1EFF69D3292545E90082C8F8 /* ActivityProfilesModel.swift in Sources */,
+				1E83191E29256DB5003E9D2E /* DebugModel.swift in Sources */,
+				1E52BF432912043B0072643F /* SettingEmergencyContactsView.swift in Sources */,
 				1E83192629259B7A003E9D2E /* SettingDebugViewModel.swift in Sources */,
-				1E83192429258C00003E9D2E /* SettingSportViewModel.swift in Sources */,
-				1E52BF47291204F40072643F /* SettingSensitivitySubView.swift in Sources */,
+				1E83192429258C00003E9D2E /* SettingsActivitiesProfilesViewModel.swift in Sources */,
 				17091C8328EEA689006007B5 /* SettingsView.swift in Sources */,
 				4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */,
-				17091C8528EEA73C006007B5 /* ActivityLogView.swift in Sources */,
 				1E52BF45291204B60072643F /* SettingDebugSubView.swift in Sources */,
+				17091C8528EEA73C006007B5 /* CrashLogView.swift in Sources */,
+				4A5472182906013F00B7FEE7 /* BluetoothLECentral.swift in Sources */,
 				4AF540E128F8E0F0006A4040 /* BackgroundView.swift in Sources */,
-				177D734528FDA93E001B5F11 /* ActivityCard.swift in Sources */,
-				177D734728FDDBA8001B5F11 /* ActivityView.swift in Sources */,
-				172BE740291B674B0076B0F0 /* ActivityStore.swift in Sources */,
-				4AF540DD28F8B020006A4040 /* ActivityChart.swift in Sources */,
-				4AF540DF28F8CB42006A4040 /* ActivityData.swift in Sources */,
+				177D734528FDA93E001B5F11 /* CrashCard.swift in Sources */,
+				177D734728FDDBA8001B5F11 /* CrashView.swift in Sources */,
+				172BE740291B674B0076B0F0 /* CrashStore.swift in Sources */,
+				4A54721E2906091A00B7FEE7 /* HomepageViewModel.swift in Sources */,
+				4AF540DD28F8B020006A4040 /* CrashChart.swift in Sources */,
+				4AF540DF28F8CB42006A4040 /* CrashDataModel.swift in Sources */,
 				4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */,
-				1723514E292D24690000BB6E /* TextEmergencyContactView.swift in Sources */,
-				1E831920292570BA003E9D2E /* SettingContactModel.swift in Sources */,
+				1723514E292D24690000BB6E /* TextEmergencyContact.swift in Sources */,
+				1E831920292570BA003E9D2E /* EmergencyContactsModel.swift in Sources */,
+				4A4CB8102925CF070085A315 /* AssetColors.swift in Sources */,
+				4A4CB8122926B9260085A315 /* PeripheralDataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +530,7 @@
 				DEVELOPMENT_TEAM = C7GST4SKG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CrashBuddy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -499,6 +562,7 @@
 				DEVELOPMENT_TEAM = C7GST4SKG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CrashBuddy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

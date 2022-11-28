@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct BackgroundView: View {
+    
     var body: some View {
-        Color(red: 242/255, green: 242/255, blue: 247/255).ignoresSafeArea()
+        
+        Color.appBackground.ignoresSafeArea()
+        
     }
 }
 
