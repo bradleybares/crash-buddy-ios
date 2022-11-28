@@ -31,6 +31,8 @@
 		4A5472182906013F00B7FEE7 /* BluetoothLECentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */; };
 		4A54721B2906019F00B7FEE7 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */; };
 		4A54721E2906091A00B7FEE7 /* HomepageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A54721D2906091A00B7FEE7 /* HomepageViewModel.swift */; };
+		4A5936162935580E008A2CF5 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5936152935580E008A2CF5 /* LocationManager.swift */; };
+		4A59361829355977008A2CF5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A59361729355976008A2CF5 /* CoreLocation.framework */; };
 		4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */; };
 		4A9F202D28CFC0550068BB24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9F202C28CFC0550068BB24 /* ContentView.swift */; };
 		4A9F202F28CFC0560068BB24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A9F202E28CFC0560068BB24 /* Assets.xcassets */; };
@@ -68,6 +70,8 @@
 		4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		4A54721C290601CD00B7FEE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		4A54721D2906091A00B7FEE7 /* HomepageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewModel.swift; sourceTree = "<group>"; };
+		4A5936152935580E008A2CF5 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		4A59361729355976008A2CF5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4A9F202728CFC0550068BB24 /* CrashBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrashBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A9F202A28CFC0550068BB24 /* CrashBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashBuddyApp.swift; sourceTree = "<group>"; };
 		4A9F202C28CFC0550068BB24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = ../ContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A59361829355977008A2CF5 /* CoreLocation.framework in Frameworks */,
 				AE409D985BD8B91F0005743E /* Pods_CrashBuddy.framework in Frameworks */,
 				178A204D292D2BA90095C00F /* Alamofire in Frameworks */,
 				4A54721B2906019F00B7FEE7 /* CoreBluetooth.framework in Frameworks */,
@@ -138,6 +143,7 @@
 				4AF8FB72291FEC5F00861F0A /* README.md */,
 				4A5472172906013F00B7FEE7 /* BluetoothLECentral.swift */,
 				1723514D292D24690000BB6E /* TextEmergencyContact.swift */,
+				4A5936152935580E008A2CF5 /* LocationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -145,6 +151,7 @@
 		4A5472192906019E00B7FEE7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A59361729355976008A2CF5 /* CoreLocation.framework */,
 				4A54721A2906019E00B7FEE7 /* CoreBluetooth.framework */,
 				703342699BEF194533FCC1CD /* Pods_CrashBuddy.framework */,
 			);
@@ -395,6 +402,7 @@
 				4AF540DF28F8CB42006A4040 /* CrashDataModel.swift in Sources */,
 				4A9F202B28CFC0550068BB24 /* CrashBuddyApp.swift in Sources */,
 				1723514E292D24690000BB6E /* TextEmergencyContact.swift in Sources */,
+				4A5936162935580E008A2CF5 /* LocationManager.swift in Sources */,
 				1E831920292570BA003E9D2E /* EmergencyContactsModel.swift in Sources */,
 				4A4CB8102925CF070085A315 /* AssetColors.swift in Sources */,
 				4A4CB8122926B9260085A315 /* PeripheralDataModel.swift in Sources */,
@@ -531,6 +539,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CrashBuddy/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses bluetooth to find, connect and transfer data between different devices";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our app uses user location to alert emergency contacts if a crash is detected";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -563,6 +573,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CrashBuddy/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Our app uses bluetooth to find, connect and transfer data between different devices";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Our app uses user location to alert emergency contacts if a crash is detected";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -18,6 +18,8 @@ struct CrashView: View {
                     .font(.headline)
                 CrashChart(crashData: crashData)
                     .frame(maxHeight: 320)
+                StatSection(statName: "Location", statVal: "(\(crashData.longitude),\(crashData.latitude)")
+                    .frame(maxHeight: 80)
                 StatSection(statName: "Total Time", statVal: "\(Int(crashData.totalTime) / 3600) hr \(Int(crashData.totalTime) / 60 % 60) min")
                     .frame(maxHeight: 80)
                 StatSection(statName: "Average Acceleration", statVal: "\(String(format: "%.2f", crashData.avgAccel)) G")

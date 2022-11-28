@@ -75,7 +75,6 @@ struct ContentView: View {
 }
 
 
-
 struct SectionHeader<Content: View>: View {
     let sectionTitle: String
     let sectionSubTitle: String?
@@ -104,6 +103,7 @@ struct SectionHeader<Content: View>: View {
     }
 }
 
+
 struct RecentCrashSection: View {
     
     let homepageViewModel: HomepageViewModel
@@ -119,6 +119,7 @@ struct RecentCrashSection: View {
         }
     }
 }
+
 
 struct CrashLogSection: View {
     
@@ -143,6 +144,7 @@ struct CrashLogSection: View {
         }
     }
 }
+
 
 struct PeripheralInteractionSection: View {
     
@@ -173,6 +175,7 @@ struct PeripheralInteractionSection: View {
         }
     }
 }
+
 
 struct SelectOptionsSheetView: View {
     
@@ -234,26 +237,6 @@ struct SelectOptionsSheetView: View {
             }
         }
     }
-}
-
-
-struct AlertMessageContent: View {
-    
-    let selectedContact: EmergencyContact
-    @State var timeRemaining: Int = 30
- 
-    var body: some View {
-        let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-        Text("\(timeRemaining) Seconds remaining")
-        .onReceive(timer) { _ in
-            if timeRemaining > 0 {
-                timeRemaining -= 1
-            } else {
-                TextEmergencyContact.sendText(selectedContact)
-            }
-        }
-    }
-    
 }
 
 

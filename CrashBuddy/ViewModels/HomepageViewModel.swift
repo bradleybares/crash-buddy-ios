@@ -22,6 +22,7 @@ class HomepageViewModel: ObservableObject {
     var selectedContact: EmergencyContact?
     
     private(set) var peripheralDataModel: PeripheralDataModel = PeripheralDataModel()
+    private var locationManager: LocationManager = LocationManager()
     
     // Test Data Initializer
     init(crashes: [CrashDataModel], settings: SettingsModel){
@@ -61,16 +62,19 @@ class HomepageViewModel: ObservableObject {
     // Peripheral Data Model Methods
     func emergencyContactProtocol() {
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(emergencyContactDelay)) {
-            if let selectedContact = self.selectedContact, self.isShowingCrashAlert {
-                TextEmergencyContact.sendText(selectedContact)
+            if self.isShowingCrashAlert {
+                self.locationManager.requestLocation()
+                if let selectedContact = self.selectedContact, let location = self.locationManager.location {
+                    TextEmergencyContact.sendText(emergencyContact: selectedContact, location: location)
+                }
             }
         }
         self.isShowingCrashAlert = true
     }
     
     func addCrashData(crashDataPoints: [CrashDataModel.DataPoint]) {
-        if let selectedActivity = self.selectedActivity {
-            self.crashes.append(CrashDataModel(dataPoints: crashDataPoints, activityProfile: selectedActivity))
+        if let selectedActivity = self.selectedActivity, let crashLocation = self.locationManager.location {
+            self.crashes.append(CrashDataModel(dataPoints: crashDataPoints, activityProfile: selectedActivity, location: crashLocation))
         }
     }
     
