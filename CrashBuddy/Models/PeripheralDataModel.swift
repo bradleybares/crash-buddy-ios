@@ -50,12 +50,20 @@ class PeripheralDataModel: ObservableObject {
     }
     
     func accessoryDataAvailable() {
+        guard self.status == .tracking else { return }
+        
         logger.info("Crash Data Available")
         receivingCrashData = true
         crashDataDateTime = Date()
+        
+        if let newCrashHandler = self.newCrashHandler {
+            newCrashHandler()
+        }
     }
     
     func accessoryCrashData(crashData: [CrashDataReader.DataPoint]) {
+        guard self.status == .tracking else { return }
+        
         logger.info("Received \(crashData.count) Data Points")
         if let lastAccessoryDataPoint = crashData.last, let crashDataDateTime = self.crashDataDateTime, let crashDataHandler = self.crashDataHandler {
             let appDataPointsFromAccessoryDataPoints: [CrashDataModel.DataPoint] = crashData.map { accessoryDataPoint in
@@ -70,24 +78,19 @@ class PeripheralDataModel: ObservableObject {
     }
     
     // MARK: - To Peripheral
-    func updateTrackingStatus() {
-        if self.status == .connected {
-            logger.info("Starting Tracking")
-            do {
-                try dataChannel.writeThresholdCharacteristic(10)
-                updateStatus(newStatus: .tracking)
-            } catch {
-                logger.info("Failed to Start Tracking: \(error)")
-            }
-        } else {
-            logger.info("Stopping Tracking")
-            do {
-                try dataChannel.writeThresholdCharacteristic(0)
-                updateStatus(newStatus: .connected)
-            } catch {
-                logger.info("Failed to Stop Tracking: \(error)")
-            }
+    func startTracking(threshold: Int) {
+        logger.info("Starting Tracking")
+        do {
+            try dataChannel.writeThresholdCharacteristic(threshold)
+            updateStatus(newStatus: .tracking)
+        } catch {
+            logger.info("Failed to Start Tracking: \(error)")
         }
+    }
+    
+    func stopTracking() {
+        logger.info("Stop Tracking")
+        updateStatus(newStatus: .connected)
     }
     
     // MARK: - Helper Methods

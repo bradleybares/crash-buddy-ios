@@ -82,7 +82,7 @@ struct ActivityProfileSheet: View {
     var body: some View {
         NavigationView {
             Form {
-                Section("Name") {
+                Section("Sport") {
                     TextField(
                         "Required",
                         text: $activityName
@@ -114,11 +114,16 @@ struct ActivityProfileSheet: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button((activityProfilesViewModel.editingActivityProfile != nil) ? "Done" : "Add") {
-                        activityProfilesViewModel.addProfile(
-                            newName: activityName,
-                            newEmoji: activityEmoji,
-                            newThreshold: Int(activityThreshold)!
-                        )
+                        if let editingActivityProfile = activityProfilesViewModel.editingActivityProfile {
+                            activityProfilesViewModel.editProfile(id: editingActivityProfile.id, newName: activityName, newEmoji: activityEmoji, newThreshold: Int(activityThreshold)!)
+                            
+                        } else {
+                            activityProfilesViewModel.addProfile(
+                                newName: activityName,
+                                newEmoji: activityEmoji,
+                                newThreshold: Int(activityThreshold)!
+                            )
+                        }
                         dismiss()
                     }
                     .disabled(activityName == "" || activityEmoji == "" || activityThreshold == "")

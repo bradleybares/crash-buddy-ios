@@ -78,7 +78,7 @@ class DataCommunicationChannel: NSObject {
     var bluetoothReady = false
     var shouldStartWhenReady = false
 
-    let logger = os.Logger(subsystem: "com.fitr.ble-central", category: "BLECentral")
+    let logger = os.Logger(subsystem: "com.crash-buddy.ble-central", category: "BLECentral")
 
     override init() {
         super.init()
@@ -106,7 +106,7 @@ class DataCommunicationChannel: NSObject {
         guard let crashThresholdCharacteristic = self.crashThresholdCharacteristic
         else { throw BluetoothLECentralError.noCharacteristic }
         
-        updateValueFor(characteristic: crashThresholdCharacteristic, data: withUnsafeBytes(of: threshold){ Data($0) })
+        updateValueFor(characteristic: crashThresholdCharacteristic, data: withUnsafeBytes(of: UInt32(threshold*10)){ Data($0) })
     }
 
     // MARK: - Helper Methods.
@@ -166,11 +166,15 @@ class DataCommunicationChannel: NSObject {
         let bytesToCopy: size_t = min(mtu, data.count)
 
         var rawPacket = [UInt8](repeating: 0, count: bytesToCopy)
-        data.copyBytes(to: &rawPacket, count: bytesToCopy)
+        
+        // Reverse Byte Order
+        let reversedData = Data(data.reversed())
+        reversedData.copyBytes(to: &rawPacket, count: bytesToCopy)
+        
         let packetData = Data(bytes: &rawPacket, count: bytesToCopy)
 
         let stringFromData = packetData.map { String(format: "0x%02x, ", $0) }.joined()
-        logger.info("Writing \(bytesToCopy) bytes to \(TransferService.specificToName(characteristic.uuid)) (\(characteristic.uuid): \(String(describing: stringFromData))")
+        logger.info("Writing \(bytesToCopy) bytes to \(TransferService.specificToName(characteristic.uuid)) (\(characteristic.uuid)): \(String(describing: stringFromData))")
 
         discoveredPeripheral.writeValue(packetData, for: characteristic, type: .withResponse)
     }
@@ -433,30 +437,41 @@ class CrashDataReader {
         let clockTime: Int32
     }
     
-    func readCrashDataPoints(_ data: Data){
-        // Get the number of bytes occupied by the type T
-        let chunkSize = MemoryLayout<DataPoint>.size
+    let chunkSize = MemoryLayout<Int16>.size + MemoryLayout<Int32>.size
         
-        if data.count < chunkSize {
+    func readCrashDataPoints(_ data: Data){
+        
+        if data.count < self.chunkSize {
             self.characteristicsRead += 1
             self.remainingReads = false
             return
         }
         
-        var remainingDataPoints = data.count / chunkSize
+        var remainingDataPoints = data.count / self.chunkSize
         var cursor = 0
         while remainingDataPoints > 0  {
-            // Get the bytes that contain next value
-            let nextDataChunk = Data(data[cursor..<cursor+chunkSize])
-            // Read the actual value from the data chunk
-            let dataPoint = nextDataChunk.withUnsafeBytes { bufferPointer in
-                bufferPointer.load(fromByteOffset: 0, as: DataPoint.self)
+            // Get the bytes that contain the acceleration value
+            let accelValueDataChunk = Data(data[cursor..<cursor+MemoryLayout<Int16>.size])
+            let accelValue = accelValueDataChunk.withUnsafeBytes { bufferPointer in
+                bufferPointer.load(fromByteOffset: 0, as: Int16.self)
             }
+            
+            cursor += MemoryLayout<Int16>.size
+            
+            // Get the bytes that contain the clock time
+            let clockTimeDataChunk = Data(data[cursor..<cursor+MemoryLayout<Int32>.size])
+            let clockTime = clockTimeDataChunk.withUnsafeBytes { bufferPointer in
+                bufferPointer.load(fromByteOffset: 0, as: Int32.self)
+            }
+            
+            cursor += MemoryLayout<Int32>.size
+            
+            let dataPoint = DataPoint(accelerometerValue: accelValue, clockTime: clockTime)
+            
             // Append Data Point to Reader Data
             self.crashData.append(dataPoint)
             // Move the cursor to the next position and decrement remaining points
             remainingDataPoints -= 1
-            cursor += chunkSize
         }
         self.characteristicsRead += 1
     }

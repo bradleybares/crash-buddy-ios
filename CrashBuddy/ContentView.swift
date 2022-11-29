@@ -40,7 +40,7 @@ struct ContentView: View {
                             .foregroundColor(Color.gray)
                         Spacer()
                     }
-                    
+                                        
                     PeripheralInteractionSection(homepageViewModel: homepageViewModel)
                     
                 }
@@ -106,7 +106,7 @@ struct SectionHeader<Content: View>: View {
 
 struct RecentCrashSection: View {
     
-    let homepageViewModel: HomepageViewModel
+    @StateObject var homepageViewModel: HomepageViewModel
     
     var body: some View {
         VStack {
@@ -123,7 +123,7 @@ struct RecentCrashSection: View {
 
 struct CrashLogSection: View {
     
-    let homepageViewModel: HomepageViewModel
+    @StateObject var homepageViewModel: HomepageViewModel
     
     var body: some View {
         VStack {
@@ -148,14 +148,14 @@ struct CrashLogSection: View {
 
 struct PeripheralInteractionSection: View {
     
-    let homepageViewModel: HomepageViewModel
+    @StateObject var homepageViewModel: HomepageViewModel
     
     var body: some View {
         VStack {
             SectionHeader(sectionTitle: "Peripheral", sectionSubTitle: homepageViewModel.peripheralStatusString)
             Button {
                 if (homepageViewModel.peripheralStatus == .tracking) {
-                    homepageViewModel.updateTrackingStatus()
+                    homepageViewModel.stopTracking()
                 } else {
                     homepageViewModel.isShowingTrackingSheet = true
                 }
@@ -181,7 +181,7 @@ struct SelectOptionsSheetView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    let homepageViewModel: HomepageViewModel
+    @StateObject var homepageViewModel: HomepageViewModel
     
     @State private var selectedActivity: ActivityProfile?
     @State private var selectedContact: EmergencyContact?
@@ -228,7 +228,7 @@ struct SelectOptionsSheetView: View {
                         if let selectedActivity = self.selectedActivity, let selectedContact = self.selectedContact {
                             homepageViewModel.selectedActivity = selectedActivity
                             homepageViewModel.selectedContact = selectedContact
-                            homepageViewModel.updateTrackingStatus()
+                            homepageViewModel.startTracking()
                         }
                         dismiss()
                     }

@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CoreLocation
 
 class HomepageViewModel: ObservableObject {
         
@@ -62,24 +63,28 @@ class HomepageViewModel: ObservableObject {
     // Peripheral Data Model Methods
     func emergencyContactProtocol() {
         DispatchQueue.main.asyncAfter(deadline: .now() + Double(emergencyContactDelay)) {
-            if self.isShowingCrashAlert {
-                self.locationManager.requestLocation()
-                if let selectedContact = self.selectedContact, let location = self.locationManager.location {
-                    TextEmergencyContact.sendText(emergencyContact: selectedContact, location: location)
-                }
+            if self.isShowingCrashAlert, let selectedContact = self.selectedContact, let selectedActivity = self.selectedActivity, let location = self.locationManager.location {
+                TextEmergencyContact.sendText(emergencyContact: selectedContact, activity: selectedActivity, location: location)
+                self.isShowingCrashAlert = false
             }
         }
         self.isShowingCrashAlert = true
     }
     
     func addCrashData(crashDataPoints: [CrashDataModel.DataPoint]) {
-        if let selectedActivity = self.selectedActivity, let crashLocation = self.locationManager.location {
-            self.crashes.append(CrashDataModel(dataPoints: crashDataPoints, activityProfile: selectedActivity, location: crashLocation))
+        if let selectedActivity = self.selectedActivity, let location = self.locationManager.location {
+            self.crashes.append(CrashDataModel(dataPoints: crashDataPoints, activityProfile: selectedActivity, location: location))
         }
     }
     
-    func updateTrackingStatus() {
-        peripheralDataModel.updateTrackingStatus()
+    func startTracking() {
+        if let selectedActivity = self.selectedActivity {
+            peripheralDataModel.startTracking(threshold: selectedActivity.threshold)
+        }
+    }
+
+    func stopTracking() {
+        peripheralDataModel.stopTracking()
     }
     
     

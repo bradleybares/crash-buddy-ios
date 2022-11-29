@@ -15,7 +15,7 @@ struct CrashLogView: View {
             BackgroundView()
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach(crashes, id: \.id) { crash in
+                    ForEach(crashes.reversed(), id: \.id) { crash in
                         NavigationLink(destination: CrashView(crashData: crash)) {
                             CrashCard(crashData: crash)
                                 .frame(maxHeight: 80)

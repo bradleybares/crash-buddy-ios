@@ -39,10 +39,7 @@ struct CrashChart: View {
                     if includeCharacteristics {
                         Divider()
                         HStack {
-                            let hours = Int(crashData.totalTime) / 3600
-                            let minutes = Int(crashData.totalTime) / 60 % 60
-                            let seconds = Int(crashData.totalTime) % 60
-                            ChartCharacteristic(title: "Total Time", value: String(format:"%02i:%02i:%02i", hours, minutes, seconds))
+                            ChartCharacteristic(title: "Total Time", value: String(format:"%is", Int(crashData.totalTime)))
                             Spacer()
                             ChartCharacteristic(title: "Average Accel.", value: String(format: "%.2f", crashData.avgAccel) + "G")
                             Spacer()

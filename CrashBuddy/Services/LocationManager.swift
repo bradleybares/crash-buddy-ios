@@ -9,22 +9,23 @@ import Foundation
 import CoreLocation
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
-    let manager = CLLocationManager()
+    let locationManager = CLLocationManager()
 
     var location: CLLocationCoordinate2D?
 
     override init() {
         super.init()
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.requestWhenInUseAuthorization()
-        manager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        locationManager.delegate = self
     }
 
     func requestLocation() {
-        manager.requestLocation()
+        self.locationManager.requestLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations.first?.coordinate
+        self.location = locations.first?.coordinate
     }
 }

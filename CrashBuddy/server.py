@@ -5,8 +5,8 @@ from twilio.rest import Client
 app = Flask(__name__)
  
 # put your own credentials here 
-ACCOUNT_SID = '' 
-AUTH_TOKEN = '' 
+ACCOUNT_SID = 'ACf9066f7238f71b562f17db80ae926b22' 
+AUTH_TOKEN = 'f601c1188427b724c2b27af2919e9b12'
  
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
  
