@@ -4,7 +4,7 @@ This project was created for our Capstone project at Northeastern University. Th
 
 The app consists of 3 main views and a robust settings page. The 3 main views are the home page, the start tracking sheet, and the individual crash log. The home page is where the user can start tracking their ride, view their crash logs, and access their settings. The start tracking sheet is where the user can start tracking their activity, selecting an activity profile, and emergency contact. The individual crash log view is where the user can view the details of a specific crash including the location, time, and recorded acceleration experienced. The settings page is where the user can view and edit their emergency contact and view and edit their activity profiles.
 
-![Main Views](./main_pages.png)
+![Homepage](./homepage.gif) ![Settings](./settings.gif)
 
 ## Requirements
 
